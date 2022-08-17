@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/08/17 15:44:44 by seozcan          ###   ########.fr        #
+#    Updated: 2022/08/17 15:50:20 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ NAME			:=	minishell
 
 SRCS			:=	get_next_line.c\
 					get_next_line_utils.c\
-					test.c\
+					main.c\
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -159,17 +159,6 @@ $(ODIR):
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
 
-lib:
-ifeq ($(IS_LIBFT),true)
-	@make -C $(LDIR) --quiet
-endif
-ifeq ($(IS_PRINTF),true)
-	@make -C $(PFDIR) --quiet
-endif
-ifeq ($(IS_MINILIBX),true)
-	@make -C $(MDIR) --quiet 
-endif
-
 update:		header fclean
 	@git pull
 
@@ -188,7 +177,29 @@ fclean:		header clean
 	@rm -f $(NAME)
 	@echo "$(HIORANGE)$(NAME) executable:\t\t\t\t\t[RM]$(NO_COLOR)"
 
-fcleanlib:	header fclean
+lib:
+ifeq ($(IS_LIBFT),true)
+	@make -C $(LDIR) --quiet
+endif
+ifeq ($(IS_PRINTF),true)
+	@make -C $(PFDIR) --quiet
+endif
+ifeq ($(IS_MINILIBX),true)
+	@make -C $(MDIR) --quiet 
+endif
+
+relib:	header
+ifeq ($(IS_LIBFT),true)
+	@make -C $(LDIR) --quiet re
+endif
+ifeq ($(IS_PRINTF),true)
+	@make -C $(PFDIR) --quiet re
+endif
+ifeq ($(IS_MINILIBX),true)
+	@make -C $(MDIR) --quiet re
+endif
+
+fcleanlib:	header
 ifeq ($(IS_LIBFT),true)
 	@make -C $(LDIR) --quiet fclean
 endif
