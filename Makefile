@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/08/17 15:50:20 by seozcan          ###   ########.fr        #
+#    Updated: 2022/08/17 18:48:49 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ LIBTF_PATH		=	$(addprefix $(LDIR)/, ${LIB})
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::FT_PRINTF::
 
-IS_PRINTF		:=	true
+IS_PRINTF		:=	false
 
 PRINTF			:=	libftprintf.a
 

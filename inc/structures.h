@@ -1,45 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strings.c                                       :+:      :+:    :+:   */
+/*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 15:24:31 by seozcan           #+#    #+#             */
-/*   Updated: 2021/12/13 21:55:54 by seozcan          ###   ########.fr       */
+/*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
+/*   Updated: 2022/08/17 18:20:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/ft_printf.h"
+#ifndef STRUCTURES_H
 
-int	ft_putchar(char c)
+# define STRUCTURES_H
+
+# include "minishell.h"
+
+typedef struct s_sigaction
 {
-	write(1, &c, 1);
-	return (1);
-}
+	void		(*sa_handler)(int);
+	void		(*sa_sigaction)(int, siginfo_t *, void *);
+	sigset_t	sa_mask;
+	int			sa_flags;
+	void		(*sa_restorer)(void);
+}	t_sigaction;
 
-int	ft_putstr(char *s)
-{
-	int	i;
-
-	i = -1;
-	if (s)
-		while (s[++i] != 0)
-			ft_putchar(s[i]);
-	else
-		i = ft_putstr("(null)");
-	return (i);
-}
-
-char	*ft_strchr_printf(const char *s, int c)
+typedef struct s_main
 {
 	int		i;
-	char	a;
+	int		j;
+	int		err;
+	int		ret;
+	char	c;
+	char	*str;
+}	t_main;
 
-	i = -1;
-	a = (char)c;
-	while (s[++i])
-		if (s[i] == a || (s[i] == '\0' && a == 0))
-			return ((char *)s + i);
-	return (0);
-}
+#endif

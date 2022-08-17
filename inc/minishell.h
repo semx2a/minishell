@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 15:03:40 by abonard           #+#    #+#             */
-/*   Updated: 2022/08/17 15:40:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/08/17 19:10:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,61 @@
 
 # define MINISHELL_H
 
+//			read, write, exit, getcwd, chdir, read, close, access, stat, unlink
+//			execve, dup, dup2, pipe, isatty, ttyname, ttyslot, tcsetattr, 
+//			tcgetattr
 # include <unistd.h>
+
+//			printf, filedes, readline, perror
 # include <stdio.h>
+
+//			malloc, free, exit, getenv
 # include <stdlib.h>
-# include <fcntl.h>
+
+//			strerror
+# include <string.h>
+
+//			errors
+# include <errno.h>
+
+//			opendir, readdir, closedir
+# include <dirent.h>
+
+//			ioctl
+# include <sys/ioctl.h>
+
+//			tcsetattr, tcgetattr
+# include <termios.h>
+
+//			wait3, wait4
+# include <sys/resource.h>
+# include <sys/time.h>
+
+//			open, kill, wait, waitpid, wait3, wait4, stat, opendir, closedir
 # include <sys/types.h>
+
+//			open, wait, waitpid, wait3, wait4
 # include <sys/wait.h>
+
+//			stat
+# include <sys/stat.h>
+
+//			open
+# include <fcntl.h>
+
+//			sigaction, sigemptyset, sigaddset, kill
 # include <signal.h>
+
+//			readline
 # include <readline/readline.h>
 # include <readline/history.h>
+
+//			libft
 # include "../libft/inc/libft.h"
-# include "../ft_printf/inc/ft_printf.h"
 
-//			get_next_line config
-# define BUFFER_SIZE    5120
-
-typedef struct s_main
-{
-	int		i;
-	int		j;
-	int		err;
-	int		ret;
-	char	c;
-	char	*str;
-}	t_main;
-
-//              get_next_line.c
-char	*get_next_line(int fd);
-char	*set_head(char *head);
-char	*get_line(char *ln, char *head);
-char	*append_lines(int fd, char *buff, char *head);
-
-//              get_next_line_utils.c
-char	*ft_strjoin_gnl(char *s1, char *s2);
-char	*ft_strchr_gnl(const char *s, int c);
-char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
-size_t	ft_strlen_gnl(const char *str);
+//			minishell headers
+# include "structures.h"
+# include "functions.h"
+# include "macros.h"
 
 #endif

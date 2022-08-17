@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:20:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/08/17 15:46:12 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/08/17 18:52:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ int	main(int argc, char **argv, char **envp)
 	(void)envp;
 	(void)m;
 	while(1)
-	{
-	//aficher un prompt jusqu'a la nouvelle commande
+		//aficher un prompt jusqu'a la nouvelle commande
 		get_next_line(1);
-	}
 		/*if (ft_strcmp(argv[i], "echo"))
 			printf("%s\n", argv[i + 1]);
 		if (ft_strcmp(argv[i], "pwd"))
