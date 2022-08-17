@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:20:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/08/04 18:48:45 by abonard          ###   ########.fr       */
+/*   Updated: 2022/08/17 15:42:01 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../inc/minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int	main(int argc, char **argv, char **envp)
 {
-//	int	i = 0;
-//	int	j = 0;
+	t_main	m;
 
+	m = (t_main){0};
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	(void)m;
 	while(1)
 	{
 	//aficher un prompt jusqu'a la nouvelle commande
