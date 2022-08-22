@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/02/07 13:51:16 by seozcan          ###   ########.fr        #
+#    Updated: 2022/08/22 18:03:58 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_split.c ft_itoa.c\
 ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
 ft_putnbr_fd.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c\
-ft_tablen.c ft_atoli.c ft_free_tab.c ft_allocate_tab.c ft_error.c ft_xmalloc.c\
+ft_tablen.c ft_atoli.c ft_free_tab.c ft_allocate_tab.c\
 ft_free_stab.c ft_atoi_hexa.c
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
@@ -39,11 +39,13 @@ DEPS	= $(OBJS:.o=.d)
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
-CC		:= gcc
+CC		:= clang
 
 WFLAGS	:= -MMD -Wall -Wextra -Werror 
 
-GFLAG	:= -Wconversion -g3
+WCONV 	:= -Wconversion
+
+GFLAG	:=  -g3
 
 SANFLAG	:= -fsanitize=address
 

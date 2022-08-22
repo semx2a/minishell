@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/17 15:38:34 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/08/22 17:25:04 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 //			malloc, free
 # include <stdlib.h>
 
-//			read, write, exit, usleep
+//			read, write usleep
 # include <unistd.h>
 
 //			filedes, printf
@@ -28,9 +28,6 @@
 
 //			macOS string.h
 # include <strings.h>
-
-//			MACROS
-# define ERR			"Error"
 
 typedef struct s_list
 {
@@ -71,8 +68,6 @@ void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_calloc(size_t count, size_t size);
 void			free_tab(int **tab, int size);
-void			*xmalloc(size_t size);
-void			ft_error(const char *str);
 void			ft_free_stab(char **str);
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
