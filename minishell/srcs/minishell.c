@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:20:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/08/22 16:28:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/08/23 15:35:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)envp;
 	(void)m;
-	while(1)
 		//aficher un prompt jusqu'a la nouvelle commande
-		get_next_line(1);
+	//	get_next_line(1);
+	pipex(argc, argv, envp);
 		/*if (ft_strcmp(argv[i], "echo"))
 			printf("%s\n", argv[i + 1]);
 		if (ft_strcmp(argv[i], "pwd"))
@@ -38,4 +38,5 @@ int	main(int argc, char **argv, char **envp)
 			//chdir, google it
 		if (ft_strcmp(argv[i], "exit"))
 		//quit the program?*/
+	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/08/22 18:12:17 by seozcan          ###   ########.fr        #
+#    Updated: 2022/08/22 19:13:50 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ IDIR			:=	inc
 
 LDIR 			:=	../libft
 
-PFDIR			:=	../ft_printf
+PFDIR			:=	../printf
 
 MDIR			:=	../minilibx-linux
 
@@ -74,7 +74,7 @@ LIB				:=	$(addprefix $(LDIR)/, libft.a)
 
 LIBTF_PATH		=	$(addprefix $(LDIR)/, ${LIB})
 
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::FT_PRINTF::
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::printf::
 
 IS_PRINTF		:=	false
 
@@ -148,18 +148,18 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
-#	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(OBJS) $(LIB) -o $(NAME)
-#	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
 
 $(ODIR):
-	mkdir -p $(ODIR)
-#	@echo "$(HIGREEN)objs folder:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+	@mkdir -p $(ODIR)
+	@echo "$(HIGREEN)objs folder:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
 

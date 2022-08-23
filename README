@@ -43,7 +43,7 @@ FONCTION AUTORISEES:
 	int		dup2(int oldfd, int newfd);
 	int		pipe(int pipefd[2]);
 
-    DIR				*opendir(const char *name);
+	DIR				*opendir(const char *name);
 	struct dirent 	*readdir(DIR *dirp);
 	int				closedir(DIR *dirp);
 
