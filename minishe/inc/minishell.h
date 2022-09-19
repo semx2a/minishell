@@ -2,12 +2,7 @@
 # define MINISHELL_H
 
 # include "../../libft/inc/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <signal.h>
-# include <sys/types.h>
-# include <sys/wait.h>
-
+# include "librairies.h"
 
 typedef struct s_env
 {
@@ -28,5 +23,6 @@ char	*get_cont(char *name_var, t_env *env);
 char	**ft_list_to_tab(t_env *env);
 t_env	*ft_put_env(char **envp);
 t_env	*fill_env(char *is_env);
+int		ft_gnl(int fd, char **line);
 
 #endif

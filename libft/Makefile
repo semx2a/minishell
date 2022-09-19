@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/08/22 18:03:58 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/19 20:05:57 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
 ft_putnbr_fd.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
 ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c\
 ft_tablen.c ft_atoli.c ft_free_tab.c ft_allocate_tab.c\
-ft_free_stab.c ft_atoi_hexa.c
+ft_free_stab.c ft_atoi_hexa.c ft_strcmp.c
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 

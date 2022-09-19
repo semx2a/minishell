@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/19 19:42:11 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/19 20:13:35 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,8 @@ SRCS			:=	main.c \
 					ft_signals.c \
 					ft_env.c \
 					ft_pwd.c \
-					ft_exit.c
+					ft_exit.c \
+					ft_gnl.c \
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/22 17:25:04 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/19 20:12:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int				ft_atoi(const char *str);
 int				ft_lstsize(t_list *lst);
 int				ft_tablen(char **tab);
 int				**allocate_tab(int **tab, int size);
+int 			ft_strcmp(char *s1, char *s2);
 long			ft_atoli(const char *str);
 unsigned int	ft_atoi_hexa(const char *str);
 
@@ -69,6 +70,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_calloc(size_t count, size_t size);
 void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
+
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strrchr(const char *s, int c);
