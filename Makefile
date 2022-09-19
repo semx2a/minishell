@@ -6,23 +6,25 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/08/22 19:13:50 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/19 19:42:11 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PATHS::
 
-ODIR			:=	objs
+PROJ			:=	minishe
 
-SDIR			:=	srcs
+ODIR			:=	$(addprefix $(PROJ)/,objs)
 
-IDIR			:=	inc
+SDIR			:=	$(addprefix $(PROJ)/,srcs)
 
-LDIR 			:=	../libft
+IDIR			:=	$(addprefix $(PROJ)/,inc)
 
-PFDIR			:=	../printf
+LDIR 			:=	libft
 
-MDIR			:=	../minilibx-linux
+PFDIR			:=	printf
+
+MDIR			:=	minilibx-linux
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::TARGET::
 
@@ -30,13 +32,12 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:=	get_next_line.c\
-					get_next_line_utils.c\
-					pipex.c\
-					pipex_utils.c\
-					pipex_cmds.c\
-					ft_xmalloc.c\
-					minishell.c\
+SRCS			:=	main.c \
+					ft_env_utils.c \
+					ft_signals.c \
+					ft_env.c \
+					ft_pwd.c \
+					ft_exit.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -224,7 +225,7 @@ header:
 	@echo " \     \  \/__/  \/__/  \/__/ /__/  \/__/ \/__/  \/______/   \ "
 	@echo "  \     \_____________________________________________________\ "
 	@echo "   \    /                                                     / "
-	@echo "    \  /       $(CYAN) A B O N N A R D  &&  S E O Z C A N \$(NO_COLOR)$(BHIPURPLE)   ____   / "
+	@echo "    \  /         $(CYAN) A B O N A R D  &&  S E O Z C A N \$(NO_COLOR)$(BHIPURPLE)   ____   / "
 	@echo "     \/______________________________________________/\   \_/ "
 	@echo "                                                     \ \___\ "
 	@echo "                                                      \/___/ "
