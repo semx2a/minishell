@@ -6,37 +6,39 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 13:20:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/08/23 15:35:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/14 16:23:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	main(int argc, char **argv, char **envp)
+char	*ft_paths(char **envp)
+{
+	while (*envp != 0)
+	{
+		if (ft_strnstr(*envp, "PATH", 5))
+			return (*envp + 5);
+		envp++;
+	}
+	ft_error(ERR_PATH);
+	return (NULL);
+}
+
+int	main(int ac, char **av, char **envp)
 {
 	t_main	m;
 
 	m = (t_main){0};
-	(void)argc;
-	(void)argv;
-	(void)envp;
-	(void)m;
-		//aficher un prompt jusqu'a la nouvelle commande
-	//	get_next_line(1);
-	pipex(argc, argv, envp);
-		/*if (ft_strcmp(argv[i], "echo"))
-			printf("%s\n", argv[i + 1]);
-		if (ft_strcmp(argv[i], "pwd"))
-			//PATH
-		if (ft_strcmp(argv[i], "env"))
-			//get_env();
-		if (ft_strcmp(argv[i], "export"))
-			//export?
-		if (ft_strcmp(argv[i], "unset"))
-			//what the fuck is that
-		if (ft_strcmp(argv[i], "cd"))
-			//chdir, google it
-		if (ft_strcmp(argv[i], "exit"))
-		//quit the program?*/
+	if (ac != 1)
+		ft_error(ERR_ARGS);
+	if (*envp == NULL)
+		ft_error(ERR_ENV);
+	m.str = ft_paths(envp);
+	m.paths = ft_split(m.str, ':');
+	// lexing
+	// parsing
+	while (1)
+		get_next_line(1);
+	pipex(&m, ac, av, envp);
 	return (0);
 }

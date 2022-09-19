@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/22 16:16:31 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/08/23 19:06:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_error(const char *str)
 {
-	write(2, "ERR:\t", 5);
+	write(2, "ERR: ", 5);
 	write(2, str, ft_strlen(str));
 	if (ft_strnstr(strerror(errno), "Success", 7) == 0)
 		write(2, strerror(errno), ft_strlen(strerror(errno)));
