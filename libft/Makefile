@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/19 20:05:57 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/19 20:17:48 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,16 +18,44 @@ NAME	:= libft.a
 
 SDIR	:= srcs
 
-SRCS	:= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c\
-ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_memchr.c ft_memcmp.c\
-ft_memcpy.c ft_memmove.c ft_memset.c ft_strchr.c ft_strdup.c ft_strjoin.c\
-ft_strlcat.c ft_strlcpy.c ft_strlen.c ft_strncmp.c ft_strnstr.c ft_strrchr.c\
-ft_strtrim.c ft_substr.c ft_tolower.c ft_toupper.c ft_split.c ft_itoa.c\
-ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c\
-ft_putnbr_fd.c ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c\
-ft_lstadd_back.c ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c\
-ft_tablen.c ft_atoli.c ft_free_tab.c ft_allocate_tab.c\
-ft_free_stab.c ft_atoi_hexa.c ft_strcmp.c
+SRCS	:= 			ft_isalpha.c\
+					ft_isdigit.c\
+					ft_isalnum.c\
+					ft_isascii.c\
+					ft_isprint.c\
+					ft_strlen.c\
+					ft_memset.c\
+					ft_bzero.c\
+					ft_memcpy.c\
+					ft_memmove.c\
+					ft_strlcpy.c\
+					ft_strlcat.c\
+					ft_toupper.c\
+					ft_tolower.c\
+					ft_strchr.c\
+					ft_strrchr.c\
+					ft_strncmp.c\
+					ft_memchr.c\
+					ft_memcmp.c\
+					ft_strnstr.c\
+					ft_atoi.c\
+					ft_calloc.c\
+					ft_strdup.c\
+					ft_substr.c\
+					ft_strjoin.c\
+					ft_strtrim.c\
+					ft_split.c\
+					ft_itoa.c\
+					ft_putchar_fd.c\
+					ft_putstr_fd.c\
+					ft_putnbr_fd.c\
+					ft_putendl_fd.c\
+					ft_strmapi.c\
+					ft_strcpy.c \
+					ft_striteri.c\
+					ft_strcmp.c \
+					ft_tablen.c \
+					ft_free_stab.c
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 
@@ -61,16 +89,35 @@ INC		:= libft.h
 
 # ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COLORS::
 
-BLUE		:=	\033[1;34m
-CYAN		:=	\033[0;36m
-GREEN		:=	\033[0;92m
-BGREEN		:=	\033[1;92m
-ORANGE  	:=	\033[0;33m
-NO_COLOR	:=	\033[m
-PURPLE		:=	\033[0;35m
-BPURPLE		:=	\033[1;35m
-BCYAN		:=	\033[1;36m
-ICYAN		:=	\033[3;36m
+NO_COLOR		=	\033[m
+
+BLACK			=	\033[0;30m
+RED				=	\033[0;31m
+GREEN			=	\033[0;32m
+ORANGE 		 	=	\033[0;33m
+BLUE			=	\033[0;34m
+PURPLE			=	\033[0;35m
+CYAN			=	\033[0;36m
+WHITE			= 	\033[0;37m
+
+# High Intensty
+HIGREEN			=	\033[0;92m
+HIORANGE	 	=	\033[0;93m
+HIPURPLE		=	\033[0;95m
+
+# Bold
+BORANGE 		=	\033[1;33m
+BBLUE			=	\033[1;34m
+BPURPLE			=	\033[1;35m
+BCYAN			=	\033[1;36m
+
+# Bold High Intensity
+BHIGREEN		=	\033[1;92m
+BHIORANGE	 	=	\033[1;93m
+BHIPURPLE		=	\033[1;95m
+
+# Italic
+ICYAN			=	\033[3;36m
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
 
@@ -81,36 +128,36 @@ all:			header message $(NAME)
 
 $(ODIR)/%.o:	%.c
 	@$(CC) $(WFLAGS) -I $(IDIR) -c $< -o $@
-	@echo "$(GREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
+	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJS)
-	@echo "$(GREEN)$(NAME):\t\t\t\t\t\t[OK]$(NO_COLOR)"
+	@echo "$(HIGREEN)$(NAME):\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
 
 $(ODIR):
 	@mkdir -p $(ODIR)
-	@echo "$(GREEN)libft objs folder:\t\t\t\t\t[OK]$(NO_COLOR)"
+	@echo "$(BHIGREEN)libft objs folder:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 clean:
 ifneq ($(wildcard ./$(ODIR)),)
 	@rm -rf $(ODIR)
-	@echo "$(ORANGE)libft objs folder:\t\t\t\t\t[RM]$(NO_COLOR)"
+	@echo "$(HIORANGE)libft objs folder:\t\t\t\t\t[RM]$(NO_COLOR)"
 else
 	@rm -f $(wildcard %.o)
-	@echo "$(ORANGE)libft obj files:\t\t\t\t\t[RM]$(NO_COLOR)"
+	@echo "$(HIORANGE)libft obj files:\t\t\t\t\t[RM]$(NO_COLOR)"
 endif
 
 fclean:		clean
 	@rm -f $(NAME)
-	@echo "$(ORANGE)$(NAME):\t\t\t\t\t\t[RM]$(NO_COLOR)"
+	@echo "$(HIORANGE)$(NAME):\t\t\t\t\t\t[RM]$(NO_COLOR)"
 
 header:
-	@echo "\n$(BPURPLE):::::::::::::::::::::::::::::::::::::::::::::::::::::LIBFT::\n$(NO_COLOR)"
+	@echo "\n$(BHIPURPLE):::::::::::::::::::::::::::::::::::::::::::::::::::::LIBFT::\n$(NO_COLOR)"
 
 message:
-	@make -q $(NAME) && echo "$(BGREEN)All files are already up to date\n$(NO_COLOR)" || true
+	@make -q $(NAME) && echo "$(BHIGREEN)All files are already up to date\n$(NO_COLOR)" || true
 
 re:		fclean all
 
