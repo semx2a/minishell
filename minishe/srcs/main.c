@@ -21,26 +21,26 @@ int	execute(t_env *env, char **cmds)
 	}
 	ft_free_stab(paths);
 	ft_free_stab(cmds);
-	ft_putstr_fd("COMMAND NOT FOUND\n", 2);
+	ft_error(ERR_CMD);
 	return (-1);
 }
 
-int	ft_exec_buildin(t_env *env, char **cmds)
+int	ft_exec_builtin(t_env *env, char **cmds)
 {
 	int	ret;
 
 	ret = -1;
 	if (ft_strcmp("env", cmds[0]) == 0)
-		ret = ft_buildin_env(env);
+		ret = ft_env(env);
 	if (ft_strcmp("exit", cmds[0]) == 0)
 		ret = ft_exit(env, cmds);
 	if (ft_strcmp("pwd", cmds[0]) == 0)
 		ret = ft_pwd(env);
 	return (ret);
-	// serach for status code for all the buildin created
+	// serach for status code for all the builtin created
 }
 
-int	ft_is_buildin(char **cmds)
+int	ft_is_builtin(char **cmds)
 {
 	int	ret;
 
@@ -58,7 +58,7 @@ int	ft_is_buildin(char **cmds)
 	if (ft_strcmp("unset", cmds[0]) == 0)
 		ret = 1;
 	return (ret);
-	// serach for status code for all the buildin created
+	// serach for status code for all the builtin created
 }
 
 // ca va beaucoup changer well shit
@@ -78,37 +78,39 @@ void	ft_command_handler(t_env *env, char *command)
 	}
 	else
 	{
-		if (ft_is_buildin(cmds) == 1)
-			exit(ft_exec_buildin(env, cmds));
+		if (ft_is_builtin(cmds) == 1)
+			exit(ft_exec_builtin(env, cmds));
 		else
 			execute(env, cmds);
 	}
 }
 
-int	ft_minishell(t_env *env)
+int	ft_minishell(t_main *m)
 {
-	char	*command;
-
-	(void)env;
 	while (1)
 	{
 		ft_putstr_fd(">$", 1);
-		ft_gnl(0, &command);
-		// here the part of the queen herself
-		ft_command_handler(env, command);
-		free(command);
+		readline(m->line);
+		lexer(m->line);
+//		parser();
+		ft_command_handler(m->env, m->line);
+		free(m->line);
 	}
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int ac, char **av, char **envp)
 {	
-	t_env	*env;
+	t_main	m;
 
-	(void)argc;
-	(void)argv;
+	(void)av;
+	if (ac != 1)
+		ft_error(ERR_ARGS);
+	if (*envp == NULL)
+		ft_error(ERR_ENV);
+	m = (t_main){0};
 	// if (ft_set_signals() == 1)
 	//   return (1);
-	env = ft_put_env(envp);
-	ft_minishell(env);
+	m.env = ft_put_env(envp);
+	ft_minishell(&m);
 	return (0);
 }

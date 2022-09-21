@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/19 20:13:35 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/21 18:36:49 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,12 +33,12 @@ NAME			:=	minishell
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
 SRCS			:=	main.c \
-					ft_env_utils.c \
-					ft_signals.c \
-					ft_env.c \
-					ft_pwd.c \
-					ft_exit.c \
-					ft_gnl.c \
+					env_utils.c \
+					builtins.c \
+					signals.c \
+					lexer.c \
+					ft_xmalloc.c \
+					error.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 

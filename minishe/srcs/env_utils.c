@@ -1,24 +1,5 @@
 #include "../inc/minishell.h"
 
-t_env	*fill_env(char *is_env)
-{
-	t_env	*new;
-	char	**tab;
-
-	new = malloc(sizeof(t_env) * 1);
-	if (new == NULL)
-		return (NULL);
-	new->next = NULL;
-	new->total = is_env;
-	tab = ft_split(new->total, '=');
-	new->var = ft_strdup(tab[0]);
-	new->cont = ft_strdup(tab[1]);
-	if (tab == NULL || new->var == NULL || new->cont == NULL)
-		return (NULL);
-	ft_free_stab(tab);
-	return (new);
-}
-
 int	ft_get_len_env(t_env *env)
 {
 	t_env	*tmp;
@@ -58,9 +39,7 @@ char	**ft_list_to_tab(t_env *env)
 	i = 0;
 	tmp = env;
 	len = ft_get_len_env(tmp);
-	tab = malloc(sizeof(char *) * len);
-	if (tab == NULL)
-		return (NULL);
+	tab = xmalloc(sizeof(char *) * len);
 	while (tmp)
 	{
 		tab[i] = ft_strdup(tmp->total);
@@ -70,6 +49,23 @@ char	**ft_list_to_tab(t_env *env)
 		i++;
 	}
 	return (tab);
+}
+
+t_env	*fill_env(char *is_env)
+{
+	t_env	*new;
+	char	**tab;
+
+	new = xmalloc(sizeof(t_env) * 1);
+	new->next = NULL;
+	new->total = is_env;
+	tab = ft_split(new->total, '=');
+	new->var = ft_strdup(tab[0]);
+	new->cont = ft_strdup(tab[1]);
+	if (tab == NULL || new->var == NULL || new->cont == NULL)
+		return (NULL);
+	ft_free_stab(tab);
+	return (new);
 }
 
 t_env	*ft_put_env(char **envp)

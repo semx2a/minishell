@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 15:20:53 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/21 18:33:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,29 @@ void	ft_free_child(t_obj *obj);
 void	ft_free_parent(t_obj *obj);
 void	ft_close_pipes(t_obj *obj);
 
+//				lexer.c
+void	lexer(const char *line);
 
-//              anais
+//				env_utils.c
 int		ft_get_len_env(t_env *env);
-int		ft_buildin_env(t_env *env);
-int		ft_pwd(t_env *env);
-int		ft_exit(t_env *env, char **cmds);
-int		ft_shutup_signals(int fork);
-int		ft_set_signals(void);
 char	*get_cont(char *name_var, t_env *env);
 char	**ft_list_to_tab(t_env *env);
-t_env	*ft_put_env(char **envp);
 t_env	*fill_env(char *is_env);
+t_env	*ft_put_env(char **envp);
+
+//				builtins.c
+int		ft_env(t_env *env);
+int		ft_pwd(t_env *env);
+int		ft_exit(t_env *env, char **cmds);
+
+//				signals.c
+int		ft_shutup_signals(int fork);
+int		ft_set_signals(void);
+
+//				error.c
+void	ft_error(const char *str);
+
+//				misc
 int		ft_gnl(int fd, char **line);
 
 #endif
