@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/22 17:25:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/21 15:20:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,16 @@
 # include "minishell.h"
 
 //			get_next_line config
-# define BUFFER_SIZE    5120
+# define BUFFER_SIZE	5120
 
 //			minishell
-# define ERR			"Error"
+# define ERR			"Error:"
+# define ERR_ARGS		"usage: ./minishell [NO ARGS]"
+# define ERR_ENV		"Empty environnement:"
+# define ERR_PATH		"PATH not found:"
+# define ERR_PIPE		"Pipe failed:"
+# define ERR_CMD		"Command not found:"
+# define ERR_EXEC		"Execution failed:"
+# define ERR_MALLOC		"Memory allocation has failed:"
 
 #endif
