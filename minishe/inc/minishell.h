@@ -1,7 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../../libft/inc/libft.h"
 # include "librairies.h"
 
 typedef struct s_env
