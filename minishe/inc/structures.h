@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/23 16:02:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/21 14:54:11 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ typedef struct s_sigaction
 	void		(*sa_restorer)(void);
 }	t_sigaction;
 */
+
+typedef struct s_env
+{
+	char			*var;
+	char			*cont;
+	char			*total;
+	int				stat_code;
+	struct s_env	*next;
+}	t_env;
 
 typedef struct s_obj
 {

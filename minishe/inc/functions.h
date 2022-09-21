@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/22 16:30:48 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/21 14:57:20 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,19 @@ void	ft_error(const char *str);
 void	ft_free_child(t_obj *obj);
 void	ft_free_parent(t_obj *obj);
 void	ft_close_pipes(t_obj *obj);
+
+
+//              anais
+int		ft_get_len_env(t_env *env);
+int		ft_buildin_env(t_env *env);
+int		ft_pwd(t_env *env);
+int		ft_exit(t_env *env, char **cmds);
+int		ft_shutup_signals(int fork);
+int		ft_set_signals(void);
+char	*get_cont(char *name_var, t_env *env);
+char	**ft_list_to_tab(t_env *env);
+t_env	*ft_put_env(char **envp);
+t_env	*fill_env(char *is_env);
+int		ft_gnl(int fd, char **line);
 
 #endif

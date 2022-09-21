@@ -1,27 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
+/*   Updated: 2022/09/21 14:57:28 by seozcan          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "librairies.h"
+//			read, write, exit, getcwd, chdir, read, close, access, stat, unlink
+//			execve, dup, dup2, pipe, isatty, ttyname, ttyslot, tcsetattr, 
+//			tcgetattr
+# include <unistd.h>
 
-typedef struct s_env
-{
-	char			*var;
-	char			*cont;
-	char			*total;
-	int				stat_code;
-	struct s_env	*next;
-}	t_env;
+//			printf, filedes, readline, perror
+# include <stdio.h>
 
-int		ft_get_len_env(t_env *env);
-int		ft_buildin_env(t_env *env);
-int		ft_pwd(t_env *env);
-int		ft_exit(t_env *env, char **cmds);
-int		ft_shutup_signals(int fork);
-int		ft_set_signals(void);
-char	*get_cont(char *name_var, t_env *env);
-char	**ft_list_to_tab(t_env *env);
-t_env	*ft_put_env(char **envp);
-t_env	*fill_env(char *is_env);
-int		ft_gnl(int fd, char **line);
+//			malloc, free, exit, getenv
+# include <stdlib.h>
+
+//			strerror
+# include <string.h>
+
+//			errors
+# include <errno.h>
+
+//			opendir, readdir, closedir
+# include <dirent.h>
+
+//			ioctl
+# include <sys/ioctl.h>
+
+//			tcsetattr, tcgetattr
+# include <termios.h>
+
+//			wait3, wait4
+# include <sys/resource.h>
+# include <sys/time.h>
+
+//			open, kill, wait, waitpid, wait3, wait4, stat, opendir, closedir
+# include <sys/types.h>
+
+//			open, wait, waitpid, wait3, wait4
+# include <sys/wait.h>
+
+//			stat
+# include <sys/stat.h>
+
+//			open
+# include <fcntl.h>
+
+//			sigaction, sigemptyset, sigaddset, kill
+# include <signal.h>
+
+//			readline
+# include <readline/readline.h>
+# include <readline/history.h>
+
+//			libft
+# include "../../libft/inc/libft.h"
+
+//			minishell headers
+# include "structures.h"
+# include "functions.h"
+# include "macros.h"
 
 #endif
