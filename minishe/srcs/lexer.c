@@ -6,25 +6,39 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 18:36:24 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:33:59 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-typedef enum e_types
-{
-	WORD,
-	OPERATOR,
-}	t_types;
+/*
+		operators:
+		- control operators: 		‘||’, ‘&&’, ‘&’, ‘;’, ‘;;’, ‘;&’, ‘;;&’, ‘|’,
+									‘|&’, ‘(’, or ‘)’.
+		- redirection operators :	< << > >> | &
+*/
 
-typedef struct s_lexer
+int		token_scan(char *token)
 {
-	int		type;
-	char	*arg;
-}	t_lexer;
 
-void	lexer(const char *line)
+}
+
+void	lexer(t_main *m)
 {
-	(void)line;
+	int		i;
+	char	**tokens;
+
+	i = 0;
+	m->args = xmalloc(sizeof(t_stack));
+	init_stack(m->args);
+	tokens = ft_split(m->line, ' ');
+	while (tokens[i] != 0)
+	{
+		if (token_scan(tokens[i]) == WORD)
+			put_back(m->args, WORD, tokens[i]);
+		else if (token_scan(tokens[i]) == OPERATOR)
+			put_back(m->args, OPERATOR, tokens[i]);
+		i++;
+	}
 }

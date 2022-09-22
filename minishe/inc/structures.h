@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 18:23:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:39:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,26 @@
 # define STRUCTURES_H
 
 # include "minishell.h"
+
+typedef enum e_types
+{
+	WORD,
+	OPERATOR,
+}	t_types;
+
+typedef struct s_node
+{
+	int				type;
+	char			*arg;
+	struct s_node	*prev;
+	strcut s_node	*next;
+}	t_node;
+
+typedef struct s_stack
+{
+	t_node	*head;
+	t_node	*tail;
+}	t_stack;
 
 typedef struct s_env
 {
@@ -50,6 +70,8 @@ typedef struct s_main
 	char	c;
 	char	*line;
 	t_env	*env;
+	t_obj	*o;
+	t_stack	*args;
 }	t_main;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 18:33:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:12:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,6 @@
 # define FUNCTIONS_H
 
 # include "minishell.h"
-
-//              get_next_line.c
-char	*get_next_line(int fd);
-char	*set_head(char *head);
-char	*get_line(char *ln, char *head);
-char	*append_lines(int fd, char *buff, char *head);
-
-//              get_next_line_utils.c
-char	*ft_strjoin_gnl(char *s1, char *s2);
-char	*ft_strchr_gnl(const char *s, int c);
-char	*ft_substr_gnl(char const *s, unsigned int start, size_t len);
-size_t	ft_strlen_gnl(const char *str);
-
-//				ft_xmalloc.c
-void	*xmalloc(size_t size);
 
 //				PIPEX
 int		pipex(int ac, char **av, char **envp);
@@ -44,7 +29,7 @@ void	ft_free_parent(t_obj *obj);
 void	ft_close_pipes(t_obj *obj);
 
 //				lexer.c
-void	lexer(const char *line);
+void	lexer(t_main *m);
 
 //				env_utils.c
 int		ft_get_len_env(t_env *env);
@@ -62,10 +47,22 @@ int		ft_exit(t_env *env, char **cmds);
 int		ft_shutup_signals(int fork);
 int		ft_set_signals(void);
 
-//				error.c
-void	ft_error(const char *str);
+//				stack_init.c
+void	init_stack(t_stack *stack);
+void	free_stack(t_stack *stack);
+int		stack_size(t_stack *stack);
+void	fill_stack(t_stack *stack, int *arr, int size);
 
-//				misc
-int		ft_gnl(int fd, char **line);
+//				stack_update.c
+void	put_back(t_stack *stack, int type, char *arg);
+void	put_front(t_stack *stack, int tyoe, char *arg);
+
+//				utils.c
+int		**allocate_tab(int **tab, int size);
+void	free_tab(int **tab, int size);
+void	ft_error(const char *str);
+void	*xmalloc(size_t size);
+long	ft_atoli(const char *str);
+
 
 #endif

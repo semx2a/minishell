@@ -25,6 +25,7 @@ int	execute(t_env *env, char **cmds)
 	return (-1);
 }
 
+// serach for status code for all the builtin created
 int	ft_exec_builtin(t_env *env, char **cmds)
 {
 	int	ret;
@@ -37,9 +38,9 @@ int	ft_exec_builtin(t_env *env, char **cmds)
 	if (ft_strcmp("pwd", cmds[0]) == 0)
 		ret = ft_pwd(env);
 	return (ret);
-	// serach for status code for all the builtin created
 }
 
+	// serach for status code for all the builtin created
 int	ft_is_builtin(char **cmds)
 {
 	int	ret;
@@ -58,7 +59,6 @@ int	ft_is_builtin(char **cmds)
 	if (ft_strcmp("unset", cmds[0]) == 0)
 		ret = 1;
 	return (ret);
-	// serach for status code for all the builtin created
 }
 
 // ca va beaucoup changer well shit
@@ -89,11 +89,10 @@ int	ft_minishell(t_main *m)
 {
 	while (1)
 	{
-		ft_putstr_fd(">$", 1);
-		readline(m->line);
-		lexer(m->line);
+		m->line = readline(">$");
+		lexer(m);
 //		parser();
-		ft_command_handler(m->env, m->line);
+//		ft_command_handler(m->env, m->line);
 		free(m->line);
 	}
 }

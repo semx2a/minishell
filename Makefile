@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/21 18:36:49 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/22 17:06:31 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,8 +37,9 @@ SRCS			:=	main.c \
 					builtins.c \
 					signals.c \
 					lexer.c \
-					ft_xmalloc.c \
-					error.c
+					utils.c \
+					stack.c \
+					stack_utils.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -61,6 +62,8 @@ ARFLAGS			:=	rcs
 MLXFLAGS		:=	-lXext -lX11
 
 MATHFLAG		:=	-lm
+
+READLINE		:=	-lreadline
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::HEADERS::
 
@@ -150,11 +153,11 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
