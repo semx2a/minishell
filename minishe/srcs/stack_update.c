@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 16:29:12 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/22 18:13:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:31:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	put_back(t_stack *stack, int type, char *arg)
 	t_node	*new;
 
 	new = xmalloc(sizeof(t_node));
-	new->type = val;
-	new->arg = arg;
+	new->type = type;
+	new->arg = ft_strdup(arg);
 	new->prev = stack->tail;
 	new->next = NULL;
 	if (stack->tail)
@@ -74,7 +74,7 @@ void	put_front(t_stack *stack, int type, char *arg)
 
 	new = xmalloc(sizeof(t_node));
 	new->type = type;
-	new->arg = arg;
+	new->arg = ft_strdup(arg);
 	new->next = stack->head;
 	new->prev = NULL;
 	if (stack->head)
@@ -82,4 +82,24 @@ void	put_front(t_stack *stack, int type, char *arg)
 	else
 		stack->tail = new;
 	stack->head = new;
+}
+
+void	print_list(t_stack *stack)
+{
+	t_node	*tmp;
+	int		i;
+
+	tmp = stack->head;
+	i = 0;
+	while (tmp)
+	{
+		printf(" ------Node #%d----- \n", i);
+		printf("|\n");
+		printf("| type	= %d\n", tmp->type);
+		printf("| arg	= %s\n", tmp->arg);
+		printf("|\n");
+		printf(" ------------------ \n");
+		i++;
+		tmp = tmp->next;
+	}
 }

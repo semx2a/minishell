@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/22 18:12:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:25:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,15 @@ int		ft_set_signals(void);
 void	init_stack(t_stack *stack);
 void	free_stack(t_stack *stack);
 int		stack_size(t_stack *stack);
-void	fill_stack(t_stack *stack, int *arr, int size);
 
 //				stack_update.c
 void	put_back(t_stack *stack, int type, char *arg);
 void	put_front(t_stack *stack, int tyoe, char *arg);
+void	print_list(t_stack *stack);
 
 //				utils.c
-int		**allocate_tab(int **tab, int size);
-void	free_tab(int **tab, int size);
 void	ft_error(const char *str);
 void	*xmalloc(size_t size);
 long	ft_atoli(const char *str);
-
 
 #endif

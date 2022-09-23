@@ -91,6 +91,7 @@ int	ft_minishell(t_main *m)
 	{
 		m->line = readline(">$");
 		lexer(m);
+		print_list(m->args);
 //		parser();
 //		ft_command_handler(m->env, m->line);
 		free(m->line);

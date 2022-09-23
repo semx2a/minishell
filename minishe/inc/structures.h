@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/22 17:39:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/23 16:56:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_node
 	int				type;
 	char			*arg;
 	struct s_node	*prev;
-	strcut s_node	*next;
+	struct s_node	*next;
 }	t_node;
 
 typedef struct s_stack
