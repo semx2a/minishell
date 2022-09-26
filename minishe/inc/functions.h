@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/23 17:25:25 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/26 19:21:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,8 @@ void	print_list(t_stack *stack);
 void	ft_error(const char *str);
 void	*xmalloc(size_t size);
 long	ft_atoli(const char *str);
+
+//				multi_split.c
+char	**multi_split(char *str, char *charset);
 
 #endif

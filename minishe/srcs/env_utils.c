@@ -39,7 +39,7 @@ char	**ft_list_to_tab(t_env *env)
 	i = 0;
 	tmp = env;
 	len = ft_get_len_env(tmp);
-	tab = xmalloc(sizeof(char *) * len);
+	tab = xmalloc(sizeof(char *) * (unsigned long)len);
 	while (tmp)
 	{
 		tab[i] = ft_strdup(tmp->total);

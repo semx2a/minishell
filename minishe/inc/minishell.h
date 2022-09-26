@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 15:21:07 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/26 19:25:03 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@
 
 //			libft
 # include "../../libft/inc/libft.h"
+
+//			limits
+# include <limits.h>
 
 //			minishell headers
 # include "structures.h"

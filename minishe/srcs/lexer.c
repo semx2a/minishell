@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/26 15:32:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/26 21:37:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,39 @@
 		one meta-character is an ‘operator’.
 */
 
+char	*is_in_quotes(char *s)
+{
+	unsigned int	i;
+	size_t			j;
+	int				quote;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == DOUBLE_Q || s[i] == SINGLE_Q)
+		{
+			quote = (int)s[i];
+			j = i;
+			while (s[j])
+			{
+				if (s[j] == DOUBLE_Q && quote == DOUBLE_Q)
+					return (ft_substr(s, i, j - i + 1));
+				if (s[j] == SINGLE_Q && quote == SINGLE_Q)
+					return (ft_substr(s, i, j - i + 1));
+				j++;
+			}
+			return (0);
+		}
+		i++;
+	}
+	return (0);
+}
+
 static char	**ft_strs(char const *s, int c)
 {
-	int		i;
-	int		j;
+	size_t	i;
+	size_t	j;
 	char	**dest;
 
 	i = 0;
@@ -39,18 +68,19 @@ static char	**ft_strs(char const *s, int c)
 			j++;
 		i++;
 	}
-	dest = malloc(sizeof(char *) * (j + 1));
+	dest = malloc(sizeof(char *) * j + 1);
 	if (!dest)
 		return (0);
 	dest[j] = 0;
 	return (dest);
 }
 
-void	tokenizr(char **dst, char *src, int c)
+char	**tokenizr(char *src, int c)
 {
-	int		i;
-	int		j;
-	int		k;
+	unsigned int	i;
+	unsigned int	j;
+	size_t			k;
+	char			**dst;
 
 	i = 0;
 	k = 0;
@@ -62,57 +92,40 @@ void	tokenizr(char **dst, char *src, int c)
 		if (src[i] != c)
 		{
 			j = i;
-			while (s[j] != c && s[j])
+			while (src[j] != c && src[j])
 				j++;
-			dst[k++] = ft_substr(s, i, j - i);
+			dst[k++] = ft_substr(src, i, j - i);
 			i = j - 1;
 		}
 		if (src[i + 1] == '\0')
 			break ;
 		i++;
 	}
+	return (dst);
 }
-// -> find a way to keep double quotes and not cut them out of the resulting string array
 
-int	token_scan(char *token)
-{
-	int		s_quote;
-	int		d_quote;
-	int		i;
-
-	i = 0;
-	s_quote = 0;
-	d_quote = 0;
-	while (token[i])
-	{
-		if (token[i] == 34)
-			d_quote += 34;
-		if (token[i] == 39)
-			s_quote += 39;
-		if (s_quote == 78 || d_quote == 68)
-			return (WORD);
-		if (ft_strchr("|&;()><\t \n", (token[i])))
-			return (OPERATOR);
-		i++;
-	}
-	return (WORD);
-}
+/* 
+	-> 	find a way to keep double quotes and not cut them out 
+		of the resulting string array
+*/
 
 void	lexer(t_main *m)
 {
 	int		i;
 	char	**tokens;
+	char	*operators;
 
 	i = 0;
 	m->args = xmalloc(sizeof(t_stack));
 	init_stack(m->args);
-	tokenizr(tokens, m->line, 34);
+	operators = ft_strdup("\t&()>|<\n");
+	tokens = multi_split(m->line, operators);
 	while (tokens[i] != 0)
 	{
-		if (token_scan(tokens[i]) == WORD)
-			put_back(m->args, WORD, tokens[i]);
+		if (ft_strcmp(tokens[i], operators))
+			put_back(m->args, OPERATOR, ft_strdup(tokens[i]));
 		else
-			put_back(m->args, OPERATOR, tokens[i]);
+			put_back(m->args, WORD, ft_strdup(tokens[i]));
 		i++;
 	}
 	ft_free_stab(tokens);

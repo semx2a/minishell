@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 18:00:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/26 19:25:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 # define MACROS_H
 
 # include "minishell.h"
-
-//			get_next_line config
-# define BUFFER_SIZE	5120
 
 //			minishell
 # define ERR			"Error:"
@@ -29,4 +26,13 @@
 # define ERR_EXEC		"Execution failed:"
 # define ERR_MALLOC		"Memory allocation has failed:"
 
+//			operators
+# define DOUBLE_Q		34
+# define AMPERSAND		38
+# define SINGLE_Q		39
+# define OPEN_P			40
+# define CLOSED_P		41
+# define LEFT_A			60
+# define RIGHT_A		62
+# define PIPE			124
 #endif
