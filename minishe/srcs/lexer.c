@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/23 18:32:40 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/26 15:32:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 		one meta-character is an ‘operator’.
 */
 
-static char	**ft_strs(char const *s, char c)
+static char	**ft_strs(char const *s, int c)
 {
 	int		i;
 	int		j;
@@ -46,7 +46,7 @@ static char	**ft_strs(char const *s, char c)
 	return (dest);
 }
 
-void	tokenizr(char **dst, char *src, char c)
+void	tokenizr(char **dst, char *src, int c)
 {
 	int		i;
 	int		j;
@@ -76,13 +76,21 @@ void	tokenizr(char **dst, char *src, char c)
 
 int	token_scan(char *token)
 {
+	int		s_quote;
+	int		d_quote;
 	int		i;
 
 	i = 0;
+	s_quote = 0;
+	d_quote = 0;
 	while (token[i])
 	{
-		if (token[i] == 34 || token[i] == 39))
-
+		if (token[i] == 34)
+			d_quote += 34;
+		if (token[i] == 39)
+			s_quote += 39;
+		if (s_quote == 78 || d_quote == 68)
+			return (WORD);
 		if (ft_strchr("|&;()><\t \n", (token[i])))
 			return (OPERATOR);
 		i++;
