@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:19:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/26 21:30:10 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/27 21:35:35 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static size_t	ft_scan(char c, char *charset)
+static int	ft_scan(char c, char *charset)
 {
 	size_t	i;
 
@@ -20,7 +20,7 @@ static size_t	ft_scan(char c, char *charset)
 	while (charset[i])
 	{
 		if (c == charset[i])
-			return (1);
+			return (charset[i]);
 		i++;
 	}
 	if (c == '\0')
@@ -39,8 +39,6 @@ static size_t	ft_word_count(char *str, char *charset)
 	{
 		if (ft_scan(str[i + 1], charset) && (!ft_scan(str[i], charset)))
 			wcount++;
-		if (ft_scan(str[i], charset))
-			wcount++;
 		i++;
 	}
 	return (wcount);
@@ -51,27 +49,27 @@ static void	ft_strcat(char **dest, char *str, char *charset)
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	tabs;
+	int				sep;
 
 	i = 0;
 	tabs = 0;
 	while (str[i])
 	{
-		if (!ft_scan(str[i], charset))
-		{
-			j = i;
-			while (!ft_scan(str[j], charset))
-				j++;
-			dest[tabs++] = ft_strtrim(ft_substr(str, i, j - i), " ");
-			i = j - 1;
-		}
 		if (ft_scan(str[i], charset))
 		{
+			sep = str[i];
 			j = i;
-			while (ft_scan(str[j], charset))
+			while (str[j] != sep && str[j])
 				j++;
-			dest[tabs++] = ft_strtrim(ft_substr(str, i, j - i), " ");
-			i = j - 1;
 		}
+		else
+		{
+			j = i;
+			while (!ft_scan(str[j], charset) && str[j])
+				j++;
+		}
+		dest[tabs++] = ft_substr(str, i, j - i);
+		i = j - 1;
 		if (str[i + 1] == '\0')
 			break ;
 		i++;

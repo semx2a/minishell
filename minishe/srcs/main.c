@@ -90,12 +90,14 @@ int	ft_minishell(t_main *m)
 	while (1)
 	{
 		m->line = readline(">$");
+		add_history(m->line);
 		lexer(m);
 		print_list(m->args);
 //		parser();
 //		ft_command_handler(m->env, m->line);
 		free(m->line);
 	}
+	rl_clear_history();
 }
 
 int	main(int ac, char **av, char **envp)

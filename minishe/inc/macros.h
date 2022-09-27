@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/26 19:25:16 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/27 18:33:11 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,5 @@
 # define LEFT_A			60
 # define RIGHT_A		62
 # define PIPE			124
+
 #endif

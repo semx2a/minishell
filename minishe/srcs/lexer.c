@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/26 21:37:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/27 20:55:37 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 		one meta-character is an ‘operator’.
 */
 
-char	*is_in_quotes(char *s)
+int	is_in_quotes(char *s)
 {
 	unsigned int	i;
 	size_t			j;
@@ -42,9 +42,9 @@ char	*is_in_quotes(char *s)
 			while (s[j])
 			{
 				if (s[j] == DOUBLE_Q && quote == DOUBLE_Q)
-					return (ft_substr(s, i, j - i + 1));
+					return (1);
 				if (s[j] == SINGLE_Q && quote == SINGLE_Q)
-					return (ft_substr(s, i, j - i + 1));
+					return (1);
 				j++;
 			}
 			return (0);
@@ -68,9 +68,7 @@ static char	**ft_strs(char const *s, int c)
 			j++;
 		i++;
 	}
-	dest = malloc(sizeof(char *) * j + 1);
-	if (!dest)
-		return (0);
+	dest = (char **)xmalloc(sizeof(char *) * (j + 1));
 	dest[j] = 0;
 	return (dest);
 }
@@ -109,23 +107,42 @@ char	**tokenizr(char *src, int c)
 		of the resulting string array
 */
 
+int	token_scan(char *token)
+{
+	int		i;
+
+	i = 0;
+	while (token[i])
+	{
+		if (token[i] == SINGLE_Q || token[i] == DOUBLE_Q)
+		{
+			if (is_in_quotes(token))
+				return (WORD);
+		}
+		else if (ft_strchr("|&;()><", (token[i])))
+			return (OPERATOR);
+		i++;
+	}
+	return (WORD);
+}
+
 void	lexer(t_main *m)
 {
 	int		i;
 	char	**tokens;
-	char	*operators;
+	char	*charset;
 
 	i = 0;
 	m->args = xmalloc(sizeof(t_stack));
 	init_stack(m->args);
-	operators = ft_strdup("\t&()>|<\n");
-	tokens = multi_split(m->line, operators);
+	charset = ft_strdup(" \'\"");
+	tokens = multi_split(m->line, charset);
 	while (tokens[i] != 0)
 	{
-		if (ft_strcmp(tokens[i], operators))
-			put_back(m->args, OPERATOR, ft_strdup(tokens[i]));
-		else
+		if (token_scan(tokens[i]) == WORD)
 			put_back(m->args, WORD, ft_strdup(tokens[i]));
+		else
+			put_back(m->args, OPERATOR, ft_strdup(tokens[i]));
 		i++;
 	}
 	ft_free_stab(tokens);

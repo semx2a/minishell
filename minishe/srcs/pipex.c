@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:21:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/21 18:20:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/27 18:32:32 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,24 @@ void	ft_list_cmds(t_obj *obj, int ac, char **av)
 	obj->cmds[j] = 0;
 }
 
-void	pipex(t_main *m, int ac, char **av, char **envp)
+void	pipex(t_main *m)
 {
-	t_obj	obj;
-
-	obj = (t_obj){0};
-//	obj->fd_in = open(av[1], O_RDONLY);
-//	if (obj->fd_in == -1)
-//		ft_error(ERR_INFILE);
-//	obj->fd_out = open(av[ac - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-//	if (obj->fd_out == -1)
-//		ft_error(ERR_OUTFILE);
-//	obj->cmd_nb = ac - 3;
-//	obj->pipe_nb = obj->cmd_nb - 1;
-	obj.paths = m->paths;
-	ft_list_cmds(&obj, ac, av);
-	ft_assign_pipes(&obj);
-	obj.index = -1;
-	while (++obj.index < obj.cmd_nb)
-		ft_process(&obj, envp);
-	ft_close_pipes(&obj);
-	ft_free_parent(&obj);
+	m->o = (t_obj){0};
+	m->o.fd_in = open(av[1], O_RDONLY);
+	if (m->o.fd_in == -1)
+		ft_error(ERR_INFILE);
+	m->o.fd_out = open(av[ac - 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (m->o.fd_out == -1)
+		ft_error(ERR_OUTFILE);
+	m->o.cmd_nb = m->defined_by_parsing;
+	m->o.pipe_nb = m->define_by_parsing;
+	m->o.paths = ft_split(m->env_path);
+	ft_list_cmds(&m->o, ac, av);
+	ft_assign_pipes(&m->o);
+	m->o.index = -1;
+	while (++m->o.index < m->o.cmd_nb)
+		ft_process(&m->o, envp);
+	ft_close_pipes(&m->o);
+	ft_free_parent(&m->o);
 	waitpid(-1, NULL, 0);
 }
