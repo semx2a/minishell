@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/29 20:51:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/29 21:43:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	ft_prompt(t_main *m, char **envp)
 {
 	while (1)
 	{
-		m->line = readline(">$");
+		m->cwd = getcwd(m->cwd, 4062);
+		m->cwd = ft_strjoin(m->cwd, "$");
+		m->line = readline(m->cwd);
 		add_history(m->line);
 //		lexer(m);
 //		print_list(m->args);

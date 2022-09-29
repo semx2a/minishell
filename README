@@ -32,6 +32,9 @@ V	void	exit(int status);
 
 	char	*getcwd(char *buf, size_t size);
 	int		chdir(const char *path);
+	DIR				*opendir(const char *name);
+	struct dirent 	*readdir(DIR *dirp);
+	int				closedir(DIR *dirp);
 
     int		stat(const char *pathname, struct stat *statbuf);
 	int		fstat(int fd, struct stat *statbuf);
@@ -42,10 +45,6 @@ V	int		execve(const char *pathname, char *const argv[], char *const envp[]);
 	int		dup(int oldfd);
 V	int		dup2(int oldfd, int newfd);
 V	int		pipe(int pipefd[2]);
-
-	DIR				*opendir(const char *name);
-	struct dirent 	*readdir(DIR *dirp);
-	int				closedir(DIR *dirp);
 
 V   char	*strerror(int errnum);
 	void	perror(const char *s);
