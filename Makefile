@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/26 21:15:49 by seozcan          ###   ########.fr        #
+#    Updated: 2022/09/29 21:07:11 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,15 +32,24 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:=	main.c \
-					env_utils.c \
-					builtins.c \
-					signals.c \
-					lexer.c \
+SRCS			:=	jobs_execution.c \
+					jobs_pipes.c \
+					main.c \
+					shell_builtins.c \
+					shell_expansion.c \
+					shell_flush.c \
+					shell_init.c \
+					shell_io.c \
+					shell_jobs.c \
+					shell_lexer.c \
+					shell_parser.c \
+					shell_signals.c \
+					utils_builtins.c \
 					utils.c \
-					stack.c \
-					stack_update.c \
-					multi_split.c
+					utils_env.c \
+					utils_multi_split.c \
+					utils_stack.c \
+					utils_stack_update.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 

@@ -1,6 +1,6 @@
 #include "../inc/minishell.h"
 
-int	ft_get_len_env(t_env *env)
+int	ft_envlen(t_env *env)
 {
 	t_env	*tmp;
 	int		i;
@@ -29,7 +29,7 @@ char	*get_cont(char *name_var, t_env *env)
 	return (NULL);
 }
 
-char	**ft_list_to_tab(t_env *env)
+char	**ft_env_to_tab(t_env *env)
 {
 	char	**tab;
 	t_env	*tmp;
@@ -38,7 +38,7 @@ char	**ft_list_to_tab(t_env *env)
 
 	i = 0;
 	tmp = env;
-	len = ft_get_len_env(tmp);
+	len = ft_envlen(tmp);
 	tab = xmalloc(sizeof(char *) * (unsigned long)len);
 	while (tmp)
 	{

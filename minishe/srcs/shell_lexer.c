@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   shell_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/27 20:55:37 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/29 20:50:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,32 +25,29 @@
 		one meta-character is an ‘operator’.
 */
 
-int	is_in_quotes(char *s)
+size_t	is_in_quotes(char *s)
 {
-	unsigned int	i;
-	size_t			j;
-	int				quote;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
-	while (s[i])
+	printf("%s\n", s);
+//	while (s[i])
+//	{
+	if ((s[i] == DOUBLE_Q || s[i] == SINGLE_Q) && s[i + 1] != '\0')
 	{
-		if (s[i] == DOUBLE_Q || s[i] == SINGLE_Q)
+		j = i + 1;
+		while (s[j])
 		{
-			quote = (int)s[i];
-			j = i;
-			while (s[j])
-			{
-				if (s[j] == DOUBLE_Q && quote == DOUBLE_Q)
-					return (1);
-				if (s[j] == SINGLE_Q && quote == SINGLE_Q)
-					return (1);
-				j++;
-			}
-			return (0);
+			if (s[j] == s[i])
+				return (j + 1);
+			j++;
 		}
-		i++;
+		return (0);
 	}
+//		i++;
+//	}
 	return (0);
 }
 
@@ -64,10 +61,15 @@ static char	**ft_strs(char const *s, int c)
 	j = 0;
 	while (s[i])
 	{
+		if (s[i] == DOUBLE_Q || s[i] == SINGLE_Q)
+			i += is_in_quotes((char *)(s) + i) - 1;
 		if (s[i] != c && (s[i + 1] == '\0' || s[i + 1] == c))
 			j++;
 		i++;
 	}
+	printf("#words = %lu\n", j);
+	printf("strs ok\n\n");
+	printf("_____________\n\n");
 	dest = (char **)xmalloc(sizeof(char *) * (j + 1));
 	dest[j] = 0;
 	return (dest);
@@ -90,38 +92,40 @@ char	**tokenizr(char *src, int c)
 		if (src[i] != c)
 		{
 			j = i;
-			while (src[j] != c && src[j])
-				j++;
+			printf("i = %u\n", i);
+			j += is_in_quotes(src + i);
+			printf("first j = %u\n", j);
+			if (i == j)
+				while (src[j] != c && src[j])
+					j++;
+			printf("second j = %u\n", j);
+			printf("k = %lu\n", k);
 			dst[k++] = ft_substr(src, i, j - i);
 			i = j - 1;
 		}
 		if (src[i + 1] == '\0')
 			break ;
+		printf("_____________\n\n");
 		i++;
 	}
 	return (dst);
 }
-
-/* 
-	-> 	find a way to keep double quotes and not cut them out 
-		of the resulting string array
-*/
 
 int	token_scan(char *token)
 {
 	int		i;
 
 	i = 0;
-	while (token[i])
+	if (is_in_quotes(token))
+		return (WORD);
+	else
 	{
-		if (token[i] == SINGLE_Q || token[i] == DOUBLE_Q)
+		while (token[i])
 		{
-			if (is_in_quotes(token))
-				return (WORD);
+			if (ft_strchr("\t \n|&;()><", token[i]))
+				return (OPERATOR);
+			i++;
 		}
-		else if (ft_strchr("|&;()><", (token[i])))
-			return (OPERATOR);
-		i++;
 	}
 	return (WORD);
 }
@@ -130,13 +134,14 @@ void	lexer(t_main *m)
 {
 	int		i;
 	char	**tokens;
-	char	*charset;
+//	char	*charset;
 
 	i = 0;
 	m->args = xmalloc(sizeof(t_stack));
 	init_stack(m->args);
-	charset = ft_strdup(" \'\"");
-	tokens = multi_split(m->line, charset);
+//	charset = ft_strdup(" \'\"");
+//	tokens = multi_split(m->line, charset);
+	tokens = tokenizr(m->line, ' ');
 	while (tokens[i] != 0)
 	{
 		if (token_scan(tokens[i]) == WORD)

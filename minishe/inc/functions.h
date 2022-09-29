@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/26 19:21:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/29 21:03:35 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,25 @@
 
 # include "minishell.h"
 
-//				PIPEX
-int		pipex(int ac, char **av, char **envp);
+//				shell_init.c
+void	shell_init(t_main *m);
 
-// 				pipex_cmds.c
-void	ft_process(t_obj o, char **envp);
+//				shell_jobs.c
+void	ft_job(t_main *m, char **envp);
 
-// 				pipex_utils.c
-void	ft_error(const char *str);
+//				jobs_execution.c
+void	execute(t_main *m, char **envp);
+int		ft_exec_builtin(t_main *m, char **envp);
+int		ft_is_builtin(char **cmds);
+
+//				pipes.c
+void	pipes(t_obj o);
+
+//				io.c
+void	in_n_out(t_main *m);
+void	heredoc(t_obj o);
+
+// 				flushell.c
 void	ft_free_child(t_obj *obj);
 void	ft_free_parent(t_obj *obj);
 void	ft_close_pipes(t_obj *obj);
@@ -34,14 +45,14 @@ void	lexer(t_main *m);
 //				env_utils.c
 int		ft_get_len_env(t_env *env);
 char	*get_cont(char *name_var, t_env *env);
-char	**ft_list_to_tab(t_env *env);
+char	**ft_env_to_tab(t_env *env);
 t_env	*fill_env(char *is_env);
 t_env	*ft_put_env(char **envp);
 
 //				builtins.c
-int		ft_env(t_env *env);
-int		ft_pwd(t_env *env);
-int		ft_exit(t_env *env, char **cmds);
+int		ft_env(char **envp);
+int		ft_pwd(char **envp);
+int		ft_exit(void);
 
 //				signals.c
 int		ft_shutup_signals(int fork);
@@ -58,9 +69,9 @@ void	put_front(t_stack *stack, int tyoe, char *arg);
 void	print_list(t_stack *stack);
 
 //				utils.c
-void	ft_error(const char *str);
+/* void	ft_error(const char *str); */
+void	ft_error(void);
 void	*xmalloc(size_t size);
-long	ft_atoli(const char *str);
 
 //				multi_split.c
 char	**multi_split(char *str, char *charset);

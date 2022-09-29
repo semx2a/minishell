@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/27 18:23:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/29 21:05:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_obj
 	int		*fd_pipe;
 	int		index;
 	pid_t	pid;
+	char	*infile;
+	char	*outfile;
 	char	*cmd;
 	char	**cmds;
 	char	**cmd_flags;
@@ -71,7 +73,7 @@ typedef struct s_main
 	char	*line;
 	char	*history;
 	t_env	*env;
-	t_obj	*o;
+	t_obj	o;
 	t_stack	*args;
 }	t_main;
 
