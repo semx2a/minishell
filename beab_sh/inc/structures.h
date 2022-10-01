@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/29 21:46:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/01 20:18:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,11 @@ typedef struct s_main
 	int		j;
 	int		err;
 	int		ret;
+	int		exit;
 	char	c;
 	char	*line;
-	char	*history;
 	char	*cwd;
+	char	*prompt;
 	t_env	*env;
 	t_obj	o;
 	t_stack	*args;

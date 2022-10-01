@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/29 21:03:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/01 18:25:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,31 @@
 void	shell_init(t_main *m);
 
 //				shell_jobs.c
-void	ft_job(t_main *m, char **envp);
+void	job(t_main *m, char **envp);
 
 //				jobs_execution.c
 void	execute(t_main *m, char **envp);
-int		ft_exec_builtin(t_main *m, char **envp);
-int		ft_is_builtin(char **cmds);
+int		exec_builtin(t_main *m, char **envp);
+
+//				shell_expansion.c
+void	expansion(t_main *m);
+
+//				utils_builtins.c
+int		is_builtin(char **cmds);
 
 //				pipes.c
-void	pipes(t_obj o);
+void	ft_assign_pipes(t_obj *o);
+void	pipes(t_obj *o);
 
 //				io.c
 void	in_n_out(t_main *m);
 void	heredoc(t_obj o);
 
-// 				flushell.c
+// 				shell_flush.c
 void	ft_free_child(t_obj *obj);
 void	ft_free_parent(t_obj *obj);
 void	ft_close_pipes(t_obj *obj);
+void	ft_flush(t_main *m);
 
 //				lexer.c
 void	lexer(t_main *m);
@@ -45,18 +52,21 @@ void	lexer(t_main *m);
 //				env_utils.c
 int		ft_get_len_env(t_env *env);
 char	*get_cont(char *name_var, t_env *env);
-char	**ft_env_to_tab(t_env *env);
+//char	**ft_env_to_tab(t_env *env);
 t_env	*fill_env(char *is_env);
-t_env	*ft_put_env(char **envp);
+t_env	*put_env(char **envp);
+void	free_env(t_env *env);
 
-//				builtins.c
+
+//				shell_builtins.c
 int		ft_env(char **envp);
 int		ft_pwd(char **envp);
-int		ft_exit(void);
+int		ft_cd(t_obj *o);
+int		ft_echo(void);
 
 //				signals.c
-int		ft_shutup_signals(int fork);
-int		ft_set_signals(void);
+int		shut_signals(int fork);
+int		set_signals(void);
 
 //				stack_init.c
 void	init_stack(t_stack *stack);

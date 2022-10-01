@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/29 21:23:13 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/01 20:56:50 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -181,7 +181,7 @@ $(ODIR):
 update:		header fclean
 	@git pull
 
-push:		header fclean
+push:		header fclean fcleanlib
 	@echo "$(HIGREEN)"
 	@git add .
 	@git commit --quiet
@@ -254,7 +254,7 @@ message:
 message_b:
 	@make -q $(BNAME) && echo "$(BHIGREEN)All bonus files are already up to date$(NO_COLOR)" || true
 
-re:		header fclean all 
+re:		header fclean fcleanlib all 
 
 -include $(DEPS)
 

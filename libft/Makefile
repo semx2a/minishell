@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/23 16:54:20 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/01 19:45:13 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,7 +140,7 @@ vpath %.o $(ODIR)
 all:			header message $(NAME)
 
 $(ODIR)/%.o:	%.c
-	@$(CC) $(WFLAGS) -I $(IDIR) -c $< -o $@
+	@$(CC) $(WFLAGS) $(SANFLAG) $(GFLAG) -I $(IDIR) -c $< -o $@
 	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)

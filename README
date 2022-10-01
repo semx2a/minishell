@@ -1,11 +1,11 @@
 FONCTION AUTORISEES:
 
 V	char	*readline (const char *prompt);
-V	rl_clear_history
-	rl_on_new_line
-	rl_replace_line
-	rl_redisplay
-V	add_history
+V	rl_clear_history();
+	rl_on_new_line();
+	rl_replace_line();
+	rl_redisplay();
+V	add_history();
 
 V	printf
 V	malloc
@@ -30,8 +30,8 @@ V	pid_t	waitpid(pid_t pid, int *wstatus, int options);
 
 V	void	exit(int status);
 
-	char	*getcwd(char *buf, size_t size);
-	int		chdir(const char *path);
+V	char	*getcwd(char *buf, size_t size);
+V	int		chdir(const char *path);
 	DIR				*opendir(const char *name);
 	struct dirent 	*readdir(DIR *dirp);
 	int				closedir(DIR *dirp);
@@ -59,9 +59,9 @@ V   char	*strerror(int errnum);
 
 	int		tcgetattr(int fd, struct termios *termios_p);
 	int		tcsetattr(int fd, int optional_actions, const struct termios *termios_p);
-			tgetent;
-			tgetflag;
-			tgetnum;
-			tgetstr;
-			tgoto;
-			tputs;
+			tgetent();
+			tgetflag();
+			tgetnum();
+			tgetstr();
+			tgoto();
+			tputs();

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/29 20:50:38 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/01 17:59:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 void	shell_init(t_main *m)
 {
 	m->o = (t_obj){0};
-	m->o.paths = ft_split(getenv("PATH"), ':');
+//	m->env = put_env(envp);
 }

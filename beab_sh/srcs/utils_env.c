@@ -29,7 +29,7 @@ char	*get_cont(char *name_var, t_env *env)
 	return (NULL);
 }
 
-char	**ft_env_to_tab(t_env *env)
+/* char	**ft_env_to_tab(t_env *env)
 {
 	char	**tab;
 	t_env	*tmp;
@@ -49,7 +49,7 @@ char	**ft_env_to_tab(t_env *env)
 		i++;
 	}
 	return (tab);
-}
+} */
 
 t_env	*fill_env(char *is_env)
 {
@@ -68,7 +68,7 @@ t_env	*fill_env(char *is_env)
 	return (new);
 }
 
-t_env	*ft_put_env(char **envp)
+t_env	*put_env(char **envp)
 {
 	int		i;
 	t_env	*tmp;
@@ -84,4 +84,18 @@ t_env	*ft_put_env(char **envp)
 		i++;
 	}
 	return (res);
+}
+
+void	free_env(t_env *env)
+{
+	t_env	*tmp;
+
+	while (env)
+	{
+		tmp = env;
+		env = env->next;
+		free(tmp);
+	}
+	env = NULL;
+	free(env);
 }
