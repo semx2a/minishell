@@ -58,7 +58,7 @@ int	ft_is_buildin(char **cmds)
 	if (ft_strcmp("unset", cmds[0]) == 0)
 		ret = 1;
 	return (ret);
-	// serach for status code for all the buildin created
+	// serach for status code for all the builtin created
 }
 
 // ca va beaucoup changer well shit
