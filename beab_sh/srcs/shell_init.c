@@ -1,27 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 20:07:14 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/23 16:59:41 by seozcan          ###   ########.fr       */
+/*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/01 17:59:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "../inc/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	shell_init(t_main *m)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
+	m->o = (t_obj){0};
+//	m->env = put_env(envp);
 }

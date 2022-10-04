@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   librairies.h                                       :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 15:03:40 by abonard           #+#    #+#             */
-/*   Updated: 2022/09/19 20:03:15 by seozcan          ###   ########.fr       */
+/*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
+/*   Updated: 2022/09/29 17:09:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBRAIRIES_H
-
-# define LIBRAIRIES_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 //			read, write, exit, getcwd, chdir, read, close, access, stat, unlink
 //			execve, dup, dup2, pipe, isatty, ttyname, ttyslot, tcsetattr, 
@@ -65,6 +64,9 @@
 
 //			libft
 # include "../../libft/inc/libft.h"
+
+//			limits
+# include <limits.h>
 
 //			minishell headers
 # include "structures.h"

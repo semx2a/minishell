@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/23 19:06:25 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/01 21:33:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	ft_error(const char *str)
-{
-	write(2, "ERR: ", 5);
-	write(2, str, ft_strlen(str));
-	if (ft_strnstr(strerror(errno), "Success", 7) == 0)
-		write(2, strerror(errno), ft_strlen(strerror(errno)));
-	write(2, "\n", 1);
-	exit(EXIT_FAILURE);
-}
 
 void	ft_free_child(t_obj *obj)
 {
@@ -40,8 +30,8 @@ void	ft_free_parent(t_obj *obj)
 	int	i;
 
 	i = 0;
-	close(obj->fd_in);
-	close(obj->fd_out);
+//	close(obj->fd_in);
+//	close(obj->fd_out);
 	while (obj->paths[i] != 0)
 	{
 		free(obj->paths[i]);
@@ -55,7 +45,8 @@ void	ft_free_parent(t_obj *obj)
 		i++;
 	}
 	free(obj->cmds);
-	free(obj->fd_pipe);
+//	if (obj->pipe_nb > 0)
+//		free(obj->fd_pipe);
 }
 
 void	ft_close_pipes(t_obj *obj)
@@ -68,4 +59,13 @@ void	ft_close_pipes(t_obj *obj)
 		close(obj->fd_pipe[i]);
 		i++;
 	}
+}
+
+void	ft_flush(t_main *m)
+{
+	ft_free_parent(&m->o);
+	free(m->line);
+	free(m->cwd);
+	free_env(m->env);
+	rl_clear_history();
 }
