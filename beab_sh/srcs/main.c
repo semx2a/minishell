@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 21:32:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/04 20:28:18 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	main(int ac, char **av, char **envp)
 	if (*envp == NULL)
 		ft_error();
 	m = (t_main){0};
-	// if (set_signals() == 1)
-	//   return (1);
+	 if (set_signals() == 1)
+		return (1);
 	shell_init(&m);
 	prompt(&m, envp);
 	ft_flush(&m);

@@ -1,10 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell_signals.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/04 20:25:46 by abonard           #+#    #+#             */
+/*   Updated: 2022/10/04 20:36:07 by abonard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/minishell.h"
 
 void	ft_cntlc(int sig)
 {
 	(void)sig;
-	ft_putstr_fd(" \b\b", 0);
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd(" \b\n", 0);
+	ft_putstr_fd(getenv("PWD"), 0);
+	ft_putstr_fd("$", 1);
 }
 
 void	ft_cntl_slsh(int sig)

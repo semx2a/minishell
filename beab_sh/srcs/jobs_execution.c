@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 19:27:27 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/04 19:38:04 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	exec_builtin(t_main *m, char **envp)
 	if (ft_strcmp("cd", m->o.cmds[m->o.index]) == 0)
 		ret = ft_cd(m);
 	if (ft_strcmp("echo", m->o.cmds[m->o.index]) == 0)
+		
 		ret = ft_echo(m);
 	return (ret);
 }
