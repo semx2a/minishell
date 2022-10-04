@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/01 20:56:50 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/04 16:25:07 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS			:=	jobs_execution.c \
 					utils_builtins.c \
 					utils.c \
 					utils_env.c \
+					utils_lexer.c \
 					utils_multi_split.c \
 					utils_stack.c \
 					utils_stack_update.c

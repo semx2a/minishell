@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 18:25:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/04 20:54:20 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 void	expansion(t_main *m)
 {
+	m->i = 0;
+	m->j = 0;
+	m->err = 0;
+	m->exit = 0;
+	m->state = DEFAULT;
+	m->quote = 0;
 	m->o.fd_in = 0;
 	m->o.fd_out = 1;
 	m->o.paths = ft_split(getenv("PATH"), ':');

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:54:07 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 17:55:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/03 18:53:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	is_builtin(char **cmds)
 		ret = 1;
 	if (ft_strcmp("pwd", cmds[0]) == 0)
 		ret = 1;
-//	if (ft_strcmp("cd", cmds[0]) == 0)
-//		ret = 1;
+	if (ft_strcmp("cd", cmds[0]) == 0)
+		ret = 1;
 	if (ft_strcmp("export", cmds[0]) == 0)
 		ret = 1;
 	if (ft_strcmp("unset", cmds[0]) == 0)

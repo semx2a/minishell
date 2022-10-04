@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/01 19:45:13 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/03 16:26:02 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_substr.c \
 			ft_tablen.c \
 			ft_tolower.c \
-			ft_toupper.c \
+			ft_toupper.c
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 

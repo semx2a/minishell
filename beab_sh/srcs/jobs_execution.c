@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 18:26:16 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/03 18:54:12 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	exec_builtin(t_main *m, char **envp)
 	}
 	if (ft_strcmp("pwd", m->o.cmds[m->o.index]) == 0)
 		ret = ft_pwd(envp);
+	if (ft_strcmp("cd", m->o.cmds[m->o.index]) == 0)
+		ret = ft_cd(m);
 	return (ret);
 }
 	// serach for status code for all the builtin created

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 17:35:20 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/03 18:52:58 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	ft_echo(void)
 	return (0);
 }
 
-int	ft_cd(t_obj *o)
+int	ft_cd(t_main *m)
 {
-	chdir(o->path);
+	chdir(m->line);
 	return (0);
 }
 

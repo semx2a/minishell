@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 21:33:01 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/04 21:31:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,16 @@ void	ft_process(t_main *m, char **envp)
 // ca va beaucoup changer well shit
 void	job(t_main *m, char **envp)
 {
-//	lexer(m);
-//	print_list(m->args);
-//	parser();	
-	expansion(m);
-	while (++m->o.index < m->o.cmd_nb)
-		ft_process(m, envp);
-	ft_free_parent(&m->o);
-	waitpid(-1, NULL, 0);
+	(void)envp;
+	lexer(m);
+	if (m->state != OPEN_QUOTE)
+	{
+		print_list(m->lexicon);
+//		parser();	
+//		expansion(m);
+//		while (++m->o.index < m->o.cmd_nb)
+//			ft_process(m, envp);
+//		ft_free_parent(&m->o);
+//		waitpid(-1, NULL, 0);
+	}
 }
