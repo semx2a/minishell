@@ -12,14 +12,14 @@
 
 #include "../inc/minishell.h"
 
-void	prompt(t_main *m, char **envp)
+void	prompt(t_main *m)
 {
 	while (!m->exit)
 	{
 		m->cwd = getcwd(m->cwd, 4096);
 		m->prompt = ft_strjoin(m->cwd, "$ ");
 		m->line = readline(m->prompt);
-		job(m, envp);
+		job(m);
 		add_history(m->line);
 		free(m->line);
 		free(m->prompt);
@@ -38,8 +38,8 @@ int	main(int ac, char **av, char **envp)
 	m = (t_main){0};
 	 if (set_signals() == 1)
 		return (1);
-	shell_init(&m);
-	prompt(&m, envp);
+	shell_init(&m, envp);
+	prompt(&m);
 	ft_flush(&m);
 	return (0);
 }

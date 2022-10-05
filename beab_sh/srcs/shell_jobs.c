@@ -12,7 +12,7 @@
 
 #include "../inc/minishell.h"
 
-void	ft_process(t_main *m, char **envp)
+void	ft_process(t_main *m)
 {
 	m->o.pid = fork();
 	if (m->o.pid == -1)
@@ -28,28 +28,28 @@ void	ft_process(t_main *m, char **envp)
 		if (m->o.pipe_nb > 0)
 		{	
 			pipes(&m->o);
-			execute(m, envp);
+			execute(m);
 			ft_close_pipes(&m->o);
 		}
 		else
-			execute(m, envp);
+			execute(m);
 	}
 }
 
 // ca va beaucoup changer well shit
-void	job(t_main *m, char **envp)
+void	job(t_main *m)
 {
 //	lexer(m);
 //	print_list(m->args);
 //	parser();	
 	expansion(m);
 	if (is_builtin(m->o.cmds) == 1)
-		exec_builtin(m, envp);
+		exec_builtin(m);
 	else
 	{
 		while (m->o.index < m->o.cmd_nb)
 		{
-			ft_process(m, envp);
+			ft_process(m);
 			m->o.index++;
 		}
 		waitpid(-1, NULL, 0);

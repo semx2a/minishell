@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
+#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/01 19:45:13 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/05 13:45:03 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS	:= 	ft_allocate_tab.c \
 			ft_tablen.c \
 			ft_tolower.c \
 			ft_toupper.c \
+			ft_strisdigit.c
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 

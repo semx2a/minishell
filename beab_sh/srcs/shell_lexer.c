@@ -93,7 +93,7 @@ char	**tokenizr(char *src, int c)
 		{
 			j = i;
 			printf("i = %u\n", i);
-			j += is_in_quotes(src + i);
+			j += (unsigned int)is_in_quotes(src + i);
 			printf("first j = %u\n", j);
 			if (i == j)
 				while (src[j] != c && src[j])
