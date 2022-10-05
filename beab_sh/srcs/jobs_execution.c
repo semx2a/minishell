@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 13:54:25 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:00:55 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,11 @@ int	exec_builtin(t_main *m)
 	if (ft_strcmp("cd", m->o.cmds[m->o.index]) == 0)
 		ret = ft_cd(m, 1);
 	if (ft_strcmp("echo", m->o.cmds[m->o.index]) == 0)
-		
 		ret = ft_echo(m);
+	if (ft_strcmp("export", m->o.cmds[m->o.index]) == 0)
+		ret = ft_export(m, 1);
+	if (ft_strcmp("unset", m->o.cmds[m->o.index]) == 0)
+		ret = ft_unset(m, 1);
 	return (ret);
 }
 	// serach for status code for all the builtin created

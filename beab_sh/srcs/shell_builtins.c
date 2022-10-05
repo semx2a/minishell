@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 21:27:54 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:13:24 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,6 @@ int	ft_env(t_env *env)
 		printf("%s\n", tmp->total);
 		tmp = tmp->next;
 	}
-	return (0);
-}
-
-int	ft_echo(t_main *m)
-{
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	if (m->o.cmd_flags[1] == NULL)
-		printf("\n");
-	//else if (ft_strcmp(m->o.cmd_flags[1], "$?") == 0)
-		//return(ft_lstatcode());
-	else
-		printf("%s\n",  m->o.cmd_flags[1]);
 	return (0);
 }
 

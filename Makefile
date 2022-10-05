@@ -6,7 +6,7 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/05 13:56:56 by abonard          ###   ########.fr        #
+#    Updated: 2022/10/05 17:12:39 by abonard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,10 @@ SRCS			:=	jobs_execution.c \
 					shell_builtins.c \
 					shell_cd.c \
 					shell_exit.c\
+					shell_export.c\
+					shell_unset.c\
 					shell_expansion.c \
+					shell_echo.c\
 					shell_flush.c \
 					shell_init.c \
 					shell_io.c \

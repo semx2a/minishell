@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/05 13:41:29 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:11:35 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,31 @@ t_env	*fill_env(char *is_env)
 	return (new);
 }
 
+t_env *ft_if_env_empty(void)
+{
+	t_env *new;
+	
+	new = xmalloc(sizeof(t_env) * 1);
+	new->var = ft_strdup("PWD");
+	new->cont = getcwd(NULL, 0);
+	new->total = ft_strdup(new->var);
+	new->total = ft_strjoin(new->total, "=");
+	new->total = ft_strjoin(new->total, new->cont);
+	new->next = NULL;
+	return (new);
+}
+
 t_env	*put_env(char **envp)
 {
 	int		i;
 	t_env	*tmp;
 	t_env	*res;
 
+	if (!envp || !envp[0])
+	{
+		res = ft_if_env_empty();
+		return (res);
+	}
 	i = 1;
 	res = fill_env(envp[0]);
 	tmp = res;

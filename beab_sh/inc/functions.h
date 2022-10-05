@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 13:55:43 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:01:58 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ t_env	*fill_env(char *is_env);
 t_env	*put_env(char **envp);
 void	free_env(t_env *env);
 int     ft_create_o_replace(char *namevar, char *value, t_env *env);
+int	    ft_add_env(char *namevar, char *value, t_env *env);
 
 
 //				shell_builtins.c
@@ -65,6 +66,9 @@ int		ft_pwd(t_env *env);
 int		ft_cd(t_main *m, bool is_forked);
 int		ft_echo(t_main *m);
 int     ft_exit(t_main *m, bool is_forked);
+int     ft_export(t_main *m, bool is_forked);
+int     ft_unset(t_main *m, bool is_forked);
+
 
 //				signals.c
 int		shut_signals(int fork);
