@@ -1,44 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   shell_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 13:20:56 by abonard           #+#    #+#             */
-/*   Updated: 2022/09/14 16:23:53 by seozcan          ###   ########.fr       */
+/*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/03 18:52:58 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_paths(char **envp)
+int	ft_env(char **envp)
 {
-	while (*envp != 0)
+	int	i;
+
+	i = 0;
+	while (envp[i] != 0)
 	{
-		if (ft_strnstr(*envp, "PATH", 5))
-			return (*envp + 5);
-		envp++;
+		printf("%s\n", envp[i]);
+		i++;
 	}
-	ft_error(ERR_PATH);
-	return (NULL);
-}
-
-int	main(int ac, char **av, char **envp)
-{
-	t_main	m;
-
-	m = (t_main){0};
-	if (ac != 1)
-		ft_error(ERR_ARGS);
-	if (*envp == NULL)
-		ft_error(ERR_ENV);
-	m.str = ft_paths(envp);
-	m.paths = ft_split(m.str, ':');
-	// lexing
-	// parsing
-	while (1)
-		get_next_line(1);
-	pipex(&m, ac, av, envp);
 	return (0);
 }
+
+int	ft_echo(void)
+{
+	return (0);
+}
+
+int	ft_cd(t_main *m)
+{
+	chdir(m->line);
+	return (0);
+}
+
+int	ft_pwd(char **envp)
+{
+	char	*path;
+
+	(void)envp;
+	path = getenv("PWD");
+	if (path == NULL)
+	{
+		ft_putstr_fd("variable not found\n", 2);
+		return (1);
+	}
+	printf("%s\n", path);
+	return (0);
+}
+

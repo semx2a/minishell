@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   macros.h                                           :+:      :+:    :+:   */
+/*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 17:55:19 by seozcan           #+#    #+#             */
-/*   Updated: 2022/08/22 17:25:08 by seozcan          ###   ########.fr       */
+/*   Created: 2022/09/29 20:54:07 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/03 18:53:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MACROS_H
+#include "../inc/minishell.h"
 
-# define MACROS_H
+int	is_builtin(char **cmds)
+{
+	int	ret;
 
-# include "minishell.h"
-
-//			get_next_line config
-# define BUFFER_SIZE    5120
-
-//			minishell
-# define ERR			"Error"
-
-#endif
+	ret = 0;
+	if (ft_strcmp("env", cmds[0]) == 0)
+		ret = 1;
+	if (ft_strcmp("exit", cmds[0]) == 0)
+		ret = 1;
+	if (ft_strcmp("pwd", cmds[0]) == 0)
+		ret = 1;
+	if (ft_strcmp("cd", cmds[0]) == 0)
+		ret = 1;
+	if (ft_strcmp("export", cmds[0]) == 0)
+		ret = 1;
+	if (ft_strcmp("unset", cmds[0]) == 0)
+		ret = 1;
+	return (ret);
+}

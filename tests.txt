@@ -1,0 +1,3 @@
+cat Makefile | grep "minishell" | wc -l
+cat Makefile | grep " minishell " | wc -l
+cat Makefile | grep "NAME := minishell" | wc -l

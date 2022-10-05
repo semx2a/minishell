@@ -20,7 +20,7 @@ void	ft_sig_ghost(int sig)
 		ft_putstr_fd("\n", 1);
 }
 
-int	ft_shutup_signals(int fork)
+int	shut_signals(int fork)
 {
 	if (fork == 0)
 	{
@@ -39,7 +39,7 @@ int	ft_shutup_signals(int fork)
 	return (1);
 }
 
-int	ft_set_signals(void)
+int	set_signals(void)
 {
 	if (!(signal(SIGINT, ft_cntlc)))
 		return (0);

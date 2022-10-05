@@ -6,13 +6,13 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/09/19 20:13:35 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/04 16:25:07 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PATHS::
 
-PROJ			:=	minishe
+PROJ			:=	beab_sh
 
 ODIR			:=	$(addprefix $(PROJ)/,objs)
 
@@ -32,13 +32,25 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:=	main.c \
-					ft_env_utils.c \
-					ft_signals.c \
-					ft_env.c \
-					ft_pwd.c \
-					ft_exit.c \
-					ft_gnl.c \
+SRCS			:=	jobs_execution.c \
+					jobs_pipes.c \
+					main.c \
+					shell_builtins.c \
+					shell_expansion.c \
+					shell_flush.c \
+					shell_init.c \
+					shell_io.c \
+					shell_jobs.c \
+					shell_lexer.c \
+					shell_parser.c \
+					shell_signals.c \
+					utils_builtins.c \
+					utils.c \
+					utils_env.c \
+					utils_lexer.c \
+					utils_multi_split.c \
+					utils_stack.c \
+					utils_stack_update.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -61,6 +73,8 @@ ARFLAGS			:=	rcs
 MLXFLAGS		:=	-lXext -lX11
 
 MATHFLAG		:=	-lm
+
+READLINE		:=	-lreadline
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::HEADERS::
 
@@ -150,11 +164,11 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
@@ -168,7 +182,7 @@ $(ODIR):
 update:		header fclean
 	@git pull
 
-push:		header fclean
+push:		header fclean fcleanlib
 	@echo "$(HIGREEN)"
 	@git add .
 	@git commit --quiet
@@ -241,7 +255,7 @@ message:
 message_b:
 	@make -q $(BNAME) && echo "$(BHIGREEN)All bonus files are already up to date$(NO_COLOR)" || true
 
-re:		header fclean all 
+re:		header fclean fcleanlib all 
 
 -include $(DEPS)
 

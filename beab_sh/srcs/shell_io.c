@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   shell_io.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/19 20:07:14 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/23 16:59:41 by seozcan          ###   ########.fr       */
+/*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
+/*   Updated: 2022/09/29 21:05:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "../inc/minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	in_n_out(t_main *m)
 {
-	int	i;
+	m->o.fd_in = open(m->o.infile, O_RDONLY);
+	if (m->o.fd_in == -1)
+		ft_error();
+	m->o.fd_out = open(m->o.outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	if (m->o.fd_out == -1)
+		ft_error();
+}
 
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
-	}
-	return (0);
+void	heredoc(t_obj o)
+{
+	(void)o;
 }
