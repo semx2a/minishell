@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/05 18:46:55 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 20:48:41 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int ft_export_var(t_main *m, bool is_forked)
     int j;
 
     i = 1;
-    while (i < m->o.cmd_nb)
+    while (i < m->o.cmd_ac)
     {
         j = 0;
         namevar = NULL;
@@ -149,8 +149,8 @@ int ft_export(t_main *m, bool is_forked)
 
     ret = 0;
     m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-    m->o.cmd_nb = ft_tablen(m->o.cmd_flags);
-    if (m->o.cmd_nb <  2)
+    m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
+    if (m->o.cmd_ac <  2)
     {
         ft_print_declare(m->env, is_forked);
         return (ret);
