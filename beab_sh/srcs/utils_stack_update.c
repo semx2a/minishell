@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 16:29:12 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 17:02:48 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 20:03:05 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,12 +107,8 @@ void	print_list(t_stack *stack)
 	i = 0;
 	while (tmp)
 	{
-		printf(" ------Node #%d----- \n", i);
-		printf("|\n");
-		printf("| type	= %d\n", tmp->type);
-		printf("| arg	= %s\n", tmp->arg);
-		printf("|\n");
-		printf(" ------------------ \n");
+		printf(" Node #%d type = %d %s\n", i, tmp->type, tmp->arg);
+		printf("________________________\n");
 		i++;
 		tmp = tmp->next;
 	}

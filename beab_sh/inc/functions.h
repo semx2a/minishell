@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 18:31:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 19:13:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_close_pipes(t_obj *obj);
 void	ft_flush(t_main *m);
 
 //				shell_init.c
-void	shell_init(t_main *m);
+void	shell_init(t_main *m, char **envp);
 
 //				shell_io.c
 void	in_n_out(t_main *m);
@@ -73,6 +73,7 @@ void	free_env(t_env *env);
 int		is_operator(char c, t_main *m);
 int		is_quote(char c, t_main *m);
 int		token_scan(t_main *m, char token);
+size_t	tokenlen(t_stack *lexicon);
 
 //				utils_multi_split.c
 char	**multi_split(char *str, char *charset);

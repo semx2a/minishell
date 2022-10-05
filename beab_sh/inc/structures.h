@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 18:18:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 19:51:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef enum e_types
 {
 	WORD,
 	OPERATOR,
+	O_SPACE,
 }	t_types;
 
 typedef enum e_states

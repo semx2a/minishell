@@ -6,14 +6,14 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 17:59:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:18:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	shell_init(t_main *m)
+void	shell_init(t_main *m, char **envp)
 {
 	m->o = (t_obj){0};
-//	m->env = put_env(envp);
+	m->env = put_env(envp);
 }

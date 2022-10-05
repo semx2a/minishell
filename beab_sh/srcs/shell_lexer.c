@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 21:31:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 20:03:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,15 @@ void	line_scan(t_main *m)
 		ft_putstr_fd("Error: Open quote found\n", 2);
 }
 
+void	tokencat(t_main *m)
+{
+	printf("Number of tokens found = %lu\n", tokenlen(m->lexicon));
+}
+
 void	lexer(t_main *m)
 {
 	m->i = 0;
 	m->lexicon = stack_alloc(&put_back, ft_strlen(m->line));
 	line_scan(m);
+//	tokencat(m);
 }

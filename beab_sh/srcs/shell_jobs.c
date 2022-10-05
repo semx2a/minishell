@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/04 21:31:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 20:03:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ void	job(t_main *m, char **envp)
 {
 	(void)envp;
 	lexer(m);
-	if (m->state != OPEN_QUOTE)
-	{
+//	if (m->state != OPEN_QUOTE)
+//	{
 		print_list(m->lexicon);
 //		parser();	
 //		expansion(m);
 //		while (++m->o.index < m->o.cmd_nb)
 //			ft_process(m, envp);
-//		ft_free_parent(&m->o);
 //		waitpid(-1, NULL, 0);
-	}
+//	}
+//	ft_free_parent(&m->o);
 }
