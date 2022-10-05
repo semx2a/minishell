@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
 /*   Updated: 2022/10/05 19:13:18 by seozcan          ###   ########.fr       */
@@ -16,9 +16,15 @@
 
 # include "minishell.h"
 
+//				shell_init.c
+void	shell_init(t_main *m, char **envp);
+
+//				shell_jobs.c
+void	job(t_main *m);
+
 //				jobs_execution.c
-void	execute(t_main *m, char **envp);
-int		exec_builtin(t_main *m, char **envp);
+void	execute(t_main *m);
+int		exec_builtin(t_main *m);
 
 //				jobs_pipes.c
 void	ft_assign_pipes(t_obj *o);
@@ -64,16 +70,27 @@ int		is_builtin(char **cmds);
 //				utils_env.c
 int		ft_get_len_env(t_env *env);
 char	*get_cont(char *name_var, t_env *env);
-//char	**ft_env_to_tab(t_env *env);
+char	**ft_env_to_tab(t_env *env);
 t_env	*fill_env(char *is_env);
 t_env	*put_env(char **envp);
 void	free_env(t_env *env);
+int     ft_create_o_replace(char *namevar, char *value, t_env *env);
+int	    ft_add_env(char *namevar, char *value, t_env *env);
 
 //				utils_lexer.c
 int		is_operator(char c, t_main *m);
 int		is_quote(char c, t_main *m);
 int		token_scan(t_main *m, char token);
 size_t	tokenlen(t_stack *lexicon);
+
+//				shell_builtins.c
+int		ft_env(t_env *env);
+int		ft_pwd(t_env *env);
+int		ft_cd(t_main *m, bool is_forked);
+int		ft_echo(t_main *m);
+int     ft_exit(t_main *m, bool is_forked);
+int     ft_export(t_main *m, bool is_forked);
+int     ft_unset(t_main *m, bool is_forked);
 
 //				utils_multi_split.c
 char	**multi_split(char *str, char *charset);

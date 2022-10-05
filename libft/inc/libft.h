@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/03 16:26:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 13:46:11 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int				ft_lstsize(t_list *lst);
 int				ft_tablen(char **tab);
 int				**allocate_tab(int **tab, int size);
 int 			ft_strcmp(char *s1, char *s2);
+int				ft_strisdigit(char *str);
 long			ft_atoli(const char *str);
 unsigned int	ft_atoi_hexa(const char *str);
 

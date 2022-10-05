@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   shell_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/03 18:52:58 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:13:24 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_env(char **envp)
+int	ft_env(t_env *env)
 {
-	int	i;
+	t_env *tmp;
 
-	i = 0;
-	while (envp[i] != 0)
+	tmp = env;
+	while (tmp)
 	{
-		printf("%s\n", envp[i]);
-		i++;
+		printf("%s\n", tmp->total);
+		tmp = tmp->next;
 	}
 	return (0);
 }
@@ -36,12 +36,11 @@ int	ft_cd(t_main *m)
 	return (0);
 }
 
-int	ft_pwd(char **envp)
+int	ft_pwd(t_env *env)
 {
 	char	*path;
 
-	(void)envp;
-	path = getenv("PWD");
+	path = get_cont("PWD", env);
 	if (path == NULL)
 	{
 		ft_putstr_fd("variable not found\n", 2);
@@ -50,4 +49,3 @@ int	ft_pwd(char **envp)
 	printf("%s\n", path);
 	return (0);
 }
-

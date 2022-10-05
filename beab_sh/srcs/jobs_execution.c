@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/03 18:54:12 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 17:00:55 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static char	*get_cmd(char **paths, char *cmd)
 			free(ret);
 			paths++;
 		}
-		ft_error();
+		ft_putstr_fd("command not found\n", 2);
 	}
 	return (NULL);
 }
 
-void	execute(t_main *m, char **envp)
+void	execute(t_main *m)
 {
 	m->o.cmd_flags = ft_split(m->o.cmds[m->o.index], ' ');
 	m->o.cmd = get_cmd(m->o.paths, m->o.cmd_flags[0]);
-	if (execve(m->o.cmd, m->o.cmd_flags, envp) != -1)
+	if (execve(m->o.cmd, m->o.cmd_flags, ft_env_to_tab(m->env)) != -1)
 	{
 		ft_free_child(&m->o);
 		ft_free_parent(&m->o);
@@ -49,22 +49,26 @@ void	execute(t_main *m, char **envp)
 }
 
 // serach for status code for all the builtin created
-int	exec_builtin(t_main *m, char **envp)
+int	exec_builtin(t_main *m)
 {
 	int	ret;
 
 	ret = -1;
 	if (ft_strcmp("env", m->o.cmds[m->o.index]) == 0)
-		ret = ft_env(envp);
+		ret = ft_env(m->env);
 	if (ft_strcmp("exit", m->o.cmds[m->o.index]) == 0)
-	{
-		m->exit = 1;
-		ret = 1;
-	}
+		ft_exit(m, 1);
 	if (ft_strcmp("pwd", m->o.cmds[m->o.index]) == 0)
-		ret = ft_pwd(envp);
+		ret = ft_pwd(m->env);
 	if (ft_strcmp("cd", m->o.cmds[m->o.index]) == 0)
-		ret = ft_cd(m);
+		ret = ft_cd(m, 1);
+	if (ft_strcmp("echo", m->o.cmds[m->o.index]) == 0)
+		ret = ft_echo(m);
+	if (ft_strcmp("export", m->o.cmds[m->o.index]) == 0)
+		ret = ft_export(m, 1);
+	if (ft_strcmp("unset", m->o.cmds[m->o.index]) == 0)
+		ret = ft_unset(m, 1);
+
 	return (ret);
 }
 	// serach for status code for all the builtin created

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:54:07 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/03 18:53:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/04 19:30:11 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	is_builtin(char **cmds)
 	if (ft_strcmp("pwd", cmds[0]) == 0)
 		ret = 1;
 	if (ft_strcmp("cd", cmds[0]) == 0)
+		ret = 1;
+	if (ft_strcmp("echo", cmds[0]) == 0)
 		ret = 1;
 	if (ft_strcmp("export", cmds[0]) == 0)
 		ret = 1;
