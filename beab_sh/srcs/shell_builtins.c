@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 17:13:24 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 21:02:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_env(t_env *env)
 {
-	t_env *tmp;
+	t_env	*tmp;
 
 	tmp = env;
 	while (tmp)
@@ -22,17 +22,6 @@ int	ft_env(t_env *env)
 		printf("%s\n", tmp->total);
 		tmp = tmp->next;
 	}
-	return (0);
-}
-
-int	ft_echo(void)
-{
-	return (0);
-}
-
-int	ft_cd(t_main *m)
-{
-	chdir(m->line);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/05 20:44:56 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/05 20:59:29 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,11 +37,10 @@ SRCS			:=	jobs_execution.c \
 					main.c \
 					shell_builtins.c \
 					shell_cd.c \
-					shell_exit.c\
-					shell_export.c\
-					shell_unset.c\
+					shell_echo.c \
+					shell_exit.c \
 					shell_expansion.c \
-					shell_echo.c\
+					shell_export.c \
 					shell_flush.c \
 					shell_init.c \
 					shell_io.c \
@@ -49,6 +48,7 @@ SRCS			:=	jobs_execution.c \
 					shell_lexer.c \
 					shell_parser.c \
 					shell_signals.c \
+					shell_unset.c \
 					utils_builtins.c \
 					utils.c \
 					utils_env.c \

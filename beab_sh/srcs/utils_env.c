@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/05 17:11:35 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 21:07:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_cont(char *name_var, t_env *env)
 	return (NULL);
 }
 
- char	**ft_env_to_tab(t_env *env)
+char	**ft_env_to_tab(t_env *env)
 {
 	char	**tab;
 	t_env	*tmp;
@@ -80,10 +80,10 @@ t_env	*fill_env(char *is_env)
 	return (new);
 }
 
-t_env *ft_if_env_empty(void)
+t_env	*ft_if_env_empty(void)
 {
-	t_env *new;
-	
+	t_env	*new;
+
 	new = xmalloc(sizeof(t_env) * 1);
 	new->var = ft_strdup("PWD");
 	new->cont = getcwd(NULL, 0);
@@ -131,9 +131,9 @@ void	free_env(t_env *env)
 	free(env);
 }
 
-t_env *ft_add_new(char *varname, char *value)
+t_env	*ft_add_new(char *varname, char *value)
 {
-	t_env *new;
+	t_env	*new;
 
 	new = xmalloc(sizeof(t_env) * 1);
 	new->var = ft_strdup(varname);
@@ -174,7 +174,7 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 	return (0);
 }
 
-int ft_create_o_replace(char *namevar, char *value, t_env *env)
+int	ft_create_o_replace(char *namevar, char *value, t_env *env)
 {
 	t_env	*tmp;
 

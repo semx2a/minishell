@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:03:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 21:05:32 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	ft_process(t_main *m)
 	}
 	else if (m->o.pid == 0)
 	{
-
 		if (m->o.pipe_nb > 0)
 		{	
 			pipes(&m->o);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 19:13:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 21:02:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 # define FUNCTIONS_H
 
 # include "minishell.h"
-
-//				shell_init.c
-void	shell_init(t_main *m, char **envp);
-
-//				shell_jobs.c
-void	job(t_main *m);
 
 //				jobs_execution.c
 void	execute(t_main *m);
@@ -31,13 +25,23 @@ void	ft_assign_pipes(t_obj *o);
 void	pipes(t_obj *o);
 
 //				shell_builtins.c
-int		ft_env(char **envp);
-int		ft_pwd(char **envp);
-int		ft_cd(t_main *m);
-int		ft_echo(void);
+int		ft_env(t_env *env);
+int		ft_pwd(t_env *env);
+
+//				shell_cd
+int		ft_cd(t_main *m, bool is_forked);
+
+//				shell_echo
+int		ft_echo(t_main *m);
+
+//				shell_exit
+int		ft_exit(t_main *m, bool is_forked);
 
 //				shell_expansion.c
 void	expansion(t_main *m);
+
+//				shell_export.c
+int		ft_export(t_main *m, bool is_forked);
 
 // 				shell_flush.c
 void	ft_free_child(t_obj *obj);
@@ -53,7 +57,7 @@ void	in_n_out(t_main *m);
 void	heredoc(t_obj o);
 
 //				shell_jobs.c
-void	job(t_main *m, char **envp);
+void	job(t_main *m);
 
 //				shell_lexer.c
 void	lexer(t_main *m);
@@ -63,6 +67,9 @@ void	lexer(t_main *m);
 //				shell_signals.c
 int		shut_signals(int fork);
 int		set_signals(void);
+
+//				shell_unset.c
+int		ft_unset(t_main *m, bool is_forked);
 
 //				utils_builtins.c
 int		is_builtin(char **cmds);
@@ -74,23 +81,14 @@ char	**ft_env_to_tab(t_env *env);
 t_env	*fill_env(char *is_env);
 t_env	*put_env(char **envp);
 void	free_env(t_env *env);
-int     ft_create_o_replace(char *namevar, char *value, t_env *env);
-int	    ft_add_env(char *namevar, char *value, t_env *env);
+int		ft_create_o_replace(char *namevar, char *value, t_env *env);
+int		ft_add_env(char *namevar, char *value, t_env *env);
 
 //				utils_lexer.c
 int		is_operator(char c, t_main *m);
 int		is_quote(char c, t_main *m);
 int		token_scan(t_main *m, char token);
 size_t	tokenlen(t_stack *lexicon);
-
-//				shell_builtins.c
-int		ft_env(t_env *env);
-int		ft_pwd(t_env *env);
-int		ft_cd(t_main *m, bool is_forked);
-int		ft_echo(t_main *m);
-int     ft_exit(t_main *m, bool is_forked);
-int     ft_export(t_main *m, bool is_forked);
-int     ft_unset(t_main *m, bool is_forked);
 
 //				utils_multi_split.c
 char	**multi_split(char *str, char *charset);
