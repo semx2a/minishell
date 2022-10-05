@@ -25,17 +25,6 @@ int	ft_env(t_env *env)
 	return (0);
 }
 
-int	ft_echo(void)
-{
-	return (0);
-}
-
-int	ft_cd(t_main *m)
-{
-	chdir(m->line);
-	return (0);
-}
-
 int	ft_pwd(t_env *env)
 {
 	char	*path;

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/10/05 20:47:30 by abonard          ###   ########.fr       */
-=======
-/*   Updated: 2022/10/05 19:51:43 by seozcan          ###   ########.fr       */
->>>>>>> 820f5a273b770e4a537560463b4b0b7bd449a1b6
+/*   Updated: 2022/10/01 20:18:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +21,7 @@ typedef enum e_types
 {
 	WORD,
 	OPERATOR,
-	O_SPACE,
 }	t_types;
-
-typedef enum e_states
-{
-	DEFAULT,
-	OPEN_QUOTE,
-	CLOSE_QUOTE,
-}	t_states;
 
 typedef struct s_node
 {
@@ -64,7 +52,6 @@ typedef struct s_obj
 	int		fd_out;
 	int		pipe_nb;
 	int		cmd_nb;
-	int		cmd_ac;
 	int		*fd_pipe;
 	int		index;
 	pid_t	pid;
@@ -80,20 +67,18 @@ typedef struct s_obj
 
 typedef struct s_main
 {
-	unsigned int	i;
-	unsigned int	j;
-	int				err;
-	int				ret;
-	int				exit;
-	int				state;
-	char			quote;
-	char			c;
-	char			*line;
-	char			*cwd;
-	char			*prompt;
-	t_env			*env;
-	t_obj			o;
-	t_stack			*lexicon;
+	int		i;
+	int		j;
+	int		err;
+	int		ret;
+	int		exit;
+	char	c;
+	char	*line;
+	char	*cwd;
+	char	*prompt;
+	t_env	*env;
+	t_obj	o;
+	t_stack	*args;
 }	t_main;
 
 #endif
