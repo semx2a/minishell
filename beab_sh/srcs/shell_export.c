@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/05 15:33:46 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/05 18:46:55 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int ft_checkname(char *namevar)
 
 int ft_check_and_export(char *namevar, char *value, t_env *env, bool is_forked)
 {
-    if (namevar == NULL && value == NULL)
+    if (namevar == NULL || value == NULL)
         return (0);
     if (ft_checkname(namevar) == 1)
     {
