@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 20:28:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 20:45:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,15 @@ typedef enum e_types
 {
 	WORD,
 	OPERATOR,
+	O_SPACE,
 }	t_types;
+
+typedef enum e_states
+{
+	DEFAULT,
+	OPEN_QUOTE,
+	CLOSE_QUOTE,
+}	t_states;
 
 typedef struct s_node
 {

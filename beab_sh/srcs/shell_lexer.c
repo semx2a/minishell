@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 20:32:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 20:45:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,15 @@ void	build_token(t_main *m, t_stack *a, t_stack *b)
 void	lexer(t_main *m)
 {	
 	t_stack	*tmp_a;
-//	t_stack	*tmp_b;
+	t_stack	*tmp_b;
 
 	m->lexicon = xmalloc(sizeof(t_stack));
-//	m->tokens = xmalloc(sizeof(t_stack));
+	m->tokens = xmalloc(sizeof(t_stack));
 	init_stack(m->lexicon);
-//	init_stack(m->tokens);
+	init_stack(m->tokens);
 	tmp_a = m->lexicon;
-//	tmp_b = m->tokens;
+	tmp_b = m->tokens;
 	find_types(m, tmp_a);
-//	build_token(m, tmp_a, tmp_b);
-//	free_stack(m->lexicon);
+	build_token(m, tmp_a, tmp_b);
+	free_stack(m->lexicon);
 }

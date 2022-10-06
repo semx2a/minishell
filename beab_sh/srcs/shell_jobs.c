@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 19:25:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 20:45:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	job(t_main *m)
 {
 	lexer(m);
 	if (m->state != OPEN_QUOTE)
-		print_list(m->lexicon);
+		print_list(m->tokens);
 //	free(m->tokens);
 //	parser();	
 //	expansion(m);
