@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 19:15:22 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/06 19:42:03 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*ft_path_finder(t_main *m, bool is_forked)
 	char	*path;
 
 	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_nb = ft_tablen(m->o.cmd_flags);
-	if (m->o.cmd_nb < 2)
+	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
+	if (m->o.cmd_ac < 2)
 	{
 		path = get_cont("HOME", m->env);
 		if (path == NULL && is_forked)

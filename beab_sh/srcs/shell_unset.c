@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 19:04:27 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/06 19:46:25 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,10 @@ int	ft_unset(t_main *m, bool is_forked)
 
 	i = 1;
 	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_nb = ft_tablen(m->o.cmd_flags);
-	if (m->o.cmd_nb >= 2)
+	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
+	if (m->o.cmd_ac >= 2)
 	{
-		while (m->o.cmd_flags[i] && i < m->o.cmd_nb)
+		while (m->o.cmd_flags[i] && i < m->o.cmd_ac)
 		{
 			ft_exec_unset(m->o.cmd_flags[i], m->env);
 			i++;
