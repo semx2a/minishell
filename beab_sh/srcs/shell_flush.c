@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/01 21:33:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:29:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ void	ft_free_child(t_obj *obj)
 		i++;
 	}
 	free(obj->cmd_flags);
+	i = 0;
+	while (obj->envtab[i] != 0)
+	{
+		free(obj->envtab[i]);
+		i++;
+	}
+	free(obj->envtab);
+	free(obj->bin_path);
 }
 
 void	ft_free_parent(t_obj *obj)

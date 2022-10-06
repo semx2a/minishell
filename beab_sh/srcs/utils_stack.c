@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 15:14:27 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 17:52:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:34:34 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ void	free_stack(t_stack *stack)
 	free(stack);
 }
 
-int	stack_size(t_stack *stack)
+size_t	stack_size(t_stack *stack)
 {
-	int		size;
+	size_t	size;
 	t_node	*tmp;
 
 	size = 0;

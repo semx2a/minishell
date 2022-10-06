@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 17:00:55 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/06 14:56:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ static char	*get_cmd(char **paths, char *cmd)
 void	execute(t_main *m)
 {
 	m->o.cmd_flags = ft_split(m->o.cmds[m->o.index], ' ');
-	m->o.cmd = get_cmd(m->o.paths, m->o.cmd_flags[0]);
-	if (execve(m->o.cmd, m->o.cmd_flags, ft_env_to_tab(m->env)) != -1)
+	m->o.bin_path = get_cmd(m->o.paths, m->o.cmd_flags[0]);
+	m->o.envtab = ft_env_to_tab(m->env);
+	if (execve(m->o.bin_path, m->o.cmd_flags, m->o.envtab) != -1)
 	{
 		ft_free_child(&m->o);
 		ft_free_parent(&m->o);
@@ -68,7 +69,6 @@ int	exec_builtin(t_main *m)
 		ret = ft_export(m, 1);
 	if (ft_strcmp("unset", m->o.cmds[m->o.index]) == 0)
 		ret = ft_unset(m, 1);
-
 	return (ret);
 }
 	// serach for status code for all the builtin created

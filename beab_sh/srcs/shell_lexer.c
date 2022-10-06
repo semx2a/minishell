@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:03:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 19:25:19 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,76 @@
 		one meta-character is an ‘operator’.
 */
 
-t_node	*assign_type(t_node *tmp, t_main *m)
-{
-	tmp->type = token_scan(m, m->line[m->i]);
-	tmp->arg = ft_substr(m->line, m->i, 1);
-	tmp = tmp->next;
-	return (tmp);
-}
-
-t_node	*inside_quotes(t_main *m, t_node *tmp)
+void	inside_quotes(t_main *m, t_stack *tmp)
 {
 	while (m->line[m->i] && !is_quote(m->line[m->i], m))
 	{
-		tmp = assign_type(tmp, m);
+		put_back(tmp, is_operator(m->line[m->i], m),
+			ft_substr(m->line, m->i, 1));
 		m->i++;
 	}
-	return (tmp);
 }
 
-void	line_scan(t_main *m)
+void	find_types(t_main *m, t_stack *tmp)
 {	
-	t_node	*tmp;
-
-	tmp = m->lexicon->head;
+	m->i = 0;
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
 	{
 		m->state = is_quote(m->line[m->i], m);
-		tmp = assign_type(tmp, m);
+		put_back(tmp, is_operator(m->line[m->i], m),
+			ft_substr(m->line, m->i, 1));
 		m->i++;
 		if (m->line[m->i] && m->state == OPEN_QUOTE)
-			tmp = inside_quotes(m, tmp);
+			inside_quotes(m, tmp);
 	}
 	if (m->state == OPEN_QUOTE)
 		ft_putstr_fd("Error: Open quote found\n", 2);
 }
 
-void	tokencat(t_main *m)
+void	build_token(t_main *m, t_stack *a, t_stack *b)
 {
-	printf("Number of tokens found = %lu\n", tokenlen(m->lexicon));
+	unsigned int	status;
+	unsigned int	start;
+	size_t			len;
+	char			*buff;
+
+	m->i = 0;
+	len = stack_size(a);
+	buff = xmalloc(sizeof(char) * len + 1);
+	buff[len] = '\0';
+	while (a->head)
+	{	
+		start = m->i;
+		m->i = 0;
+		status = a->head->type;
+		if (status != O_SPACE)
+		{
+			while (a->head && status == a->head->type)
+			{
+				buff[m->i] = a->head->arg[0];
+				a->head = a->head->next;
+				m->i++;
+			}
+			put_back(b, status, ft_substr(buff, start, m->i));
+		}
+		else
+			a->head = a->head->next;
+	}
+	free(buff);
 }
 
 void	lexer(t_main *m)
-{
-	m->i = 0;
-	m->lexicon = stack_alloc(&put_back, ft_strlen(m->line));
-	line_scan(m);
-//	tokencat(m);
+{	
+	t_stack	*tmp_a;
+//	t_stack	*tmp_b;
+
+	m->lexicon = xmalloc(sizeof(t_stack));
+//	m->tokens = xmalloc(sizeof(t_stack));
+	init_stack(m->lexicon);
+//	init_stack(m->tokens);
+	tmp_a = m->lexicon;
+//	tmp_b = m->tokens;
+	find_types(m, tmp_a);
+//	build_token(m, tmp_a, tmp_b);
+//	free_stack(m->lexicon);
 }

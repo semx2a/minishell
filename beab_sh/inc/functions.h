@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 21:02:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:33:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,24 +85,25 @@ int		ft_create_o_replace(char *namevar, char *value, t_env *env);
 int		ft_add_env(char *namevar, char *value, t_env *env);
 
 //				utils_lexer.c
-int		is_operator(char c, t_main *m);
+unsigned int	is_operator(char c, t_main *m);
 int		is_quote(char c, t_main *m);
 int		token_scan(t_main *m, char token);
-size_t	tokenlen(t_stack *lexicon);
+/* size_t	tokenlen(t_stack *lexicon);*/
 
 //				utils_multi_split.c
 char	**multi_split(char *str, char *charset);
 
 //				utils_stack_update.c
-void	put_back(t_stack *stack);
-void	put_front(t_stack *stack);
+void	put_back(t_stack *stack, unsigned int type, char *str);
+void	put_front(t_stack *stack, unsigned int type, char *str);
 void	print_list(t_stack *stack);
-t_stack	*stack_alloc(void (f)(t_stack *), size_t len);
+/* t_stack	*stack_alloc(void (f)(t_stack *), size_t len);
+t_node	*build_data(t_node *tmp, int type, char *str); */
 
 //				utils_stack.c
 void	init_stack(t_stack *stack);
 void	free_stack(t_stack *stack);
-int		stack_size(t_stack *stack);
+size_t	stack_size(t_stack *stack);
 
 //				utils.c
 /* void	ft_error(const char *str); */

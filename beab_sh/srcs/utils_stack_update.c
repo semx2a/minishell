@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 16:29:12 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:03:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:32:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@
 //	update_pos(stack);
 //}
 
-void	put_back(t_stack *stack)
+void	put_back(t_stack *stack, unsigned int type, char *str)
 {
 	t_node	*new;
 
 	new = xmalloc(sizeof(t_node));
-	new->arg = 0;
-	new->type = 0;
+	new->arg = str;
+	new->type = type;
 	new->prev = stack->tail;
 	new->next = NULL;
 	if (stack->tail)
@@ -68,13 +68,13 @@ void	put_back(t_stack *stack)
 	stack->tail = new;
 }
 
-void	put_front(t_stack *stack)
+void	put_front(t_stack *stack, unsigned int type, char *str)
 {
 	t_node	*new;
 
 	new = xmalloc(sizeof(t_node));
-	new->arg = 0;
-	new->type = 0;
+	new->arg = str;
+	new->type = type;
 	new->next = stack->head;
 	new->prev = NULL;
 	if (stack->head)
@@ -84,7 +84,7 @@ void	put_front(t_stack *stack)
 	stack->head = new;
 }
 
-t_stack	*stack_alloc(void (f)(t_stack *), size_t len)
+/* t_stack	*stack_alloc(void (f)(t_stack *), size_t len)
 {
 	t_stack	*tmp;
 
@@ -97,6 +97,14 @@ t_stack	*stack_alloc(void (f)(t_stack *), size_t len)
 	}
 	return (tmp);
 }
+
+t_node	*build_data(t_node *tmp, int type, char *str)
+{
+	tmp->type = type;
+	tmp->arg = str;
+	tmp = tmp->next;
+	return (tmp);
+} */
 
 void	print_list(t_stack *stack)
 {

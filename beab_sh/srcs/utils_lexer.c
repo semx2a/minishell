@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:24:16 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:17:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:33:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_operator(char c, t_main *m)
+unsigned int	is_operator(char c, t_main *m)
 {	
 	if ((!ft_isprint(c) || c == ' ') && m->state == DEFAULT)
 		return (O_SPACE);
@@ -34,14 +34,7 @@ int	is_quote(char c, t_main *m)
 	return (DEFAULT);
 }
 
-int	token_scan(t_main *m, char token)
-{
-	if (is_operator(token, m))
-		return (OPERATOR);
-	return (WORD);
-}
-
-size_t	tokenlen(t_stack *lexicon)
+/* size_t	tokenlen(t_stack *lexicon)
 {
 	t_node	*tmp;
 	size_t	len;
@@ -53,7 +46,10 @@ size_t	tokenlen(t_stack *lexicon)
 	while (tmp)
 	{
 		if (tmp->type == O_SPACE)
+		{
+			status = tmp->type;
 			tmp = tmp->next;
+		}
 		if (len == 0 && tmp->type == status)
 			len++;
 		else if (tmp->type != status)
@@ -61,9 +57,8 @@ size_t	tokenlen(t_stack *lexicon)
 			len++;
 			status = tmp->type;
 		}
-		printf("len = %lu | %s\n", len, tmp->arg);
 		tmp = tmp->next;
-
 	}
 	return (len);
 }
+ */

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 21:33:22 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 18:32:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum e_states
 
 typedef struct s_node
 {
-	int				type;
+	unsigned int	type;
 	char			*arg;
 	struct s_node	*prev;
 	struct s_node	*next;
@@ -54,22 +54,21 @@ typedef struct s_env
 }	t_env;
 
 typedef struct s_obj
-{
+{	
+	pid_t	pid;
+	int		index;
 	int		fd_in;
 	int		fd_out;
 	int		pipe_nb;
 	int		cmd_nb;
 	int		*fd_pipe;
-	int		index;
-	pid_t	pid;
 	char	*infile;
 	char	*outfile;
-	char	*cmd;
+	char	*bin_path;
 	char	**cmds;
 	char	**cmd_flags;
-	char	*cmd_paths;
 	char	**paths;
-	char	*path;
+	char	**envtab;
 }	t_obj;
 
 typedef struct s_main
@@ -88,6 +87,7 @@ typedef struct s_main
 	t_obj			o;
 	t_env			*env;
 	t_stack			*lexicon;
+	t_stack			*tokens;
 }	t_main;
 
 #endif
