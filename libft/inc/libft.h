@@ -71,7 +71,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_calloc(size_t count, size_t size);
 void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
-void			ft_strcpy(char *dest, char *src);
+
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strrchr(const char *s, int c);

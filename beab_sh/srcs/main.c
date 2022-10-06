@@ -12,19 +12,6 @@
 
 #include "../inc/minishell.h"
 
-// might not need it in the end bc of free_parent();
-// current issue it fixes:
-// lexer camnot see if quote is closed
-void	clean_main(t_main *m)
-{
-	m->i = 0;
-	m->j = 0;
-	m->err = 0;
-	m->exit = 0;
-	m->state = DEFAULT;
-	m->quote = 0;
-}
-
 void	prompt(t_main *m)
 {
 	while (!m->exit)
@@ -36,7 +23,6 @@ void	prompt(t_main *m)
 		add_history(m->line);
 		free(m->line);
 		free(m->prompt);
-		clean_main(m);
 	}
 }
 
