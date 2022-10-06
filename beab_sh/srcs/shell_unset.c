@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
 /*   Updated: 2022/10/06 19:52:55 by abonard          ###   ########.fr       */
@@ -90,6 +90,7 @@ int	ft_unset(t_main *m, bool is_forked)
 	if (m->o.cmd_ac >= 2)
 	{
 		while (m->o.cmd_flags[i] && i < m->o.cmd_ac)
+
 		{
 			ft_exec_unset(m->o.cmd_flags[i], m->env);
 			i++;

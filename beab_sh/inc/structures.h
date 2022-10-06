@@ -15,7 +15,6 @@
 # define STRUCTURES_H
 
 # include "minishell.h"
-# include <stdbool.h>
 
 typedef enum e_types
 {

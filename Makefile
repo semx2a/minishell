@@ -3,7 +3,7 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
 #    Updated: 2022/10/06 19:24:53 by abonard          ###   ########.fr        #
@@ -41,8 +41,9 @@ SRCS			:=	jobs_execution.c \
 					shell_export.c\
 					shell_export_utils.c\
 					shell_unset.c\
+					shell_echo.c \
 					shell_expansion.c \
-					shell_echo.c\
+					shell_export.c \
 					shell_flush.c \
 					shell_init.c \
 					shell_io.c \
@@ -50,6 +51,7 @@ SRCS			:=	jobs_execution.c \
 					shell_lexer.c \
 					shell_parser.c \
 					shell_signals.c \
+					shell_unset.c \
 					utils_builtins.c \
 					utils.c \
 					utils_env.c \
@@ -174,7 +176,7 @@ $(ODIR)/%.o:	%.c
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) ./readline/libreadline.a -o $(NAME)
+	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)

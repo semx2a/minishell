@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
-/*   Updated: 2022/09/29 17:09:28 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/05 20:47:28 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@
 
 //			limits
 # include <limits.h>
+
+//			booleens
+# include <stdbool.h>
 
 //			minishell headers
 # include "structures.h"

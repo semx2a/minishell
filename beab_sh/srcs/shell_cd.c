@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   shell_cd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
 /*   Updated: 2022/10/06 19:42:03 by abonard          ###   ########.fr       */

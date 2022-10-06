@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   shell_echo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
 /*   Updated: 2022/10/06 19:43:37 by abonard          ###   ########.fr       */
@@ -44,6 +44,7 @@ int	ft_exec_echo(t_main *m, bool flag)
 		else if (i + 1 == m->o.cmd_ac && flag == true)
 			return (0);
 		else if (i + 1 == m->o.cmd_ac && flag == false)
+
 		{
 			ft_putchar_fd('\n', 1);
 			return (0);
@@ -61,6 +62,7 @@ int	ft_echo(t_main *m)
 	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
 	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
 	if (m->o.cmd_ac < 2)
+
 	{
 		ft_putstr_fd("\n", 1);
 		return (0);
@@ -68,6 +70,7 @@ int	ft_echo(t_main *m)
 	if (ft_is_flag(m->o.cmd_flags[1]) == 1)
 		flag = true;
 	if (m->o.cmd_ac == 2 && flag == true)
+
 		return (0);
 	else
 	{
@@ -76,3 +79,4 @@ int	ft_echo(t_main *m)
 	}
 	return (0);
 }
+
