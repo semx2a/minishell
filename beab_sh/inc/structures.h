@@ -67,18 +67,20 @@ typedef struct s_obj
 
 typedef struct s_main
 {
-	int		i;
-	int		j;
-	int		err;
-	int		ret;
-	int		exit;
-	char	c;
-	char	*line;
-	char	*cwd;
-	char	*prompt;
-	t_env	*env;
-	t_obj	o;
-	t_stack	*args;
+	unsigned int	i;
+	unsigned int	j;
+	int				err;
+	int				ret;
+	int				exit;
+	int				state;
+	char			quote;
+	char			c;
+	char			*line;
+	char			*cwd;
+	char			*prompt;
+	t_obj			o;
+	t_env			*env;
+	t_stack			*lexicon;
 }	t_main;
 
 #endif
