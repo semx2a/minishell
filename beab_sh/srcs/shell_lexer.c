@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:03:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/09/29 20:50:36 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,50 +25,130 @@
 		one meta-character is an ‘operator’.
 */
 
-t_node	*assign_type(t_node *tmp, t_main *m)
+size_t	is_in_quotes(char *s)
 {
-	tmp->type = token_scan(m, m->line[m->i]);
-	tmp->arg = ft_substr(m->line, m->i, 1);
-	tmp = tmp->next;
-	return (tmp);
-}
+	size_t	i;
+	size_t	j;
 
-t_node	*inside_quotes(t_main *m, t_node *tmp)
-{
-	while (m->line[m->i] && !is_quote(m->line[m->i], m))
+	i = 0;
+	j = 0;
+	printf("%s\n", s);
+//	while (s[i])
+//	{
+	if ((s[i] == DOUBLE_Q || s[i] == SINGLE_Q) && s[i + 1] != '\0')
 	{
-		tmp = assign_type(tmp, m);
-		m->i++;
+		j = i + 1;
+		while (s[j])
+		{
+			if (s[j] == s[i])
+				return (j + 1);
+			j++;
+		}
+		return (0);
 	}
-	return (tmp);
+//		i++;
+//	}
+	return (0);
 }
 
-void	line_scan(t_main *m)
-{	
-	t_node	*tmp;
-
-	tmp = m->lexicon->head;
-	while (m->line[m->i] && ft_isascii(m->line[m->i]))
-	{
-		m->state = is_quote(m->line[m->i], m);
-		tmp = assign_type(tmp, m);
-		m->i++;
-		if (m->line[m->i] && m->state == OPEN_QUOTE)
-			tmp = inside_quotes(m, tmp);
-	}
-	if (m->state == OPEN_QUOTE)
-		ft_putstr_fd("Error: Open quote found\n", 2);
-}
-
-void	tokencat(t_main *m)
+static char	**ft_strs(char const *s, int c)
 {
-	printf("Number of tokens found = %lu\n", tokenlen(m->lexicon));
+	size_t	i;
+	size_t	j;
+	char	**dest;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == DOUBLE_Q || s[i] == SINGLE_Q)
+			i += is_in_quotes((char *)(s) + i) - 1;
+		if (s[i] != c && (s[i + 1] == '\0' || s[i + 1] == c))
+			j++;
+		i++;
+	}
+	printf("#words = %lu\n", j);
+	printf("strs ok\n\n");
+	printf("_____________\n\n");
+	dest = (char **)xmalloc(sizeof(char *) * (j + 1));
+	dest[j] = 0;
+	return (dest);
+}
+
+char	**tokenizr(char *src, int c)
+{
+	unsigned int	i;
+	unsigned int	j;
+	size_t			k;
+	char			**dst;
+
+	i = 0;
+	k = 0;
+	dst = ft_strs(src, c);
+	if (!dst)
+		return (0);
+	while (src[i])
+	{
+		if (src[i] != c)
+		{
+			j = i;
+			printf("i = %u\n", i);
+			j += (unsigned int)is_in_quotes(src + i);
+			printf("first j = %u\n", j);
+			if (i == j)
+				while (src[j] != c && src[j])
+					j++;
+			printf("second j = %u\n", j);
+			printf("k = %lu\n", k);
+			dst[k++] = ft_substr(src, i, j - i);
+			i = j - 1;
+		}
+		if (src[i + 1] == '\0')
+			break ;
+		printf("_____________\n\n");
+		i++;
+	}
+	return (dst);
+}
+
+int	token_scan(char *token)
+{
+	int		i;
+
+	i = 0;
+	if (is_in_quotes(token))
+		return (WORD);
+	else
+	{
+		while (token[i])
+		{
+			if (ft_strchr("\t \n|&;()><", token[i]))
+				return (OPERATOR);
+			i++;
+		}
+	}
+	return (WORD);
 }
 
 void	lexer(t_main *m)
 {
-	m->i = 0;
-	m->lexicon = stack_alloc(&put_back, ft_strlen(m->line));
-	line_scan(m);
-//	tokencat(m);
+	int		i;
+	char	**tokens;
+//	char	*charset;
+
+	i = 0;
+	m->args = xmalloc(sizeof(t_stack));
+	init_stack(m->args);
+//	charset = ft_strdup(" \'\"");
+//	tokens = multi_split(m->line, charset);
+	tokens = tokenizr(m->line, ' ');
+	while (tokens[i] != 0)
+	{
+		if (token_scan(tokens[i]) == WORD)
+			put_back(m->args, WORD, ft_strdup(tokens[i]));
+		else
+			put_back(m->args, OPERATOR, ft_strdup(tokens[i]));
+		i++;
+	}
+	ft_free_stab(tokens);
 }
