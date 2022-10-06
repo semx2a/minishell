@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/05 20:52:57 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 19:43:37 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ int	ft_exec_echo(t_main *m, bool flag)
 	i = 1;
 	if (flag == true)
 		i = 2;
-	while (m->o.cmd_flags[i] && i < m->o.cmd_nb)
+	while (m->o.cmd_flags[i] && i < m->o.cmd_ac)
 	{
 		ft_putstr_fd(m->o.cmd_flags[i], 1);
-		if (i + 1 < m->o.cmd_nb)
+		if (i + 1 < m->o.cmd_ac)
 			ft_putchar_fd(' ', 1);
-		else if (i + 1 == m->o.cmd_nb && flag  == true)
+		else if (i + 1 == m->o.cmd_ac && flag == true)
 			return (0);
-		else if (i + 1 == m->o.cmd_nb && flag == false)
+		else if (i + 1 == m->o.cmd_ac && flag == false)
+
 		{
 			ft_putchar_fd('\n', 1);
 			return (0);
@@ -59,15 +60,17 @@ int	ft_echo(t_main *m)
 
 	flag = false;
 	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_nb = ft_tablen(m->o.cmd_flags);
-	if (m->o.cmd_nb < 2)
+	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
+	if (m->o.cmd_ac < 2)
+
 	{
 		ft_putstr_fd("\n", 1);
 		return (0);
 	}
 	if (ft_is_flag(m->o.cmd_flags[1]) == 1)
 		flag = true;
-	if (m->o.cmd_nb == 2 && flag == true)
+	if (m->o.cmd_ac == 2 && flag == true)
+
 		return (0);
 	else
 	{
@@ -76,3 +79,4 @@ int	ft_echo(t_main *m)
 	}
 	return (0);
 }
+

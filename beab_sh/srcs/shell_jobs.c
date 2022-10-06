@@ -54,4 +54,5 @@ void	job(t_main *m)
 		waitpid(-1, NULL, 0);
 	}
 	ft_free_parent(&m->o);
+	
 }

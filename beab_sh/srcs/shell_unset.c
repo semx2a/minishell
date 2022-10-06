@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/05 21:06:55 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/06 19:52:55 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,10 +86,11 @@ int	ft_unset(t_main *m, bool is_forked)
 
 	i = 1;
 	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_nb = ft_tablen(m->o.cmd_flags);
-	if (m->o.cmd_nb >= 2)
+	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
+	if (m->o.cmd_ac >= 2)
 	{
-		while (m->o.cmd_flags[i] && i < m->o.cmd_nb)
+		while (m->o.cmd_flags[i] && i < m->o.cmd_ac)
+
 		{
 			ft_exec_unset(m->o.cmd_flags[i], m->env);
 			i++;
