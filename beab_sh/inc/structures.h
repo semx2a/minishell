@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 20:46:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 15:35:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ typedef struct s_main
 {
 	unsigned int	i;
 	unsigned int	j;
+	unsigned int	type;
 	int				err;
 	int				ret;
 	int				exit;
@@ -85,6 +86,7 @@ typedef struct s_main
 	char			*line;
 	char			*cwd;
 	char			*prompt;
+	char			*buff;
 	t_obj			o;
 	t_env			*env;
 	t_stack			*lexicon;

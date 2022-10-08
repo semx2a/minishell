@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:24:16 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 18:33:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 15:36:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-unsigned int	is_operator(char c, t_main *m)
+int	is_operator(char c, t_main *m)
 {	
 	if ((!ft_isprint(c) || c == ' ') && m->state == DEFAULT)
 		return (O_SPACE);
@@ -34,31 +34,17 @@ int	is_quote(char c, t_main *m)
 	return (DEFAULT);
 }
 
-/* size_t	tokenlen(t_stack *lexicon)
-{
+size_t	token_len(t_main *m, t_stack *a)
+{	
 	t_node	*tmp;
 	size_t	len;
-	int		status;
 
-	tmp = lexicon->head;
 	len = 0;
-	status = 0;
-	while (tmp)
+	tmp = a->head;
+	while (tmp && m->type == tmp->type)
 	{
-		if (tmp->type == O_SPACE)
-		{
-			status = tmp->type;
-			tmp = tmp->next;
-		}
-		if (len == 0 && tmp->type == status)
-			len++;
-		else if (tmp->type != status)
-		{
-			len++;
-			status = tmp->type;
-		}
 		tmp = tmp->next;
+		len++;
 	}
 	return (len);
 }
- */

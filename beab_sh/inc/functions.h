@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 20:57:09 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/08 15:35:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	heredoc(t_obj o);
 void	job(t_main *m);
 
 //				shell_lexer.c
-void	lexer(t_main *m);
+int		lexer(t_main *m);
 
 //				shell_parser.c
 
@@ -105,12 +105,15 @@ int		ft_checkname(char *namevar);
 void	ft_swap_list(t_env **begin, t_env *last);
 void	ft_sort_env(t_env **begin);
 void	ft_print_declare(t_env *env, bool is_forked);
-int		ft_check_and_export(char *namevar, char *value, t_env *env, bool is_forked);
+int		ft_check_and_export(char *namevar, char *value, t_env *env,
+			bool is_forked);
 
 //				utils_lexer.c
-unsigned int	is_operator(char c, t_main *m);
+int		is_operator(char c, t_main *m);
 int		is_quote(char c, t_main *m);
 int		token_scan(t_main *m, char token);
+size_t	token_len(t_main *m, t_stack *a);
+
 /* size_t	tokenlen(t_stack *lexicon);*/
 
 //				utils_multi_split.c
