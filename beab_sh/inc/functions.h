@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 15:35:44 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 16:21:11 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int		ft_check_and_export(char *namevar, char *value, t_env *env,
 int		is_operator(char c, t_main *m);
 int		is_quote(char c, t_main *m);
 int		token_scan(t_main *m, char token);
-size_t	token_len(t_main *m, t_stack *a);
+size_t	token_len(t_main *m, t_node *a);
 
 /* size_t	tokenlen(t_stack *lexicon);*/
 

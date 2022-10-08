@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 15:43:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 16:20:19 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,12 @@ void	build_token(t_main *m, t_stack *a, t_stack *b)
 {
 	m->i = 0;
 	while (a->head)
-	{	
+	{
+		while (a->head && a->head->type == O_SPACE)
+			a->head = a->head->next;
 		m->i = 0;
 		m->type = a->head->type;
-		while (m->type == O_SPACE)
-			a->head = a->head->next;
-		m->j = (unsigned int)token_len(m, a);
+		m->j = (unsigned int)token_len(m, a->head);
 		m->buff = xmalloc(sizeof(char) * (m->j + 1));
 		m->buff[m->j] = '\0';
 		while (a->head && m->type == a->head->type)
@@ -88,7 +88,10 @@ int	lexer(t_main *m)
 	tmp_b = m->tokens;
 	find_types(m, tmp_a);
 	if (m->state == OPEN_QUOTE)
+	{
+		free(m->lexicon);
 		return (0);
+	}
 	build_token(m, tmp_a, tmp_b);
 	free_stack(m->lexicon);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 13:31:04 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 16:13:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,7 @@ void	job(t_main *m)
 	if (!lexer(m))
 		return ;
 	print_list(m->tokens);
-//	free(m->tokens);
-//	parser();	
+//	parser();
 //	expansion(m);
 //	if (is_builtin(m->o.cmds) == 1)
 //		exec_builtin(m);
