@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 15:35:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/09 21:26:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ typedef enum e_states
 	OPEN_QUOTE,
 	CLOSE_QUOTE,
 }	t_states;
+
+typedef enum e_id
+{
+	CMD,
+	ARG,
+}	t_id;
 
 typedef struct s_node
 {
@@ -55,21 +61,23 @@ typedef struct s_env
 
 typedef struct s_obj
 {	
-	pid_t	pid;
-	int		index;
-	int		fd_in;
-	int		fd_out;
-	int		pipe_nb;
-	int		cmd_nb;
-	int		cmd_ac;
-	int		*fd_pipe;
-	char	*infile;
-	char	*outfile;
-	char	*bin_path;
-	char	**cmds;
-	char	**cmd_flags;
-	char	**paths;
-	char	**envtab;
+	pid_t			pid;
+	int				index;
+	int				fd_in;
+	int				fd_out;
+	int				pipe_nb;
+	int				cmd_nb;
+	int				cmd_ac;
+	int				*fd_pipe;
+	char			*infile;
+	char			*outfile;
+	char			*bin_path;
+	char			**cmds;
+	char			**cmd_flags;
+	char			**paths;
+	char			**envtab;
+	t_stack			*lexicon;
+	t_stack			*tokens;
 }	t_obj;
 
 typedef struct s_main
@@ -89,8 +97,6 @@ typedef struct s_main
 	char			*buff;
 	t_obj			o;
 	t_env			*env;
-	t_stack			*lexicon;
-	t_stack			*tokens;
 }	t_main;
 
 #endif

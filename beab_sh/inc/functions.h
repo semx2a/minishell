@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/08 16:21:11 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/08 16:28:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	job(t_main *m);
 int		lexer(t_main *m);
 
 //				shell_parser.c
+void	parser(t_main *m);
 
 //				shell_signals.c
 int		shut_signals(int fork);

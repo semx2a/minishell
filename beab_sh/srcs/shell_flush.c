@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 18:29:56 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/09 21:28:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ void	ft_free_parent(t_obj *obj)
 		i++;
 	}
 	free(obj->cmds);
-//	if (obj->pipe_nb > 0)
-//		free(obj->fd_pipe);
+	free_stack(obj->tokens);
+	if (obj->pipe_nb > 0)
+		free(obj->fd_pipe);
 }
 
 void	ft_close_pipes(t_obj *obj)
