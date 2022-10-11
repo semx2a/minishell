@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 15:50:45 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 16:14:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define STRUCTURES_H
 
 # include "minishell.h"
+
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LEXER ENUMS::
 
 typedef enum e_types
 {
@@ -40,6 +42,8 @@ typedef enum e_parser
 	PIPE = 124,
 }	t_parser;
 
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING IDs::
+
 typedef enum e_id
 {
 	CMD_ID,
@@ -57,6 +61,8 @@ typedef enum e_id
 	ENV_VAR_ID,
 }	t_id;
 
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LINKED LISTS::
+
 typedef struct s_node
 {
 	int				type;
@@ -71,21 +77,6 @@ typedef struct s_stack
 	t_node	*tail;
 }	t_stack;
 
-typedef struct s_leaf
-{
-	int				item;
-	size_t			h;
-	size_t			d;
-	struct s_leaf	*left;
-	struct s_leaf	*right;
-}	t_leaf;
-
-typedef struct s_tree
-{
-	t_leaf	root;
-	size_t	total_h;
-}	t_tree;
-
 typedef struct s_env
 {
 	char			*var;
@@ -94,6 +85,8 @@ typedef struct s_env
 	int				stat_code;
 	struct s_env	*next;
 }	t_env;
+
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::STRUCTURES::
 
 typedef struct s_obj
 {	
