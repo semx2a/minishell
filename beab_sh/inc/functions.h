@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 18:48:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:57:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	shell_init(t_main *m, char **envp);
 
 //				shell_io.c
 void	in_n_out(t_main *m);
-void	heredoc(t_obj o);
+void	heredoc(t_main *m);
 
 //				shell_jobs.c
 void	job(t_main *m);
@@ -114,8 +114,8 @@ size_t	token_len(t_main *m, t_node *a);
 char	**multi_split(char *str, char *charset);
 
 //				utils_stack_update.c
-void	put_back(t_stack *stack, unsigned int type, char *str);
-void	put_front(t_stack *stack, unsigned int type, char *str);
+void	put_back(t_stack *stack, int type, char *str);
+void	put_front(t_stack *stack, int type, char *str);
 void	print_list(t_stack *stack);
 
 //				stack_init.c
@@ -127,8 +127,5 @@ size_t	stack_size(t_stack *stack);
 /* void	ft_error(const char *str); */
 void	ft_error(void);
 void	*xmalloc(size_t size);
-
-//				utils_tree.c
-int		make_tree(void);
 
 #endif

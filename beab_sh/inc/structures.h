@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 21:26:43 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 15:50:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,36 @@ typedef enum e_states
 	CLOSE_QUOTE,
 }	t_states;
 
+typedef enum e_parser
+{
+	DOUBLE_Q = 34,
+	AMPERSAND = 38,
+	SINGLE_Q = 39,
+	LEFT_A = 60,
+	RIGHT_A = 62,
+	PIPE = 124,
+}	t_parser;
+
 typedef enum e_id
 {
-	CMD,
-	ARG,
+	CMD_ID,
+	FLAG_ID,
+	ARG_ID,
+	INFILE_ID,
+	OUTFILE_ID,
+	PIPE_ID,
+	OR_ID,
+	AND_ID,
+	STDIN_REDIR_ID,
+	STDOUT_REDIR_ID,
+	DELEM_ID,
+	STDOUT_APPEND_ID,
+	ENV_VAR_ID,
 }	t_id;
 
 typedef struct s_node
 {
-	unsigned int	type;
+	int				type;
 	char			*arg;
 	struct s_node	*prev;
 	struct s_node	*next;
@@ -49,6 +70,21 @@ typedef struct s_stack
 	t_node	*head;
 	t_node	*tail;
 }	t_stack;
+
+typedef struct s_leaf
+{
+	int				item;
+	size_t			h;
+	size_t			d;
+	struct s_leaf	*left;
+	struct s_leaf	*right;
+}	t_leaf;
+
+typedef struct s_tree
+{
+	t_leaf	root;
+	size_t	total_h;
+}	t_tree;
 
 typedef struct s_env
 {
@@ -62,12 +98,14 @@ typedef struct s_env
 typedef struct s_obj
 {	
 	pid_t			pid;
-	int				index;
+	size_t			index;
+	size_t			pipe_nb;
+	size_t			cmd_nb;
+	int				cmd_ac;
 	int				fd_in;
 	int				fd_out;
-	int				pipe_nb;
-	int				cmd_nb;
-	int				cmd_ac;
+	bool			is_infile;
+	bool			is_outfile;
 	int				*fd_pipe;
 	char			*infile;
 	char			*outfile;
@@ -82,9 +120,9 @@ typedef struct s_obj
 
 typedef struct s_main
 {
-	unsigned int	i;
-	unsigned int	j;
-	unsigned int	type;
+	size_t			i;
+	size_t			j;
+	int				type;
 	int				err;
 	int				ret;
 	int				exit;
