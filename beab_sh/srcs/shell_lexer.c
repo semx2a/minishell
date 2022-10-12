@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 22:12:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:15:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 		one meta-character is an ‘operator’.
 */
 
-void	inside_quotes(t_main *m, t_stack *tmp)
+void	inside_quotes(t_main *m, t_lexer *tmp)
 {
 	while (m->line[m->i] && !is_quote(m->line[m->i], m))
 	{
@@ -35,7 +35,7 @@ void	inside_quotes(t_main *m, t_stack *tmp)
 	}
 }
 
-void	find_types(t_main *m, t_stack *tmp)
+void	find_types(t_main *m, t_lexer *tmp)
 {	
 	m->i = 0;
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
@@ -51,7 +51,7 @@ void	find_types(t_main *m, t_stack *tmp)
 		ft_putstr_fd("Error: Open quote found\n", 2);
 }
 
-void	build_token(t_main *m, t_stack *a, t_stack *b)
+void	build_token(t_main *m, t_lexer *a, t_lexer *b)
 {
 	m->i = 0;
 	while (a->head)
@@ -61,29 +61,27 @@ void	build_token(t_main *m, t_stack *a, t_stack *b)
 		m->i = 0;
 		m->type = a->head->type;
 		m->j = (unsigned int)token_len(m, a->head);
-		m->buff = xmalloc(sizeof(char) * (m->j + 1));
-		m->buff[m->j] = '\0';
+		m->buf = xmalloc(sizeof(char) * (m->j + 1));
+		m->buf[m->j] = '\0';
 		while (a->head && m->type == a->head->type)
 		{
-			m->buff[m->i] = a->head->arg[0];
+			m->buf[m->i] = a->head->arg[0];
 			a->head = a->head->next;
 			m->i++;
 		}
-		put_back(b, m->type, ft_substr(m->buff, 0, m->i));
-		free(m->buff);
+		new_lexer(m->type, ft_substr(m->buf, 0, m->i));
+		free(m->buf);
 	}
 }
 
 int	lexer(t_main *m)
 {	
-	t_stack	*tmp_a;
-	t_stack	*tmp_b;
+	t_lexer	*tmp_a;
+	t_lexer	*tmp_b;
 
 	m->state = DEFAULT;
-	m->o.lexicon = xmalloc(sizeof(t_stack));
-	m->o.tokens = xmalloc(sizeof(t_stack));
-	init_stack(m->o.lexicon);
-	init_stack(m->o.tokens);
+	m->o.lexicon = xmalloc(sizeof(t_lexer));
+	m->o.lexicon = NULL;
 	tmp_a = m->o.lexicon;
 	tmp_b = m->o.tokens;
 	find_types(m, tmp_a);
@@ -93,6 +91,6 @@ int	lexer(t_main *m)
 		return (0);
 	}
 	build_token(m, tmp_a, tmp_b);
-	free_stack(m->o.lexicon);
+	free_lexer(m->o.lexicon);
 	return (1);
 }

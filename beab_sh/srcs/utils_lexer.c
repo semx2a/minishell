@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:24:16 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/10 22:23:34 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:29:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_operator(char c, t_main *m)
+t_types	is_operator(char c, t_main *m)
 {	
 	if ((!ft_isprint(c) || c == ' ') && m->state == DEFAULT)
 		return (O_SPACE);
@@ -22,7 +22,7 @@ int	is_operator(char c, t_main *m)
 	return (WORD);
 }
 
-int	is_quote(char c, t_main *m)
+t_states	is_quote(char c, t_main *m)
 {
 	if ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != OPEN_QUOTE)
 	{
@@ -34,9 +34,9 @@ int	is_quote(char c, t_main *m)
 	return (DEFAULT);
 }
 
-size_t	token_len(t_main *m, t_node *a)
+size_t	token_len(t_main *m, t_lexer *a)
 {	
-	t_node	*tmp;
+	lexer	*tmp;
 	size_t	len;
 
 	len = 0;
@@ -48,3 +48,5 @@ size_t	token_len(t_main *m, t_node *a)
 	}
 	return (len);
 }
+
+

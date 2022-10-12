@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 20:15:01 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 17:55:02 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	expansion(t_main *m)
 			O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	m->o.paths = ft_split(get_cont("PATH", m->env), ':');
 	m->o.cmd_nb = type_occurrences(m->o.tokens, CMD_ID);
-	m->o.pipe_nb = type_occurrences(m->o.tokens, PIPE_ID);
+	m->o.pipe_nb = type_occurrences(m->o.tokens, ID_PIPE);
 	if (m->o.pipe_nb > 0)
 		ft_assign_pipes(&m->o);
 	m->o.index = 0;

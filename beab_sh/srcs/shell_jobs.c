@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 20:14:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 17:56:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_process(t_main *m)
 			pipes(&m->o);
 			if (m->o.tokens->head->type == CMD_ID)
 				execute(m);
-			else if (m->o.tokens->head->type == DELEM_ID)
+			else if (m->o.tokens->head->type == ID_DELEM)
 				heredoc(m);
 			ft_close_pipes(&m->o);
 		}

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_stack_update.c                               :+:      :+:    :+:   */
+/*   update_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 16:29:12 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 18:09:23 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/12 18:15:50 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/12 18:20:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	put_back(t_stack *stack, int type, char *str)
+void	put_back_parser(t_stack *stack, int type, char *str)
 {
 	t_node	*new;
 
@@ -28,7 +28,7 @@ void	put_back(t_stack *stack, int type, char *str)
 	stack->tail = new;
 }
 
-void	put_front(t_stack *stack, int type, char *str)
+void	put_front_parser(t_stack *stack, int type, char *str)
 {
 	t_node	*new;
 
@@ -44,7 +44,7 @@ void	put_front(t_stack *stack, int type, char *str)
 	stack->head = new;
 }
 
-void	print_list(t_stack *stack)
+void	print_parser(t_stack *stack)
 {
 	void	*tmp;
 	int		i;
@@ -58,4 +58,40 @@ void	print_list(t_stack *stack)
 		i++;
 		tmp = (void *)tmp->next;
 	}
+}
+
+void	free_parser(t_parser *p)
+{
+	t_parser	*tmp;
+
+	while (p)
+	{
+		tmp = p;
+		p = p->next;
+		free(tmp);
+	}
+	p = NULL;
+	free(p);
+}
+
+size_t	parser_size(t_parser *p)
+{
+	size_t		size;
+	t_parser	*tmp;
+
+	size = 0;
+	tmp = p;
+	if (p)
+	{
+		if (tmp)
+		{
+			while (tmp)
+			{
+				tmp = tmp->next;
+				size++;
+			}
+			return (size);
+		}
+	}
+	return (0);
 }

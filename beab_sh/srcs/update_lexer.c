@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_stack_update.c                               :+:      :+:    :+:   */
+/*   update_lexer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 16:29:12 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 18:09:23 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/12 18:15:54 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/12 18:20:01 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	put_back(t_stack *stack, int type, char *str)
+void	put_back_lexer(t_stack *stack, int type, char *str)
 {
 	t_node	*new;
 
@@ -28,7 +28,7 @@ void	put_back(t_stack *stack, int type, char *str)
 	stack->tail = new;
 }
 
-void	put_front(t_stack *stack, int type, char *str)
+void	put_front_lexer(t_stack *stack, int type, char *str)
 {
 	t_node	*new;
 
@@ -44,7 +44,7 @@ void	put_front(t_stack *stack, int type, char *str)
 	stack->head = new;
 }
 
-void	print_list(t_stack *stack)
+void	print_lexer(t_stack *stack)
 {
 	void	*tmp;
 	int		i;
@@ -58,4 +58,41 @@ void	print_list(t_stack *stack)
 		i++;
 		tmp = (void *)tmp->next;
 	}
+}
+
+
+void	free_lexer(t_lexer *l)
+{
+	t_lexer	*tmp;
+
+	while (l)
+	{
+		tmp = l;
+		l = l->next;
+		free(tmp);
+	}
+	l = NULL;
+	free(p);
+}
+
+size_t	lexer_size(t_lexer *l)
+{
+	size_t	size;
+	t_lexer	*tmp;
+
+	size = 0;
+	tmp = l;
+	if (l)
+	{
+		if (tmp)
+		{
+			while (tmp)
+			{
+				tmp = tmp->next;
+				size++;
+			}
+			return (size);
+		}
+	}
+	return (0);
 }

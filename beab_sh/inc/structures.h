@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 18:53:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:29:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 # include "minishell.h"
 
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LEXER ENUMS::
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LEXER::
 
 typedef enum e_types
 {
@@ -32,54 +32,52 @@ typedef enum e_states
 	CLOSE_QUOTE,
 }	t_states;
 
-typedef enum e_parser
-{
-	DOUBLE_Q = 34,
-	AMPERSAND = 38,
-	SINGLE_Q = 39,
-	LEFT_A = 60,
-	RIGHT_A = 62,
-	PIPE = 124,
-}	t_parser;
+typedef struct s_lexer
+{	
+	char			arg;
+	enum e_types	type;
+	struct s_node	*next;
+	struct s_node	*prev;
+}	t_lexer;
 
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING IDs::
-
-typedef enum e_operand
-{
-	CMD_ID,
-	FLAG_ID,
-	ARG_ID,
-	INFILE_ID,
-	OUTFILE_ID,
-}	t_operand;
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
 typedef enum e_operator
 {	
-	PIPE_ID,
-	OR_ID,
-	AND_ID,
-	STDIN_REDIR_ID,
-	STDOUT_REDIR_ID,
-	DELEM_ID,
-	STDOUT_APPEND_ID,
-	ENV_VAR_ID,
+	ID_PIPE,
+	ID_OR,
+	ID_AND,
+	ID_STDIN_REDIR,
+	ID_STDOUT_REDIR,
+	ID_DELEM,
+	ID_APPEN,
+	ID_ENV_VAR,
 }	t_operator;
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LINKED LISTS::
-
-typedef struct s_node
+typedef struct s_redir
 {
-	int				type;
-	char			*arg;
-	struct s_node	*prev;
+	int				pipe[2];
+	int				fd;
+	enum e_operator	id;
+	char			*path;
+	struct s_redir	*next;
+	struct s_redir	*prev;
+}	t_redir;
+
+typedef struct s_parser
+{	
+	char			**av;
+	char			*bin_path;
+	pid_t			pid;
+	int				is_piped;
+	int				pipe[2];
+	enum e_operator	id;
+	struct s_redir	*redir;
 	struct s_node	*next;
-}	t_node;
+	struct s_node	*prev;
+}	t_parser;
 
-typedef struct s_stack
-{
-	t_node	*head;
-	t_node	*tail;
-}	t_stack;
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
 
 typedef struct s_env
 {
@@ -90,47 +88,30 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::STRUCTURES::
-
-typedef struct s_obj
-{	
-	pid_t			pid;
-	size_t			index;
-	size_t			pipe_nb;
-	size_t			cmd_nb;
-	int				cmd_ac;
-	int				fd_in;
-	int				fd_out;
-	int				*fd_pipe;
-	char			*infile;
-	char			*outfile;
-	char			*bin_path;
-	char			**paths;
-	char			**envtab;
-	t_stack			*lexicon;
-	t_stack			*tokens;
-}	t_obj;
+// :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::
 
 typedef struct s_main
 {
 	size_t			i;
 	size_t			j;
-	int				type;
-	int				err;
-	int				ret;
+	size_t			index;
+	size_t			pipe_nb;
+	size_t			cmd_nb;
+	enum e_states	state;
+	enum e_types	type;
+	int				cmd_ac;
 	int				exit;
-	int				state;
 	char			quote;
-	char			c;
 	char			*line;
 	char			*cwd;
 	char			*prompt;
-	char			*buff;
+	char			*buf;
+	char			**paths;
 	char			**builtins;
 	char			**operators;
-	char			**operands;
-	t_obj			o;
 	t_env			*env;
+	t_lexer			*lexicon;
+	t_parser		*tokens;
 }	t_main;
 
 #endif

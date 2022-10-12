@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 20:31:44 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 17:54:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	execute(t_main *m)
 		i++;
 	}
 	m->o.bin_path = get_cmd(m->o.paths, cmd);
-	m->o.envtab = ft_env_to_tab(m->env);
-	if (execve(m->o.bin_path, cmd_and_flags, m->o.envtab) != -1)
+	m->o.paths = ft_env_to_tab(m->env);
+	if (execve(m->o.bin_path, cmd_and_flags, m->o.paths) != -1)
 	{
 		free(cmd);
 		ft_free_stab(cmd_and_flags);

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 18:30:43 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:26:34 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,18 @@ char	**multi_split(char *str, char *charset);
 //				utils_stack_update.c
 void	put_back(t_stack *stack, int type, char *str);
 void	put_front(t_stack *stack, int type, char *str);
+t_lexer	*new_lexer(int type, char *str)
+
+
 void	print_list(t_stack *stack);
 
-//				stack_init.c
-void	init_stack(t_stack *stack);
-void	free_stack(t_stack *stack);
-size_t	stack_size(t_stack *stack);
+//				update_lexer.c
+void	free_lexer(t_lexer *l);
+size_t	lexer_size(t_lexer *l);
+
+//				update_parser.c
+void	free_parser(t_parser *p);
+size_t	parser_size(t_parser *p);
 
 //				utils.c
 /* void	ft_error(const char *str); */
