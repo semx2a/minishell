@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 19:25:26 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:09:03 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct s_parser
 	char			**av;
 	char			*bin_path;
 	pid_t			pid;
-	int				is_piped;
+	bool			is_piped;
 	int				pipe[2];
 	enum e_operator	id;
 	struct s_redir	*redir;
@@ -95,8 +95,6 @@ typedef struct s_main
 	size_t			i;
 	size_t			j;
 	size_t			index;
-	size_t			pipe_nb;
-	size_t			cmd_nb;
 	enum e_states	state;
 	enum e_types	type;
 	int				cmd_ac;

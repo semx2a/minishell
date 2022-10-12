@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 17:56:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:00:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 void	ft_process(t_main *m)
 {
-	m->o.pid = fork();
-	if (m->o.pid == -1)
+	m->tokens->pid = fork();
+	if (m->pid == -1)
 		ft_error();
-	else if (m->o.pid > 0)
+	else if (m->pid > 0)
 	{
-		waitpid(m->o.pid, 0, 0);
-		kill(m->o.pid, SIGTERM);
+		waitpid(m->pid, 0, 0);
+		kill(m->pid, SIGTERM);
 	}
-	else if (m->o.pid == 0)
+	else if (m->pid == 0)
 	{
-		if (m->o.pipe_nb > 0)
+		if (m->pipe_nb > 0)
 		{	
-			pipes(&m->o);
-			if (m->o.tokens->head->type == CMD_ID)
+			pipes(&m->);
+			if (m->tokens->head->type == CMD_ID)
 				execute(m);
-			else if (m->o.tokens->head->type == ID_DELEM)
+			else if (m->tokens->head->type == ID_DELEM)
 				heredoc(m);
-			ft_close_pipes(&m->o);
+			ft_close_pipes(&m->);
 		}
 		else
 			execute(m);
@@ -43,19 +43,19 @@ void	job(t_main *m)
 {
 	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
-	m->o.index = 0;
-	while (m->o.tokens->head)
+	m->index = 0;
+	while (m->tokens)
 	{	
-		if (is_builtin(m->o.tokens, m->builtins) == 1)
+		if (is_builtin(m->tokens, m->builtins) == 1)
 			exec_builtin(m);
 		else
 		{
 			ft_process(m);
-			m->o.index++;
+			m->index++;
 		}
-		m->o.tokens->head = m->o.tokens->head->next;
+		m->tokens = m->tokens->next;
 
 	}
 	waitpid(-1, NULL, 0);
-	ft_free_parent(&m->o);
+	ft_free_parent(&m->);
 }

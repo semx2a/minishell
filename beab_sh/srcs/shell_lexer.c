@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 18:15:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:00:04 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,19 @@ void	find_types(t_main *m, t_lexer *tmp)
 void	build_token(t_main *m, t_lexer *a, t_lexer *b)
 {
 	m->i = 0;
-	while (a->head)
+	while (a)
 	{
-		while (a->head && a->head->type == O_SPACE)
-			a->head = a->head->next;
+		while (a && a->type == O_SPACE)
+			a = a->next;
 		m->i = 0;
-		m->type = a->head->type;
-		m->j = (unsigned int)token_len(m, a->head);
+		m->type = a->type;
+		m->j = (unsigned int)token_len(m, a);
 		m->buf = xmalloc(sizeof(char) * (m->j + 1));
 		m->buf[m->j] = '\0';
-		while (a->head && m->type == a->head->type)
+		while (a && m->type == a->type)
 		{
-			m->buf[m->i] = a->head->arg[0];
-			a->head = a->head->next;
+			m->buf[m->i] = a->arg[0];
+			a = a->next;
 			m->i++;
 		}
 		new_lexer(m->type, ft_substr(m->buf, 0, m->i));
@@ -80,17 +80,17 @@ int	lexer(t_main *m)
 	t_lexer	*tmp_b;
 
 	m->state = DEFAULT;
-	m->o.lexicon = xmalloc(sizeof(t_lexer));
-	m->o.lexicon = NULL;
-	tmp_a = m->o.lexicon;
-	tmp_b = m->o.tokens;
+	m->lexicon = xmalloc(sizeof(t_lexer));
+	m->lexicon = NULL;
+	tmp_a = m->lexicon;
+	tmp_b = m->tokens;
 	find_types(m, tmp_a);
 	if (m->state == OPEN_QUOTE)
 	{
-		free(m->o.lexicon);
+		free(m->lexicon);
 		return (0);
 	}
 	build_token(m, tmp_a, tmp_b);
-	free_lexer(m->o.lexicon);
+	free_lexer(m->lexicon);
 	return (1);
 }

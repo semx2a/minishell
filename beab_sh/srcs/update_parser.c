@@ -3,60 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   update_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:15:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 18:40:39 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:12:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	put_back_parser(t_parser *stack, int type, char *str)
+t_parser	*new_node_parser(t_operator type, char *str)
 {
-	t_node	*new;
+	t_parser	*new;
 
 	new = xmalloc(sizeof(t_node));
-	new->arg = str;
+	new->av = ft_split(str, ' ');
 	new->type = type;
-	new->prev = stack->tail;
+	if (type == ID_PIPE)
+	{
+		is_piped = TRUE;
+		pipe(fd);
+	}
 	new->next = NULL;
-	if (stack->tail)
-		stack->tail->next = new;
-	else
-		stack->head = new;
-	stack->tail = new;
+	return (new);
 }
 
-void	put_front_parser(t_stack *stack, int type, char *str)
+void	print_parser(t_parser *p)
 {
-	t_node	*new;
+	t_parser	*tmp;
+	int			i;
+	int			j;
 
-	new = xmalloc(sizeof(t_node));
-	new->arg = str;
-	new->type = type;
-	new->next = stack->head;
-	new->prev = NULL;
-	if (stack->head)
-		stack->head->prev = new;
-	else
-		stack->tail = new;
-	stack->head = new;
-}
-
-void	print_parser(t_stack *stack)
-{
-	void	*tmp;
-	int		i;
-
-	tmp = (void *)stack->head;
+	tmp = p;
 	i = 0;
 	while (tmp)
 	{
-		printf(" Node #%d type = %d arg = %s\n", i, (t_lexer *)tmp->type, (t_lexer *)tmp->arg);
+		printf(" Node #%d type = %d av[%i] = %s\n", i, tmp->type, 0, tmp->av[0]);
+		j = 1;
+		while (av[j])
+		{
+			printf("                 av[%i] = %s\n", j, tmp->av[j]);
+			j++;
+		}
 		printf(" ------------------ \n");
 		i++;
-		tmp = (void *)tmp->next;
+		tmp = tmp->next;
 	}
 }
 
@@ -67,6 +58,13 @@ void	free_parser(t_parser *p)
 	while (p)
 	{
 		tmp = p;
+		if (tmp->is_piped == TRUE)
+			close(tmp->pipe);
+		if (tmp->bin_path)
+			free(tmp->bin_path);
+		ft_free_stab(av);
+		if (redir)
+			free_redir(tmp->redir);
 		p = p->next;
 		free(tmp);
 	}

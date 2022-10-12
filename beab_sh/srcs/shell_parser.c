@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 18:10:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:00:04 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	parser(t_main *m)
 {
 	t_node	*tmp;
 
-	tmp = m->o.tokens->head;
+	tmp = m->tokens->head;
 	while (tmp)
 	{
 		if (tmp->type == WORD)
@@ -55,6 +55,6 @@ int	parser(t_main *m)
 			identify_operator(tmp, m->operators);
 		tmp = tmp->next;
 	}
-	free(m->o.tokens);
+	free(m->tokens);
 	return (1);
 }

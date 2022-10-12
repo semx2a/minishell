@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   jobs_execution.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 19:05:40 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:10:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,29 +37,13 @@ static char	*get_cmd(char **paths, char *cmd)
 }
 
 void	execute(t_main *m)
-{
-	int		i;
-	char	*cmd;
-	char	**cmd_and_flags;
-
-	cmd = m->tokens->av[0];
-	m->tokens = m->tokens->next;
-	cmd_and_flags[0] = ft_strdup(cmd);
-	i = 1;
-	while (m->tokens)
-	{
-		cmd_and_flags[i] = ft_strdup(m->tokens->av);
-		m->tokens = m->tokens->next;
-		i++;
-	}
-	m->tokens->bin_path = get_cmd(m->paths, cmd);
+{	
 	m->paths = ft_env_to_tab(m->env);
-	if (execve(m->tokens->bin_path, cmd_and_flags, m->paths) != -1)
+	m->tokens->bin_path = get_cmd(m->paths, m->tokens->av[0]);
+	if (execve(m->tokens->bin_path, m->tokens->av, m->paths) != -1)
 	{
-		free(cmd);
-		ft_free_stab(cmd_and_flags);
-		ft_free_child(&m);
-		ft_free_parent(&m);
+		ft_free_stab(m->paths);
+		free(m->tokens->bin_path);
 		ft_error();
 	}
 }
