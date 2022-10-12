@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:00:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:24:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	ft_process(t_main *m)
 {
 	m->tokens->pid = fork();
-	if (m->pid == -1)
+	if (m->tokens->pid == -1)
 		ft_error();
-	else if (m->pid > 0)
+	else if (m->tokens->pid > 0)
 	{
-		waitpid(m->pid, 0, 0);
-		kill(m->pid, SIGTERM);
+		waitpid(m->tokens->pid, 0, 0);
+		kill(m->tokens->pid, SIGTERM);
 	}
-	else if (m->pid == 0)
+	else if (m->tokens->pid == 0)
 	{
 		if (m->pipe_nb > 0)
 		{	

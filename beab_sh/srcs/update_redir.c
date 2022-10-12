@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:17:59 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 20:40:45 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 22:28:19 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 t_redir	*new_node_redir(t_operator type, char *str)
 {
-	t_node	*new;
+	t_redir	*new;
 
 	new = xmalloc(sizeof(t_node));
 	new->path = str;
 	new->type = type;
-	pipe(fd);
+	pipe(new->fd);
 	new->next = NULL;
 	return (new);
 }
@@ -33,7 +33,7 @@ void	print_redir(t_redir *r)
 	i = 0;
 	while (tmp)
 	{
-		printf(" Node #%d type = %d arg = %s\n", i, tmp->type, tmp->arg);
+		printf(" Node #%d type = %d\n", i, tmp->id);
 		printf(" ------------------ \n");
 		i++;
 		tmp = tmp->next;
