@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 19:44:56 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:52:37 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	ft_export_var(t_main *m, bool is_forked)
 	int		j;
 
 	i = 1;
-	while (i < m->o.cmd_ac)
+	while (i < m->cmd_ac)
 	{
 		j = 0;
 		namevar = NULL;
 		value = NULL;
-		namevar = ft_strdup(m->o.cmd_flags[i]);
+		namevar = ft_strdup(m->tokens->av[i]);
 		while (namevar[j])
 		{
 			if (namevar[j] == '=')
@@ -33,7 +33,7 @@ int	ft_export_var(t_main *m, bool is_forked)
 			else
 				j++;
 		}
-		if (m->o.cmd_flags[i][j])
+		if (m->tokens->av[i][j])
 			value = namevar + j + 1;
 		ft_check_and_export(namevar, value, m->env, is_forked);
 		i++;
@@ -46,9 +46,9 @@ int	ft_export(t_main *m, bool is_forked)
 	int	ret;
 
 	ret = 0;
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
-	if (m->o.cmd_ac < 2)
+	m->tokens->av = ft_split(m->tokens, ' ');
+	m->cmd_ac = ft_tablen(m->tokens->av);
+	if (m->cmd_ac < 2)
 	{
 		ft_print_declare(m->env, is_forked);
 		return (ret);

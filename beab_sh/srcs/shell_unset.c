@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/06 19:52:55 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:53:38 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,14 @@ int	ft_unset(t_main *m, bool is_forked)
 	int	res;
 
 	i = 1;
-	m->o.cmd_flags = ft_split(m->o.cmds[0], ' ');
-	m->o.cmd_ac = ft_tablen(m->o.cmd_flags);
-	if (m->o.cmd_ac >= 2)
+	m->tokens->av = ft_split(m->tokens, ' ');
+	m->cmd_ac = ft_tablen(m->tokens->av);
+	if (m->cmd_ac >= 2)
 	{
-		while (m->o.cmd_flags[i] && i < m->o.cmd_ac)
+		while (m->tokens->av[i] && i < m->cmd_ac)
 
 		{
-			ft_exec_unset(m->o.cmd_flags[i], m->env);
+			ft_exec_unset(m->tokens->av[i], m->env);
 			i++;
 		}
 		res = 0;

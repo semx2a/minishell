@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   update_parser.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:15:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 18:20:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/12 18:40:39 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	put_back_parser(t_stack *stack, int type, char *str)
+void	put_back_parser(t_parser *stack, int type, char *str)
 {
 	t_node	*new;
 
