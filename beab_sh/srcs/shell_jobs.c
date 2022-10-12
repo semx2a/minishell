@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 21:30:10 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 20:14:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	ft_process(t_main *m)
 		if (m->o.pipe_nb > 0)
 		{	
 			pipes(&m->o);
-			execute(m);
+			if (m->o.tokens->head->type == CMD_ID)
+				execute(m);
+			else if (m->o.tokens->head->type == DELEM_ID)
+				heredoc(m);
 			ft_close_pipes(&m->o);
 		}
 		else
@@ -38,21 +41,21 @@ void	ft_process(t_main *m)
 // ca va beaucoup changer well shit
 void	job(t_main *m)
 {
-	if (!lexer(m))
+	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
-	print_list(m->o.tokens);
-//	parser(m);
-	expansion(m);
-	if (is_builtin(m->o.cmds) == 1)
-		exec_builtin(m);
-	else
-	{
-		while (m->o.index < m->o.cmd_nb)
+	m->o.index = 0;
+	while (m->o.tokens->head)
+	{	
+		if (is_builtin(m->o.tokens, m->builtins) == 1)
+			exec_builtin(m);
+		else
 		{
 			ft_process(m);
 			m->o.index++;
 		}
-		waitpid(-1, NULL, 0);
+		m->o.tokens->head = m->o.tokens->head->next;
+
 	}
+	waitpid(-1, NULL, 0);
 	ft_free_parent(&m->o);
 }

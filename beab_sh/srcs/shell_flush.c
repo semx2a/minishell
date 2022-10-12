@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 21:28:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 20:31:17 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@ void	ft_free_child(t_obj *obj)
 {
 	int	i;
 
-	i = 0;
-	while (obj->cmd_flags[i] != 0)
-	{
-		free(obj->cmd_flags[i]);
-		i++;
-	}
-	free(obj->cmd_flags);
 	i = 0;
 	while (obj->envtab[i] != 0)
 	{
@@ -46,13 +39,6 @@ void	ft_free_parent(t_obj *obj)
 		i++;
 	}
 	free(obj->paths);
-	i = 0;
-	while (obj->cmds[i] != 0)
-	{
-		free(obj->cmds[i]);
-		i++;
-	}
-	free(obj->cmds);
 	free_stack(obj->tokens);
 	if (obj->pipe_nb > 0)
 		free(obj->fd_pipe);
@@ -60,7 +46,7 @@ void	ft_free_parent(t_obj *obj)
 
 void	ft_close_pipes(t_obj *obj)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < (obj->pipe_nb * 2))
@@ -76,5 +62,8 @@ void	ft_flush(t_main *m)
 	free(m->line);
 	free(m->cwd);
 	free_env(m->env);
+	ft_free_stab(m->builtins);
+	ft_free_stab(m->operators);
+	ft_free_stab(m->operands);
 	rl_clear_history();
 }

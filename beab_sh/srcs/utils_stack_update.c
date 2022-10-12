@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/20 16:29:12 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/06 20:43:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/10 22:08:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 //	update_pos(stack);
 //}
 
-void	put_back(t_stack *stack, unsigned int type, char *str)
+void	put_back(t_stack *stack, int type, char *str)
 {
 	t_node	*new;
 
@@ -68,7 +68,7 @@ void	put_back(t_stack *stack, unsigned int type, char *str)
 	stack->tail = new;
 }
 
-void	put_front(t_stack *stack, unsigned int type, char *str)
+void	put_front(t_stack *stack, int type, char *str)
 {
 	t_node	*new;
 

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/09 21:29:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/10 22:12:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	inside_quotes(t_main *m, t_stack *tmp)
 {
 	while (m->line[m->i] && !is_quote(m->line[m->i], m))
 	{
-		put_back(tmp, (unsigned int)is_operator(m->line[m->i], m),
-			ft_substr(m->line, m->i, 1));
+		put_back(tmp, is_operator(m->line[m->i], m),
+			ft_substr(m->line, (unsigned int)m->i, 1));
 		m->i++;
 	}
 }
@@ -41,8 +41,8 @@ void	find_types(t_main *m, t_stack *tmp)
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
 	{
 		m->state = is_quote(m->line[m->i], m);
-		put_back(tmp, (unsigned int)is_operator(m->line[m->i], m),
-			ft_substr(m->line, m->i, 1));
+		put_back(tmp, is_operator(m->line[m->i], m),
+			ft_substr(m->line, (unsigned int)m->i, 1));
 		m->i++;
 		if (m->line[m->i] && m->state == OPEN_QUOTE)
 			inside_quotes(m, tmp);

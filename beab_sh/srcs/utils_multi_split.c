@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 19:19:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 21:08:12 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/10 21:00:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	**multi_split(char *str, char *charset)
 	char		**dest;
 
 	wcount = ft_word_count(str, charset);
-	dest = (char **)malloc(sizeof(char *) * (wcount + 1));
+	dest = (char **)xmalloc(sizeof(char *) * (wcount + 1));
 	if (dest == NULL)
 		return (NULL);
 	dest[wcount] = 0;

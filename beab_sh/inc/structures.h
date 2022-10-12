@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 16:14:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 18:53:26 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,17 @@ typedef enum e_parser
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING IDs::
 
-typedef enum e_id
+typedef enum e_operand
 {
 	CMD_ID,
 	FLAG_ID,
 	ARG_ID,
 	INFILE_ID,
 	OUTFILE_ID,
+}	t_operand;
+
+typedef enum e_operator
+{	
 	PIPE_ID,
 	OR_ID,
 	AND_ID,
@@ -59,7 +63,7 @@ typedef enum e_id
 	DELEM_ID,
 	STDOUT_APPEND_ID,
 	ENV_VAR_ID,
-}	t_id;
+}	t_operator;
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LINKED LISTS::
 
@@ -97,14 +101,10 @@ typedef struct s_obj
 	int				cmd_ac;
 	int				fd_in;
 	int				fd_out;
-	bool			is_infile;
-	bool			is_outfile;
 	int				*fd_pipe;
 	char			*infile;
 	char			*outfile;
 	char			*bin_path;
-	char			**cmds;
-	char			**cmd_flags;
 	char			**paths;
 	char			**envtab;
 	t_stack			*lexicon;
@@ -126,6 +126,9 @@ typedef struct s_main
 	char			*cwd;
 	char			*prompt;
 	char			*buff;
+	char			**builtins;
+	char			**operators;
+	char			**operands;
 	t_obj			o;
 	t_env			*env;
 }	t_main;

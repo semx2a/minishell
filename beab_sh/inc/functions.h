@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/11 15:57:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 18:30:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ int		exec_builtin(t_main *m);
 void	ft_assign_pipes(t_obj *o);
 void	pipes(t_obj *o);
 
-//				utils_builtins.c
-int		is_builtin(char **cmds);
-
 //				pipes.c
 void	ft_assign_pipes(t_obj *o);
 void	pipes(t_obj *o);
@@ -35,13 +32,13 @@ void	pipes(t_obj *o);
 int		ft_env(t_env *env);
 int		ft_pwd(t_env *env);
 
-//				shell_cd
+//				shell_cd.c
 int		ft_cd(t_main *m, bool is_forked);
 
-//				shell_echo
+//				shell_echo.c
 int		ft_echo(t_main *m);
 
-//				shell_exit
+//				shell_exit.c
 int		ft_exit(t_main *m, bool is_forked);
 
 //				shell_expansion.c
@@ -60,7 +57,7 @@ void	ft_flush(t_main *m);
 void	shell_init(t_main *m, char **envp);
 
 //				shell_io.c
-void	in_n_out(t_main *m);
+void	ft_open(int *fd, char *pathname, int flags, int mode);
 void	heredoc(t_main *m);
 
 //				shell_jobs.c
@@ -80,7 +77,7 @@ int		set_signals(void);
 int		ft_unset(t_main *m, bool is_forked);
 
 //				utils_builtins.c
-int		is_builtin(char **cmds);
+int		is_builtin(char *cmd, char **builtins);
 
 //				utils_env.c
 t_env	*put_env(char **envp);

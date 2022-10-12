@@ -6,23 +6,24 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 21:05:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/11 18:28:01 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	in_n_out(t_main *m)
+void	ft_open(int *fd, char *pathname, int flags, int mode)
 {
-	m->o.fd_in = open(m->o.infile, O_RDONLY);
-	if (m->o.fd_in == -1)
-		ft_error();
-	m->o.fd_out = open(m->o.outfile, O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	if (m->o.fd_out == -1)
+	*(fd) = open(pathname, flags, mode);
+	if (*(fd) == -1)
 		ft_error();
 }
 
-void	heredoc(t_obj o)
+void	heredoc(t_main *m)
 {
-	(void)o;
+	char	*buf;
+
+	(void)m;
+	rl_on_new_line();
+	rl_replace_line(buf, 0);
 }
