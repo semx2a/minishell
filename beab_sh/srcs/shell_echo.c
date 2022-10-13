@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 17:12:20 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/12 22:11:10 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:25:02 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_echo(t_main *m)
 	bool	flag;
 
 	flag = false;
-	m->tokens->av = ft_split(m->tokens, ' ');
 	m->cmd_ac = ft_tablen(m->tokens->av);
 	if (m->cmd_ac < 2)
 	{

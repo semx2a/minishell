@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:10:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:24:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_path_finder(t_main *m, bool is_forked)
 {
 	char	*path;
 
-	m->tokens->av = ft_split(m->tokens, ' ');
 	m->cmd_ac = ft_tablen(m->tokens->av);
 	if (m->cmd_ac < 2)
 	{

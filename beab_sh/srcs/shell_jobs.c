@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:24:47 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 18:43:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,34 @@ void	ft_process(t_main *m)
 	{
 		if (m->pipe_nb > 0)
 		{	
-			pipes(&m->);
-			if (m->tokens->head->type == CMD_ID)
+			pipes(m);
+			if (m->tokens->id == O_PIPE)
 				execute(m);
-			else if (m->tokens->head->type == ID_DELEM)
+			else if (m->tokens->id == O_DELEM)
 				heredoc(m);
-			ft_close_pipes(&m->);
 		}
 		else
 			execute(m);
 	}
 }
 
-// ca va beaucoup changer well shit
+void	job_init(t_main *m)
+{
+	m->lexicon = xmalloc(sizeof(t_lexer));
+	m->lexicon = NULL;
+	m->tokens = xmalloc(sizeof(t_parser));
+	m->tokens = NULL;
+}
+
 void	job(t_main *m)
 {
+	job_init(m);
 	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
 	m->index = 0;
 	while (m->tokens)
 	{	
-		if (is_builtin(m->tokens, m->builtins) == 1)
+		if (is_builtin(m->tokens->av[0], m->builtins) == 1)
 			exec_builtin(m);
 		else
 		{
@@ -57,5 +64,5 @@ void	job(t_main *m)
 
 	}
 	waitpid(-1, NULL, 0);
-	ft_free_parent(&m->);
+	free_parser(m->tokens);
 }

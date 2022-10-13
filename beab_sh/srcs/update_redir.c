@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:17:59 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:28:19 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 20:38:30 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_redir	*new_node_redir(t_operator type, char *str)
 {
 	t_redir	*new;
 
-	new = xmalloc(sizeof(t_node));
+	new = xmalloc(sizeof(t_redir));
 	new->path = str;
-	new->type = type;
-	pipe(new->fd);
+	new->id = type;
+	pipe(new->pipe);
 	new->next = NULL;
 	return (new);
 }

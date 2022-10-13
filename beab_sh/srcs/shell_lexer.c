@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:00:04 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 20:41:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,34 @@
 		one meta-character is an ‘operator’.
 */
 
+t_types	is_operator(char c, t_main *m)
+{	
+	if ((!ft_isprint(c) || c == ' ') && m->state == S_DEFAULT)
+		return (T_SPACE);
+	if ((c == '$' && m->quote == DOUBLE_Q && m->state == S_OPEN_QUOTE)
+		|| (ft_strchr("|&><$", c) && m->state == S_DEFAULT))
+		return (T_OPERATOR);
+	return (T_WORD);
+}
+
+t_states	is_quote(char c, t_main *m)
+{
+	if ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != S_OPEN_QUOTE)
+	{
+		m->quote = c;
+		return (S_OPEN_QUOTE);
+	}
+	if (c == m->quote && m->state == S_OPEN_QUOTE)
+		return (S_CLOSING_QUOTE);
+	return (S_DEFAULT);
+}
+
 void	inside_quotes(t_main *m, t_lexer *tmp)
 {
 	while (m->line[m->i] && !is_quote(m->line[m->i], m))
 	{
-		put_back(tmp, is_operator(m->line[m->i], m),
-			ft_substr(m->line, (unsigned int)m->i, 1));
+		tmp = new_node_lexer(is_operator(m->line[m->i], m),
+				m->line[m->i]);
 		m->i++;
 	}
 }
@@ -41,56 +63,33 @@ void	find_types(t_main *m, t_lexer *tmp)
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
 	{
 		m->state = is_quote(m->line[m->i], m);
-		put_back(tmp, is_operator(m->line[m->i], m),
-			ft_substr(m->line, (unsigned int)m->i, 1));
+		if (!tmp)
+			tmp = new_node_lexer(is_operator(m->line[m->i], m),
+					m->line[m->i]);
+		else
+			tmp->next = new_node_lexer(is_operator(m->line[m->i], m),
+					m->line[m->i]);
 		m->i++;
-		if (m->line[m->i] && m->state == OPEN_QUOTE)
+		if (m->line[m->i] && m->state == S_OPEN_QUOTE)
 			inside_quotes(m, tmp);
+		if (tmp->next)
+			tmp = tmp->next;
 	}
-	if (m->state == OPEN_QUOTE)
+	if (m->state == S_OPEN_QUOTE)
 		ft_putstr_fd("Error: Open quote found\n", 2);
-}
-
-void	build_token(t_main *m, t_lexer *a, t_lexer *b)
-{
-	m->i = 0;
-	while (a)
-	{
-		while (a && a->type == O_SPACE)
-			a = a->next;
-		m->i = 0;
-		m->type = a->type;
-		m->j = (unsigned int)token_len(m, a);
-		m->buf = xmalloc(sizeof(char) * (m->j + 1));
-		m->buf[m->j] = '\0';
-		while (a && m->type == a->type)
-		{
-			m->buf[m->i] = a->arg[0];
-			a = a->next;
-			m->i++;
-		}
-		new_lexer(m->type, ft_substr(m->buf, 0, m->i));
-		free(m->buf);
-	}
 }
 
 int	lexer(t_main *m)
 {	
-	t_lexer	*tmp_a;
-	t_lexer	*tmp_b;
+	t_lexer		*tmp;
 
-	m->state = DEFAULT;
-	m->lexicon = xmalloc(sizeof(t_lexer));
-	m->lexicon = NULL;
-	tmp_a = m->lexicon;
-	tmp_b = m->tokens;
-	find_types(m, tmp_a);
-	if (m->state == OPEN_QUOTE)
+	m->state = S_DEFAULT;
+	tmp = m->lexicon;
+	find_types(m, tmp);
+	if (m->state == S_OPEN_QUOTE)
 	{
-		free(m->lexicon);
+		free_lexer(m->lexicon);
 		return (0);
 	}
-	build_token(m, tmp_a, tmp_b);
-	free_lexer(m->lexicon);
 	return (1);
 }

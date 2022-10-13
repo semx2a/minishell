@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:27:34 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 20:27:32 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,38 +20,39 @@
 
 typedef enum e_types
 {
-	WORD,
-	OPERATOR,
-	O_SPACE,
+	T_WORD,
+	T_OPERATOR,
+	T_SPACE,
 }	t_types;
 
 typedef enum e_states
 {
-	DEFAULT,
-	OPEN_QUOTE,
-	CLOSE_QUOTE,
+	S_DEFAULT,
+	S_OPEN_QUOTE,
+	S_CLOSING_QUOTE,
 }	t_states;
 
 typedef struct s_lexer
 {	
 	char			arg;
 	enum e_types	type;
-	struct s_node	*next;
-	struct s_node	*prev;
+	struct s_lexer	*next;
+	struct s_lexer	*prev;
 }	t_lexer;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
 typedef enum e_operator
 {	
-	ID_PIPE,
-	ID_OR,
-	ID_AND,
-	ID_STDIN_REDIR,
-	ID_STDOUT_REDIR,
-	ID_DELEM,
-	ID_APPEN,
-	ID_ENV_VAR,
+	O_PIPE,
+	O_OR,
+	O_AND,
+	O_STDIN_REDIR,
+	O_STDOUT_REDIR,
+	O_DELEM,
+	O_APPEN,
+	O_ENV_VAR,
+	O_WORD,
 }	t_operator;
 
 typedef struct s_redir
@@ -94,7 +95,10 @@ typedef struct s_main
 {
 	size_t			i;
 	size_t			j;
+	size_t			k;
 	size_t			index;
+	size_t			cmd_nb;
+	size_t			pipe_nb;
 	enum e_states	state;
 	enum e_types	type;
 	int				cmd_ac;
@@ -103,7 +107,8 @@ typedef struct s_main
 	char			*line;
 	char			*cwd;
 	char			*prompt;
-	char			*buf;
+	char			*buf_a;
+	char			*buf_b;
 	char			**paths;
 	char			**builtins;
 	char			**operators;

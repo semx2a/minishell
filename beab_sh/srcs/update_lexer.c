@@ -6,17 +6,17 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:15:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 20:19:41 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 20:37:40 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_lexer	*new_node_lexer(t_types type, char *c)
+t_lexer	*new_node_lexer(t_types type, char c)
 {
-	t_node	*new;
+	t_lexer	*new;
 
-	new = xmalloc(sizeof(t_node));
+	new = xmalloc(sizeof(t_lexer));
 	new->arg = c;
 	new->type = type;
 	new->next = NULL;
@@ -25,7 +25,7 @@ t_lexer	*new_node_lexer(t_types type, char *c)
 
 void	print_lexer(t_lexer *l)
 {
-	void	*tmp;
+	t_lexer	*tmp;
 	int		i;
 
 	tmp = l;
@@ -50,7 +50,7 @@ void	free_lexer(t_lexer *l)
 		free(tmp);
 	}
 	l = NULL;
-	free(p);
+	free(l);
 }
 
 size_t	lexer_size(t_lexer *l)

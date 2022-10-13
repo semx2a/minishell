@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/12 22:11:43 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 16:25:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_exit(t_main *m, bool is_forked)
 	int	ret;
 
 	ret = 0;
-	m->tokens->av = ft_split(m->tokens, ' ');
 	m->cmd_ac = ft_tablen(m->tokens->av);
 	if (m->tokens->av && m->cmd_ac > 2 && is_forked)
 	{

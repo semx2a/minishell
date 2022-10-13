@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/12 20:45:15 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/13 20:39:24 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ SRCS			:=	jobs_execution.c \
 					utils.c \
 					utils_env2.c \
 					utils_env.c \
-					utils_lexer.c \
 					update_parser.c \
 					update_lexer.c \
 					update_redir.c
