@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 20:41:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 21:43:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,43 +49,49 @@ t_states	is_quote(char c, t_main *m)
 
 void	inside_quotes(t_main *m, t_lexer *tmp)
 {
-	while (m->line[m->i] && !is_quote(m->line[m->i], m))
+	while (m->line[m->i] && is_quote(m->line[m->i], m) != 2)
 	{
-		tmp = new_node_lexer(is_operator(m->line[m->i], m),
+		tmp->next = new_node_lexer(is_operator(m->line[m->i], m),
 				m->line[m->i]);
 		m->i++;
 	}
+	m->state = is_quote(m->line[m->i], m);
+	if (m->state == S_CLOSING_QUOTE)
+		tmp->next = new_node_lexer(is_operator(m->line[m->i], m),
+				m->line[m->i]);
+
 }
 
-void	find_types(t_main *m, t_lexer *tmp)
+t_lexer	*find_types(t_main *m)
 {	
+	t_lexer	*head;
+	t_lexer	*tmp;
+
 	m->i = 0;
+	m->state = is_quote(m->line[m->i], m);
+	head = new_node_lexer(is_operator(m->line[m->i], m), m->line[m->i]);
+	tmp = head;
+	m->i++;
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
 	{
 		m->state = is_quote(m->line[m->i], m);
-		if (!tmp)
-			tmp = new_node_lexer(is_operator(m->line[m->i], m),
-					m->line[m->i]);
+		if (m->state == S_OPEN_QUOTE)
+			inside_quotes(m, tmp);
 		else
 			tmp->next = new_node_lexer(is_operator(m->line[m->i], m),
 					m->line[m->i]);
 		m->i++;
-		if (m->line[m->i] && m->state == S_OPEN_QUOTE)
-			inside_quotes(m, tmp);
-		if (tmp->next)
-			tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	if (m->state == S_OPEN_QUOTE)
 		ft_putstr_fd("Error: Open quote found\n", 2);
+	return (head);
 }
 
 int	lexer(t_main *m)
 {	
-	t_lexer		*tmp;
-
 	m->state = S_DEFAULT;
-	tmp = m->lexicon;
-	find_types(m, tmp);
+	m->lexicon = find_types(m);
 	if (m->state == S_OPEN_QUOTE)
 	{
 		free_lexer(m->lexicon);

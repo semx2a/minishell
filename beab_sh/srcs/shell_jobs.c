@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 18:43:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/13 21:26:27 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ void	job_init(t_main *m)
 
 void	job(t_main *m)
 {
-	job_init(m);
-	if (!lexer(m) || !parser(m) || !expansion(m))
+//	job_init(m);
+	lexer(m);
+	if (m->state != S_OPEN_QUOTE)
+		print_lexer(m->lexicon);
+/* 	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
 	m->index = 0;
 	while (m->tokens)
@@ -64,5 +67,5 @@ void	job(t_main *m)
 
 	}
 	waitpid(-1, NULL, 0);
-	free_parser(m->tokens);
+	free_parser(m->tokens); */
 }
