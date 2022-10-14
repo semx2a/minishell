@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 20:36:49 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 18:18:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,5 @@ t_redir		*new_node_redir(t_operator type, char *str);
 void		print_redir(t_redir *r);
 void		free_redir(t_redir *p);
 size_t		redir_size(t_redir *p);
-
-//				utils.c
-/* void	ft_error(const char *str); */
-void		ft_error(void);
-void		*xmalloc(size_t size);
 
 #endif

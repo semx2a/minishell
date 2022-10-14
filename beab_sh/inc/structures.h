@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 20:27:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 20:03:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct s_parser
 	bool			is_piped;
 	int				pipe[2];
 	enum e_operator	id;
-	struct s_redir	*redir;
+	t_redir			*redir;
 	struct s_parser	*next;
 	struct s_parser	*prev;
 }	t_parser;

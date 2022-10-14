@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 21:43:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 20:02:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ t_types	is_operator(char c, t_main *m)
 	if ((!ft_isprint(c) || c == ' ') && m->state == S_DEFAULT)
 		return (T_SPACE);
 	if ((c == '$' && m->quote == DOUBLE_Q && m->state == S_OPEN_QUOTE)
-		|| (ft_strchr("|&><$", c) && m->state == S_DEFAULT))
+		|| (ft_strchr("|&><$\"\'", c) && m->state == S_DEFAULT))
 		return (T_OPERATOR);
 	return (T_WORD);
 }
 
-t_states	is_quote(char c, t_main *m)
+t_states	is_state(char c, t_main *m)
 {
 	if ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != S_OPEN_QUOTE)
 	{
@@ -49,17 +49,16 @@ t_states	is_quote(char c, t_main *m)
 
 void	inside_quotes(t_main *m, t_lexer *tmp)
 {
-	while (m->line[m->i] && is_quote(m->line[m->i], m) != 2)
+	while (m->line[m->i] && is_state(m->line[m->i], m) != 2)
 	{
 		tmp->next = new_node_lexer(is_operator(m->line[m->i], m),
 				m->line[m->i]);
 		m->i++;
 	}
-	m->state = is_quote(m->line[m->i], m);
+	m->state = is_state(m->line[m->i], m);
 	if (m->state == S_CLOSING_QUOTE)
 		tmp->next = new_node_lexer(is_operator(m->line[m->i], m),
 				m->line[m->i]);
-
 }
 
 t_lexer	*find_types(t_main *m)
@@ -68,13 +67,13 @@ t_lexer	*find_types(t_main *m)
 	t_lexer	*tmp;
 
 	m->i = 0;
-	m->state = is_quote(m->line[m->i], m);
+	m->state = is_state(m->line[m->i], m);
 	head = new_node_lexer(is_operator(m->line[m->i], m), m->line[m->i]);
 	tmp = head;
 	m->i++;
 	while (m->line[m->i] && ft_isascii(m->line[m->i]))
 	{
-		m->state = is_quote(m->line[m->i], m);
+		m->state = is_state(m->line[m->i], m);
 		if (m->state == S_OPEN_QUOTE)
 			inside_quotes(m, tmp);
 		else

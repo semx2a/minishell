@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 21:26:27 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 19:44:31 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,8 @@ void	ft_process(t_main *m)
 	}
 }
 
-void	job_init(t_main *m)
-{
-	m->lexicon = xmalloc(sizeof(t_lexer));
-	m->lexicon = NULL;
-	m->tokens = xmalloc(sizeof(t_parser));
-	m->tokens = NULL;
-}
-
 void	job(t_main *m)
 {
-//	job_init(m);
 	lexer(m);
 	if (m->state != S_OPEN_QUOTE)
 		print_lexer(m->lexicon);

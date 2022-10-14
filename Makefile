@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/13 20:39:24 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/14 18:17:21 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,6 @@ SRCS			:=	jobs_execution.c \
 					shell_signals.c \
 					shell_unset.c \
 					utils_builtins.c \
-					utils.c \
 					utils_env2.c \
 					utils_env.c \
 					update_parser.c \
