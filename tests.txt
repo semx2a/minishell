@@ -1,4 +1,31 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+\\\																			 ///
+	>>>>>>>>>>						TESTS                         <<<<<<<<<<
+///																			 \\\
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSER::
+
 cat Makefile | grep "minishell" | wc -l
 cat Makefile | grep " minishell " | wc -l
 cat Makefile | grep "NAME := minishell" | wc -l
 < Makefile cat > outfile
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LEXER::
+
+		INPUT						|						OUTPUT
+
+' ' ' ' ' ' ' ' ' ' ' '									OK
+
+' ' ' ' ' ' ' ' ' ' '									OPEN QUOTE FOUND
+
+" " " "													OK
+
+" " " " "												OPEN QUOTE FOUND
+
+" " "													OPEN QUOTE FOUND
+
+" ' "													' : command not found
+
+' ' '													OPEN QUOTE FOUND
+
+' " '													" : command not found
+

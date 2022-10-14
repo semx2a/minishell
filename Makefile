@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/14 18:17:21 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/14 20:17:02 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ SRCS			:=	jobs_execution.c \
 					shell_io.c \
 					shell_jobs.c \
 					shell_lexer.c \
-					shell_parser.c \
 					shell_signals.c \
 					shell_unset.c \
 					utils_builtins.c \

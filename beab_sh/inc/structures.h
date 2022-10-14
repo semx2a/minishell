@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 20:03:44 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 20:08:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ typedef struct s_lexer
 {	
 	char			arg;
 	enum e_types	type;
-	struct s_lexer	*next;
-	struct s_lexer	*prev;
 }	t_lexer;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
@@ -113,7 +111,7 @@ typedef struct s_main
 	char			**builtins;
 	char			**operators;
 	t_env			*env;
-	t_lexer			*lexicon;
+	t_node			*lexicon;
 	t_parser		*tokens;
 }	t_main;
 

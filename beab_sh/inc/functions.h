@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 18:18:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 20:17:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int			ft_check_and_export(char *namevar, char *value, t_env *env,
 
 //				update_lexer.c
 t_lexer		*new_node_lexer(t_types type, char c);
-void		print_lexer(t_lexer *l);
+void		print_lexer(t_node *l);
 void		free_lexer(t_lexer *l);
 size_t		lexer_size(t_lexer *l);
 

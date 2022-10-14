@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 19:44:31 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 21:24:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ void	ft_process(t_main *m)
 
 void	job(t_main *m)
 {
-	lexer(m);
-	if (m->state != S_OPEN_QUOTE)
-		print_lexer(m->lexicon);
+	if (!lexer(m))
+		return ;
+	print_lexer(m->lexicon);
+	free_nodes(&m->lexicon, &free);
 /* 	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
 	m->index = 0;

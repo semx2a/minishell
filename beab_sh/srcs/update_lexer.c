@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:15:54 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 20:37:40 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 20:23:00 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-t_lexer	*new_node_lexer(t_types type, char c)
+/* t_lexer	*new_node_lexer(t_types type, char c)
 {
 	t_lexer	*new;
 
@@ -21,25 +21,25 @@ t_lexer	*new_node_lexer(t_types type, char c)
 	new->type = type;
 	new->next = NULL;
 	return (new);
-}
+} */
 
-void	print_lexer(t_lexer *l)
+void	print_lexer(t_node *l)
 {
-	t_lexer	*tmp;
+	t_node	*tmp;
 	int		i;
 
 	tmp = l;
 	i = 0;
 	while (tmp)
 	{
-		printf(" Node #%d type = %d arg = %c\n", i, tmp->type, tmp->arg);
+		printf(" Node #%d type = %d arg = %c\n", i, ((t_lexer *)tmp->data)->type, ((t_lexer *)tmp->data)->arg);
 		printf(" ------------------ \n");
 		i++;
 		tmp = tmp->next;
 	}
 }
 
-void	free_lexer(t_lexer *l)
+/* void	free_lexer(t_lexer *l)
 {
 	t_lexer	*tmp;
 
@@ -73,4 +73,4 @@ size_t	lexer_size(t_lexer *l)
 		}
 	}
 	return (0);
-}
+} */
