@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 18:15:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 20:35:44 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 22:51:21 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,6 @@ void	print_parser(t_parser *p)
 		i++;
 		tmp = tmp->next;
 	}
-}
-
-void	free_parser(t_parser *p)
-{
-	t_parser	*tmp;
-
-	while (p)
-	{
-		tmp = p;
-		if (tmp->is_piped == 1)
-		{
-			close(tmp->pipe[0]);
-			close(tmp->pipe[1]);
-		}
-		if (tmp->bin_path)
-			free(tmp->bin_path);
-		ft_free_stab(tmp->av);
-		if (tmp->redir)
-			free_redir(tmp->redir);
-		p = p->next;
-		free(tmp);
-	}
-	p = NULL;
-	free(p);
 }
 
 size_t	parser_size(t_parser *p)

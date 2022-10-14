@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 20:08:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 23:57:06 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,18 @@ typedef struct s_lexer
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
 
 typedef enum e_operator
-{	
+{
+// pipes
 	O_PIPE,
 	O_OR,
 	O_AND,
+// redirs
 	O_STDIN_REDIR,
 	O_STDOUT_REDIR,
 	O_DELEM,
 	O_APPEN,
+//env
 	O_ENV_VAR,
-	O_WORD,
 }	t_operator;
 
 typedef struct s_redir
@@ -59,8 +61,6 @@ typedef struct s_redir
 	int				fd;
 	enum e_operator	id;
 	char			*path;
-	struct s_redir	*next;
-	struct s_redir	*prev;
 }	t_redir;
 
 typedef struct s_parser
@@ -71,9 +71,7 @@ typedef struct s_parser
 	bool			is_piped;
 	int				pipe[2];
 	enum e_operator	id;
-	t_redir			*redir;
-	struct s_parser	*next;
-	struct s_parser	*prev;
+	t_node			*redir;
 }	t_parser;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
@@ -112,7 +110,7 @@ typedef struct s_main
 	char			**operators;
 	t_env			*env;
 	t_node			*lexicon;
-	t_parser		*tokens;
+	t_node			*tokens;
 }	t_main;
 
 #endif

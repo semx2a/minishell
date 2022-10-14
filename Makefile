@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/14 20:17:02 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/14 23:03:23 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:=	jobs_execution.c \
+#SRCS			:=	jobs_execution.c \
 					jobs_pipes.c \
 					main.c \
 					shell_builtins.c \
@@ -47,15 +47,25 @@ SRCS			:=	jobs_execution.c \
 					shell_io.c \
 					shell_jobs.c \
 					shell_lexer.c \
+					shell_parser.c \
 					shell_signals.c \
 					shell_unset.c \
 					utils_builtins.c \
 					utils_env2.c \
 					utils_env.c \
-					update_parser.c \
-					update_lexer.c \
-					update_redir.c
-					
+					print_lists.c
+
+SRCS			:=	main.c \
+					shell_flush.c \
+					shell_init.c \
+					shell_jobs.c \
+					shell_lexer.c \
+					shell_parser.c \
+					shell_signals.c \
+					utils_env2.c \
+					utils_env.c \
+					print_lists.c
+
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::

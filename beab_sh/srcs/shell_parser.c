@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 20:29:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 23:51:00 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_operator	identify_operator(char *buf, char **operators)
 			return ((t_operator)i);
 		i++;
 	}
-	return (O_WORD);
+	return (NULL);
 }
 
 size_t	token_len(t_main *m, t_lexer *l)
@@ -41,7 +41,7 @@ size_t	token_len(t_main *m, t_lexer *l)
 	return (len);
 }
 
-char	*fill_buf(t_main *m, t_lexer *a, t_types type)
+char	**build_token(t_main *m)
 {
 	char	*buf;
 
@@ -60,44 +60,42 @@ char	*fill_buf(t_main *m, t_lexer *a, t_types type)
 	return (buf);
 }
 
-void	fill_parser(t_main *m, t_parser *p)
+t_redir	*fill_redir(t_main *m)
 {
-	if (!p)
-		p = new_node_parser(identify_operator(m->buf_b, m->operators),
-				ft_substr(m->buf_a, 0, m->i));
-	else
-		p->next = new_node_parser(identify_operator(m->buf_b, m->operators),
-				ft_substr(m->buf_a, 0, m->i));
+	t_redir	*content;
+
+	content = xmalloc(sizeof(t_parser));
+	content->type = is_operator(m->line[m->i], m);
+	content->arg = m->line[m->i];
+	return (content);
 }
 
-t_parser	*build_tokens(t_main *m, t_lexer *a, t_parser *b)
+t_parser	*fill_parser(t_main *m)
 {
-	m->i = 0;
-	while (a)
-	{	
-		m->type = a->type;
-		while (a && a->type == T_SPACE)
-			a = a->next;
-		m->buf_a = fill_buf(m, a, T_WORD);
-		m->buf_b = fill_buf(m, a, T_OPERATOR);
-		fill_parser(m, b);
-		free(m->buf_a);
-		free(m->buf_b);
-		a = a->next;
-		if (b->next)
-			b = b->next;
+	t_parser	*content;
+
+	content = xmalloc(sizeof(t_parser));
+	content->id = is_operator(m->line[m->i], m);
+	if (content->id == ID_PIPE)
+	{
+		content->is_piped = 1;
+		pipe(content->pipe);
 	}
-	return (b);
+	else if (content->id )
+	content->av = build_token(m);
+	return (content);
 }
 
 int	parser(t_main *m)
-{
-	t_lexer		*tmp_a;
-	t_parser	*tmp_b;
+{	
+	t_node	*ret;
 
-	tmp_a = m->lexicon;
-	tmp_b = m->tokens;
-	tmp_b = build_tokens(m, tmp_a, tmp_b);
-	free_lexer(m->lexicon);
+	m->i = 0;
+	while (m->lexicon)
+	{	
+		putback_node(&m->tokens, new_node(fill_parser(m)));
+		m->lexicon = m->lexicon->next;
+	}
+	free_lexer(&m->lexicon);
 	return (1);
 }

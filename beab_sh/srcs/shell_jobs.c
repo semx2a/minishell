@@ -6,30 +6,30 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 21:24:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 23:35:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_process(t_main *m)
+void	ft_process(t_main *m, t_parser *p)
 {
-	m->tokens->pid = fork();
-	if (m->tokens->pid == -1)
+	p->pid = fork();
+	if (p->pid == -1)
 		ft_error();
-	else if (m->tokens->pid > 0)
+	else if (p->pid > 0)
 	{
-		waitpid(m->tokens->pid, 0, 0);
-		kill(m->tokens->pid, SIGTERM);
+		waitpid(p->pid, 0, 0);
+		kill(p->pid, SIGTERM);
 	}
-	else if (m->tokens->pid == 0)
+	else if (p->pid == 0)
 	{
 		if (m->pipe_nb > 0)
 		{	
 			pipes(m);
-			if (m->tokens->id == O_PIPE)
+			if (p->id == O_PIPE)
 				execute(m);
-			else if (m->tokens->id == O_DELEM)
+			else if (p->id == O_DELEM)
 				heredoc(m);
 		}
 		else
@@ -39,25 +39,24 @@ void	ft_process(t_main *m)
 
 void	job(t_main *m)
 {
-	if (!lexer(m))
+	if (!lexer(m) || !parser(m))
 		return ;
-	print_lexer(m->lexicon);
-	free_nodes(&m->lexicon, &free);
+	print_parser(m->tokens);
 /* 	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
 	m->index = 0;
 	while (m->tokens)
 	{	
-		if (is_builtin(m->tokens->av[0], m->builtins) == 1)
+		if (is_builtin(p->av[0], m->builtins) == 1)
 			exec_builtin(m);
 		else
 		{
-			ft_process(m);
+			ft_process(m, ((t_parser *)m->tokens->data)->content;
 			m->index++;
 		}
-		m->tokens = m->tokens->next;
+		m->tokens = p->next;
 
 	}
-	waitpid(-1, NULL, 0);
-	free_parser(m->tokens); */
+	waitpid(-1, NULL, 0); */
+	free_parser(&m->tokens);
 }

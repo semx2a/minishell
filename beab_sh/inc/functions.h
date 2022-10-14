@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 20:17:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 23:28:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int			ft_export(t_main *m, bool is_forked);
 
 // 				shell_flush.c
 void		ft_flush(t_main *m);
+void		free_parser(t_node **p);
+void		free_redir(t_node **r);
+void		free_lexer(t_node **l);
 
 //				shell_init.c
 void		shell_init(t_main *m, char **envp);
@@ -93,22 +96,9 @@ void		ft_print_declare(t_env *env, bool is_forked);
 int			ft_check_and_export(char *namevar, char *value, t_env *env,
 				bool is_forked);
 
-//				update_lexer.c
-t_lexer		*new_node_lexer(t_types type, char c);
+//				print_lists.c
 void		print_lexer(t_node *l);
-void		free_lexer(t_lexer *l);
-size_t		lexer_size(t_lexer *l);
-
-//				update_parser.c
-t_parser	*new_node_parser(t_operator type, char *str);
-void		print_parser(t_parser *p);
-void		free_parser(t_parser *p);
-size_t		parser_size(t_parser *p);
-
-//				update_redir.c
-t_redir		*new_node_redir(t_operator type, char *str);
-void		print_redir(t_redir *r);
-void		free_redir(t_redir *p);
-size_t		redir_size(t_redir *p);
+void		print_parser(t_node *p);
+void		print_redir(t_node *r);
 
 #endif

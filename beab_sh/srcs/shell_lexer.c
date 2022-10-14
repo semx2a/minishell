@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 21:55:54 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/14 23:43:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	lexer(t_main *m)
 	if (m->state == S_OPEN_QUOTE)
 	{
 		ft_putstr_fd("Error: Open quote found\n", 2);
-		free_nodes(&m->lexicon, &free);
+		free_lexer(&m->lexicon);
 		return (0);
 	}
 	return (1);
