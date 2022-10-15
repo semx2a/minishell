@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/14 19:33:18 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/15 17:33:57 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_memcpy.c \
 			ft_memmove.c \
 			ft_memset.c \
+			ft_multi_split.c \
 			ft_node_addback.c \
 			ft_node_addfront.c \
 			ft_nodeclear.c \

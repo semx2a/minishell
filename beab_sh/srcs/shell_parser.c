@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 17:10:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 19:51:57 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_operator	identify_operator(char *buf, char **operators)
 {
-	int	i;
+	t_operator	i;
 
 	i = 0;
-	while (operators[i])
+	while (operators[(int)i])
 	{
-		if (!ft_strncmp(operators[i], buf, ft_strlen(buf)))
-			return ((t_operator)i);
+		if (!ft_strncmp(operators[(int)i], buf, ft_strlen(buf)))
+			return (i);
 		i++;
 	}
 	return (O_CMD);
@@ -40,7 +40,6 @@ size_t	token_len(t_main *m, t_node *l)
 		tmp = tmp->next;
 		len++;
 	}
-	printf("len = %lu\n", len);
 	return (len);
 }
 
@@ -57,27 +56,19 @@ char	*build_token(t_main *m, t_node *l)
 		m->i++;
 	}	
 	m->buf[m->i] = '\0';
+	m->buf = ft_strtrim(m->buf, " ");
 	return (m->buf);
 }
-
-/* t_redir	*fill_redir(char *buf, t_main *m) */
-/* { */
-/* 	t_redir	*content; */
-/*  */
-/* 	content = xmalloc(sizeof(t_parser)); */
-/* 	content->type = is_operator(buf, m); */
-/* 	content->arg = ft_split(buf, ' '); */
-/* 	return (content); */
-/* } */
 
 t_parser	*fill_parser(char *buf, t_main *m)
 {
 	t_parser	*content;
 
-	printf("%s\n", buf);
 	content = xmalloc(sizeof(t_parser));
 	content->id = identify_operator(buf, m->operators);
-	content->av = ft_split(ft_strtrim(buf, " "), '"\'');
+	content->av = (char **)xmalloc(sizeof(char *) * 2);
+	content->av[0] = ft_strdup(buf);
+	content->av[1] = 0;
 	content->bin_path = NULL;
 	content->is_piped = 0;
 	content->is_redir = 0;
@@ -93,6 +84,7 @@ int	parser(t_main *m)
 	while (tmp)
 	{	
 		putback_node(&m->tokens, new_node(fill_parser(build_token(m, tmp), m)));
+		free(m->buf);
 		while (m->i--)
 			tmp = tmp->next;
 	}
