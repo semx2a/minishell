@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 19:33:59 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 20:04:13 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ typedef struct s_main
 	size_t			j;
 	size_t			k;
 	size_t			index;
-	size_t			cmd_nb;
-	size_t			pipe_nb;
 	enum e_states	state;
 	enum e_types	type;
 	int				cmd_ac;

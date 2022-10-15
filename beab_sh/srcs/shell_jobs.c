@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 16:45:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 19:53:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@
 
 void	job(t_main *m)
 {
-	if (!lexer(m) || !parser(m))
+ 	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
 	print_parser(m->tokens);
-/* 	if (!lexer(m) || !parser(m) || !expansion(m))
-		return ;
+/*		
 	m->index = 0;
 	while (m->tokens)
 	{	

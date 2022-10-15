@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 16:16:30 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 19:57:57 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static char	*get_cmd(char **paths, char *cmd)
 
 void	execute(t_main *m)
 {	
-	m->paths = ft_env_to_tab(m->env);
 	m->tokens->bin_path = get_cmd(m->paths, m->tokens->av[0]);
 	if (execve(m->tokens->bin_path, m->tokens->av, m->paths) != -1)
 	{
