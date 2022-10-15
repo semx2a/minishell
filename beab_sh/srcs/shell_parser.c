@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 23:51:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 17:10:17 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,79 +23,79 @@ t_operator	identify_operator(char *buf, char **operators)
 			return ((t_operator)i);
 		i++;
 	}
-	return (NULL);
+	return (O_CMD);
 }
 
-size_t	token_len(t_main *m, t_lexer *l)
+size_t	token_len(t_main *m, t_node *l)
 {	
-	t_lexer	*tmp;
+	t_node	*tmp;
 	size_t	len;
 
 	len = 0;
 	tmp = l;
-	while (tmp && m->type == tmp->type)
+	m->type = ((t_lexer *)tmp->data)->type;
+	while (tmp && (m->type == ((t_lexer *)tmp->data)->type
+			|| ((t_lexer *)tmp->data)->type == T_SPACE))
 	{
 		tmp = tmp->next;
 		len++;
 	}
+	printf("len = %lu\n", len);
 	return (len);
 }
 
-char	**build_token(t_main *m)
+char	*build_token(t_main *m, t_node *l)
 {
-	char	*buf;
-
-	(void)type;
-	buf = NULL;
+	m->buf = NULL;
 	m->i = 0;
-	m->j = (unsigned int)token_len(m, a);
-	m->buf_a = xmalloc(sizeof(char) * (m->j + 1));
-	m->buf_a[m->j] = '\0';
-	while (a && m->type == a->type)
+	m->buf = xmalloc(sizeof(char) * (token_len(m, l) + 1));
+	while (l && (m->type == ((t_lexer *)l->data)->type
+			|| ((t_lexer *)l->data)->type == T_SPACE))
 	{
-		m->buf_a[m->i] = a->arg;
-		a = a->next;
+		m->buf[m->i] = ((t_lexer *)l->data)->arg;
+		l = l->next;
 		m->i++;
-	}
-	return (buf);
+	}	
+	m->buf[m->i] = '\0';
+	return (m->buf);
 }
 
-t_redir	*fill_redir(t_main *m)
-{
-	t_redir	*content;
+/* t_redir	*fill_redir(char *buf, t_main *m) */
+/* { */
+/* 	t_redir	*content; */
+/*  */
+/* 	content = xmalloc(sizeof(t_parser)); */
+/* 	content->type = is_operator(buf, m); */
+/* 	content->arg = ft_split(buf, ' '); */
+/* 	return (content); */
+/* } */
 
-	content = xmalloc(sizeof(t_parser));
-	content->type = is_operator(m->line[m->i], m);
-	content->arg = m->line[m->i];
-	return (content);
-}
-
-t_parser	*fill_parser(t_main *m)
+t_parser	*fill_parser(char *buf, t_main *m)
 {
 	t_parser	*content;
 
+	printf("%s\n", buf);
 	content = xmalloc(sizeof(t_parser));
-	content->id = is_operator(m->line[m->i], m);
-	if (content->id == ID_PIPE)
-	{
-		content->is_piped = 1;
-		pipe(content->pipe);
-	}
-	else if (content->id )
-	content->av = build_token(m);
+	content->id = identify_operator(buf, m->operators);
+	content->av = ft_split(ft_strtrim(buf, " "), '"\'');
+	content->bin_path = NULL;
+	content->is_piped = 0;
+	content->is_redir = 0;
 	return (content);
 }
 
 int	parser(t_main *m)
 {	
-	t_node	*ret;
+	t_node	*tmp;
 
 	m->i = 0;
-	while (m->lexicon)
+	tmp = m->lexicon;
+	while (tmp)
 	{	
-		putback_node(&m->tokens, new_node(fill_parser(m)));
-		m->lexicon = m->lexicon->next;
+		putback_node(&m->tokens, new_node(fill_parser(build_token(m, tmp), m)));
+		while (m->i--)
+			tmp = tmp->next;
 	}
-	free_lexer(&m->lexicon);
+	free_nodes(&m->lexicon, &free);
 	return (1);
 }

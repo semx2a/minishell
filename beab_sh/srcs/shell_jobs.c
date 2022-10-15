@@ -6,36 +6,36 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 23:35:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 16:45:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_process(t_main *m, t_parser *p)
-{
-	p->pid = fork();
-	if (p->pid == -1)
-		ft_error();
-	else if (p->pid > 0)
-	{
-		waitpid(p->pid, 0, 0);
-		kill(p->pid, SIGTERM);
-	}
-	else if (p->pid == 0)
-	{
-		if (m->pipe_nb > 0)
-		{	
-			pipes(m);
-			if (p->id == O_PIPE)
-				execute(m);
-			else if (p->id == O_DELEM)
-				heredoc(m);
-		}
-		else
-			execute(m);
-	}
-}
+/* void	ft_process(t_main *m, t_parser *p) */
+/* { */
+/* 	p->pid = fork(); */
+/* 	if (p->pid == -1) */
+/* 		ft_error(); */
+/* 	else if (p->pid > 0) */
+/* 	{ */
+/* 		waitpid(p->pid, 0, 0); */
+/* 		kill(p->pid, SIGTERM); */
+/* 	} */
+/* 	else if (p->pid == 0) */
+/* 	{ */
+/* 		if (m->pipe_nb > 0) */
+/* 		{	 */
+/* 			pipes(m); */
+/* 			if (p->id == O_PIPE) */
+/* 				execute(m); */
+/* 			else if (p->id == O_DELEM) */
+/* 				heredoc(m); */
+/* 		} */
+/* 		else */
+/* 			execute(m); */
+/* 	} */
+/* } */
 
 void	job(t_main *m)
 {

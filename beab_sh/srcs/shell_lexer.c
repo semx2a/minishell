@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 23:43:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 17:06:58 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ t_types	is_operator(char c, t_main *m)
 {	
 	if ((!ft_isprint(c) || c == ' ') && m->state == S_DEFAULT)
 		return (T_SPACE);
-	if ((c == '$' && m->quote == DOUBLE_Q && m->state == S_OPEN_QUOTE)
-		|| (ft_strchr("|&><$\"\'", c) && m->state == S_DEFAULT))
+	if (/* (c == '$' && m->quote == DOUBLE_Q && m->state == S_OPEN_QUOTE)
+		||  */(ft_strchr("|&><$\"\'", c) && m->state == S_DEFAULT))
 		return (T_OPERATOR);
 	return (T_WORD);
 }
@@ -82,7 +82,7 @@ int	lexer(t_main *m)
 	if (m->state == S_OPEN_QUOTE)
 	{
 		ft_putstr_fd("Error: Open quote found\n", 2);
-		free_lexer(&m->lexicon);
+		free_nodes(&m->lexicon, &free);
 		return (0);
 	}
 	return (1);

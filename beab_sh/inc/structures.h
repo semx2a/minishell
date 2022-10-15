@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/14 23:57:06 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/15 16:02:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,15 @@ typedef struct s_lexer
 
 typedef enum e_operator
 {
-// pipes
 	O_PIPE,
 	O_OR,
 	O_AND,
-// redirs
 	O_STDIN_REDIR,
 	O_STDOUT_REDIR,
 	O_DELEM,
 	O_APPEN,
-//env
 	O_ENV_VAR,
+	O_CMD,
 }	t_operator;
 
 typedef struct s_redir
@@ -63,15 +61,16 @@ typedef struct s_redir
 	char			*path;
 }	t_redir;
 
+
 typedef struct s_parser
 {	
 	char			**av;
 	char			*bin_path;
 	pid_t			pid;
 	bool			is_piped;
+	bool			is_redir;
 	int				pipe[2];
 	enum e_operator	id;
-	t_node			*redir;
 }	t_parser;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
@@ -103,8 +102,7 @@ typedef struct s_main
 	char			*line;
 	char			*cwd;
 	char			*prompt;
-	char			*buf_a;
-	char			*buf_b;
+	char			*buf;
 	char			**paths;
 	char			**builtins;
 	char			**operators;
