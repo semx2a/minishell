@@ -6,35 +6,11 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 19:57:57 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/17 15:47:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-static char	*get_cmd(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*ret;
-
-	if (access(cmd, 0) == 0)
-		return (cmd);
-	else
-	{
-		while (*paths)
-		{
-			tmp = ft_strjoin(*paths, "/");
-			ret = ft_strjoin(tmp, cmd);
-			free(tmp);
-			if (access(ret, X_OK) == 0)
-				return (ret);
-			free(ret);
-			paths++;
-		}
-		ft_putstr_fd("command not found\n", 2);
-	}
-	return (NULL);
-}
 
 void	execute(t_main *m)
 {	

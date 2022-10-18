@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_node_iter.c                                     :+:      :+:    :+:   */
+/*   shell_pipes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/14 19:13:35 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/17 15:22:36 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/17 17:56:17 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/17 17:56:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "../inc/minishell.h"
 
-void	node_iter(t_node *n, void (*f)(void *, void *), void *param)
+t_operator	identify_pipe(t_main *m)
 {
-	if (n)
-	{
-		while (n)
-		{
-			f(n->data, param);
-			n = n->next;
-		}
-	}
+
 }

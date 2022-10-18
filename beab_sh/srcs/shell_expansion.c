@@ -6,25 +6,35 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 20:18:13 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/17 18:04:17 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//char	*find_args(t_parser *p, int id)
-//{
-//	t_parser	*tmp;
-//
-//	tmp = p;
-//	while (tmp)
-//	{
-//		if (tmp->type == id)
-//			return (tmp->av[]);
-//		tmp = tmp->next;
-//	}
-//	return (NULL);
-//}
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*ret;
+
+	if (access(cmd, 0) == 0)
+		return (cmd);
+	else
+	{
+		while (*paths)
+		{
+			tmp = ft_strjoin(*paths, "/");
+			ret = ft_strjoin(tmp, cmd);
+			free(tmp);
+			if (access(ret, X_OK) == 0)
+				return (ret);
+			free(ret);
+			paths++;
+		}
+		ft_putstr_fd("command not found\n", 2);
+	}
+	return (NULL);
+}
 
 size_t	type_occurrences(t_parser *p, t_operator id)
 {
@@ -42,16 +52,7 @@ size_t	type_occurrences(t_parser *p, t_operator id)
 	return (len);
 }
 
-int	identify_redir(t_main *m)
-{
-	if (type_occurrences(m->tokens, O_STDIN_REDIR) != NULL)
-		ft_open(&m->fd_in, find_arg(m->tokens, INFILE_ID), O_RDONLY, NULL);
-	if (type_occurrences(m->tokens, O_STDOUT_REDIR) != NULL)
-		ft_open(&m->fd_out, find_arg(m->tokens, OUTFILE_ID),
-			O_CREAT | O_TRUNC | O_WRONLY, 0644);
-}
-
-char	**fill_stab(t_lexer *content, t_main *m)
+char	**fill_stab(t_parser *content, t_main *m)
 {
 	char	**new;
 
@@ -68,15 +69,21 @@ char	**fill_stab(t_lexer *content, t_main *m)
 	return (m->buf);
 }
 
-t_parser	*update_tokens(t_lexer *content, t_main *m)
+void	expand_tokens(void *content, void *m)
 {
-	content = xmalloc(sizeof(t_parser));
-	content->id = identify_operator(buf, m->operators);
-	content->av = fill_stab(content, m);
-	content->bin_path = get_cmd(m->paths, m->tokens->av[0]);
-	content->is_piped = 0;
-	content->is_redir = 0;
-	return (content);
+	t_parser	*data_sym;
+	t_main		*m_sym;
+
+	data_sym = (t_parser *)content;
+	m_sym = (t_main *)m;
+	data_sym->av = fill_stab(data_sym, m_sym);
+	data_sym->bin_path = get_cmd(m_sym->paths, data_sym->av[0]);
+	if (identify_pipes())
+		expand_pipes();
+	if (identify_io())
+		expand_io();
+	content = &data_sym;
+	m = &m_sym;
 }
 
 int	expansion(t_main *m)
@@ -84,12 +91,8 @@ int	expansion(t_main *m)
 	t_node	*tmp;
 
 	m->i = 0;
-	tmp = m->parser;
-	while (tmp)
-	{	
-		((t_parser)tmp->data) = update_tokens(((t_parser)tmp->data), m);
-		tmp = tmp->next;
-	}
+	tmp = m->tokens;
+	node_iter(tmp, &expand_tokens, &m);
 	m->paths = ft_split(get_cont("PATH", m->env), ':');
 	m->index = 0;
 	return (1);

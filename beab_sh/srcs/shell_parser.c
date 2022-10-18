@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 19:51:57 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/17 17:26:23 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ t_parser	*fill_parser(char *buf, t_main *m)
 	content->bin_path = NULL;
 	content->is_piped = 0;
 	content->is_redir = 0;
+	if (id < O_STIN_REDIR)
+		content->is_piped = 1;
+	else if (id >= O_STDIN_REDIR && id <= O_APPEN)
+		content->is_redir = 0;
+	free(m->buf);
 	return (content);
 }
 
@@ -84,7 +89,6 @@ int	parser(t_main *m)
 	while (tmp)
 	{	
 		putback_node(&m->tokens, new_node(fill_parser(build_token(m, tmp), m)));
-		free(m->buf);
 		while (m->i--)
 			tmp = tmp->next;
 	}

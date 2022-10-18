@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 17:37:30 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/17 15:23:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void			putfront_node(t_node **anode, t_node *new);
 void			putback_node(t_node **anode, t_node *new);
 void			delone_node(t_node *n, void (*del)(void*));
 void			free_nodes(t_node **nodes, void (*del)(void*));
-void			node_iter(t_node *n, void (*f)(void *));
+void			node_iter(t_node *n, void (*f)(void *, void *), void *param);
 t_node			*new_node(void *content);
 t_node			*last_node(t_node *n);
 t_node			*node_map(t_node *nodes, void *(*f)(void *),

@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/14 23:03:23 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/17 17:57:02 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,10 @@ SRCS			:=	main.c \
 					shell_signals.c \
 					utils_env2.c \
 					utils_env.c \
-					print_lists.c
+					print_lists.c \
+					shell_expansion.c \
+					shell_io.c \
+					shell_pipes.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 

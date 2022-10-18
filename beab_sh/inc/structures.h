@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 20:04:13 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/17 16:52:39 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ typedef struct s_redir
 	char			*path;
 }	t_redir;
 
-
 typedef struct s_parser
 {	
 	char			**av;
@@ -70,6 +69,7 @@ typedef struct s_parser
 	bool			is_piped;
 	bool			is_redir;
 	int				pipe[2];
+	t_node			*redir;
 	enum e_operator	id;
 }	t_parser;
 
