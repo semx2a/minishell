@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/17 17:57:02 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/18 19:54:39 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,16 +32,16 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-#SRCS			:=	jobs_execution.c \
-					jobs_pipes.c \
-					main.c \
+#SRCS			:=	main.c \
+					print_lists.c \
+					shell_execution.c \
+					shell_pipes.c \
 					shell_builtins.c \
 					shell_cd.c \
 					shell_echo.c \
 					shell_exit.c \
 					shell_expansion.c \
 					shell_export.c \
-					shell_export_utils.c \
 					shell_flush.c \
 					shell_init.c \
 					shell_io.c \
@@ -53,7 +53,7 @@ NAME			:=	minishell
 					utils_builtins.c \
 					utils_env2.c \
 					utils_env.c \
-					print_lists.c
+					utils_export.c
 
 SRCS			:=	main.c \
 					shell_flush.c \
@@ -62,6 +62,7 @@ SRCS			:=	main.c \
 					shell_lexer.c \
 					shell_parser.c \
 					shell_signals.c \
+					shell_splitter.c \
 					utils_env2.c \
 					utils_env.c \
 					print_lists.c \

@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 19:53:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/18 16:41:04 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/* void	ft_process(t_main *m, t_parser *p) */
+/* void	ft_process(t_main *m, t_node *p) */
 /* { */
 /* 	p->pid = fork(); */
 /* 	if (p->pid == -1) */

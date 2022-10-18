@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/17 17:26:23 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/18 18:08:02 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ t_parser	*fill_parser(char *buf, t_main *m)
 	content->bin_path = NULL;
 	content->is_piped = 0;
 	content->is_redir = 0;
-	if (id < O_STIN_REDIR)
+	if (content->id < O_STDIN_REDIR)
 		content->is_piped = 1;
-	else if (id >= O_STDIN_REDIR && id <= O_APPEN)
-		content->is_redir = 0;
+	else if (content->id >= O_STDIN_REDIR && content->id <= O_APPEN)
+		content->is_redir = 1;
 	free(m->buf);
 	return (content);
 }
