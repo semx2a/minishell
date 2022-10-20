@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/17 16:52:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:16:07 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef struct s_main
 	char			*cwd;
 	char			*prompt;
 	char			*buf;
+	char			**stab;
 	char			**paths;
 	char			**builtins;
 	char			**operators;

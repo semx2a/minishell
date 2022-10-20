@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/18 16:41:04 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/20 18:22:37 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,10 @@
 
 void	job(t_main *m)
 {
- 	if (!lexer(m) || !parser(m) || !expansion(m))
+	if (!lexer(m) || !parser(m) || !expansion(m))
 		return ;
 	print_parser(m->tokens);
-/*		
-	m->index = 0;
+/*	m->index = 0;
 	while (m->tokens)
 	{	
 		if (is_builtin(p->av[0], m->builtins) == 1)
@@ -57,5 +56,5 @@ void	job(t_main *m)
 
 	}
 	waitpid(-1, NULL, 0); */
-	free_parser(&m->tokens);
+	free_parser(m->tokens);
 }

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/18 17:05:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/20 16:44:24 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	heredoc(t_node *token, t_main *m)
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		buf = readline();
+		buf = readline("");
 		if (ft_strcmp(buf, p->av[0]))
 			break ;
 		/*trouver un moyen de append le buf dans le fichier*/
@@ -48,7 +48,7 @@ void	expand_io(t_redir *data)
 	else if (data->id == O_STDOUT_REDIR || data->id == O_APPEN)
 		ft_open(&data->fd, &data->path, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (data->id == O_DELEM)
-		ft_open(&dat->fd, &data->path, O_TMPFILE | O_WRONLY, 0644);
+		ft_open(&data->fd, &data->path, O_TMPFILE | O_WRONLY, 0644);
 }
 
 int	identify_io(t_main *m)

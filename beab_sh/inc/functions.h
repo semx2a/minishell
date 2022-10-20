@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/18 19:58:49 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/20 18:22:27 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ int			ft_export(t_main *m, bool is_forked);
 
 // 				shell_flush.c
 void		ft_flush(t_main *m);
-void		free_parser(t_node **p);
-void		free_redir(t_node **r);
-void		free_lexer(t_node **l);
+void		free_parser(t_node *p);
+void		free_redir(t_node *r);
 
 //				shell_init.c
 void		shell_init(t_main *m, char **envp);
