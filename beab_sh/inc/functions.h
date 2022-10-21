@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/20 18:22:27 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/21 18:55:45 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			exec_builtin(t_main *m);
 int			ft_exit(t_main *m, bool is_forked);
 
 //				shell_expansion.c
-int			expansion(t_main *m);
+void		expand(void *content, void *m);
 
 //				shell_export.c
 int			ft_export(t_main *m, bool is_forked);
@@ -57,10 +57,12 @@ int			identify_io(t_main *m);
 void		job(t_main *m);
 
 //				shell_lexer.c
-int			lexer(t_main *m);
+t_states	is_state(char c, t_main *m);
+t_types		is_operator(char c, t_main *m);
+t_node		*fill_lexer(t_main *m);
 
 //				shell_parser.c
-int			parser(t_main *m);
+t_parser	*fill_parser(char *buf, t_main *m);
 
 //				shell_pipes.c
 void		pipes(t_node *token, t_main *m);
@@ -72,7 +74,7 @@ int			shut_signals(int fork);
 int			set_signals(void);
 
 //				shell_splitter.c
-char		**fill_stab(t_parser *data, t_main *m);
+char		**fill_stab(char *s, t_main *m);
 
 //				shell_unset.c
 int			ft_unset(t_main *m, bool is_forked);

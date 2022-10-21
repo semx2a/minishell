@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/20 16:44:24 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/21 18:34:31 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	heredoc(t_node *token, t_main *m)
 
 void	expand_io(t_redir *data)
 {
+
 	if (data->id == O_STDIN_REDIR)
 		ft_open(&data->fd, &data->path, O_RDONLY, NULL);
 	else if (data->id == O_STDOUT_REDIR || data->id == O_APPEN)

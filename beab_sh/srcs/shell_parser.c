@@ -6,25 +6,11 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/20 18:46:18 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/21 18:54:13 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-t_operator	identify_operator(char *buf, char **operators)
-{
-	t_operator	i;
-
-	i = 0;
-	while (operators[(int)i])
-	{
-		if (!ft_strncmp(operators[(int)i], buf, ft_strlen(buf)))
-			return (i);
-		i++;
-	}
-	return (O_CMD);
-}
 
 size_t	token_len(t_main *m, t_node *l)
 {	
@@ -48,7 +34,7 @@ char	*build_token(t_main *m, t_node *l)
 	m->buf = NULL;
 	m->i = 0;
 	m->buf = xmalloc(sizeof(char) * (token_len(m, l) + 1));
-	while (l && (m->type == ((t_lexer *)l->data)->type
+	while (l && (((t_lexer *)l->data)->type == m->type
 			|| ((t_lexer *)l->data)->type == T_SPACE))
 	{
 		m->buf[m->i] = ((t_lexer *)l->data)->arg;
@@ -66,33 +52,10 @@ t_parser	*fill_parser(char *buf, t_main *m)
 
 	content = xmalloc(sizeof(t_parser));
 	content->id = identify_operator(buf, m->operators);
-	content->av = (char **)xmalloc(sizeof(char *) * 2);
-	content->av[0] = ft_strdup(buf);
-	content->av[1] = 0;
-	content->bin_path = NULL;
+	content->av = fill_stab(buf, m);
 	content->is_piped = 0;
 	content->is_redir = 0;
-//	if (content->id < O_STDIN_REDIR)
-//		content->is_piped = 1;
-//	else if (content->id >= O_STDIN_REDIR && content->id <= O_APPEN)
-//		content->is_redir = 1;
+	content->bin_path = NULL;
 	free(m->buf);
 	return (content);
-}
-
-int	parser(t_main *m)
-{	
-	t_node	*tmp;
-
-	m->i = 0;
-	tmp = m->lexicon;
-	m->tokens = NULL;
-	while (tmp)
-	{	
-		putback_node(&m->tokens, new_node(fill_parser(build_token(m, tmp), m)));
-		while (m->i--)
-			tmp = tmp->next;
-	}
-	free_nodes(&m->lexicon, &free);
-	return (1);
 }
