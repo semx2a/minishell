@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 19:23:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/21 16:21:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 18:11:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-static char	**allocate_stab(char *s, t_main *m)
+static char	**count_tokens(char *s, t_main *m)
 {
 	size_t		words;
 	size_t		i;
@@ -44,12 +44,12 @@ void	arg_splitter(char *s, char *charset, t_main *m)
 	m->j = m->k - 1;
 }
 
-char	**fill_stab(char *s, t_main *m)
+char	**shell_splitter(char *s, t_main *m)
 {
 	m->index = 0;
 	m->j = 0;
 	m->k = 0;
-	m->stab = allocate_stab(s, m);
+	m->stab = count_tokens(s, m);
 	while (s[m->j])
 	{	
 		m->state = is_state(s[m->j], m);

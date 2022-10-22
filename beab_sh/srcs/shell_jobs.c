@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/21 18:56:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 17:05:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,37 +37,14 @@
 /* 	} */
 /* } */
 
-
 int	process_args(t_main *m)
 {	
-	t_node	*tmp;
-
-	m->state = S_DEFAULT;
-	m->lexicon = fill_lexer(m);
-	if (m->state == S_OPEN_QUOTE)
-	{
-		ft_putstr_fd("Error: Open quote found\n", 2);
-		free_nodes(&m->lexicon, &free);
-		return (0);
-	}
-	m->i = 0;
-	tmp = m->lexicon;
-	m->tokens = NULL;
-	while (tmp)
-	{	
-		type = ((t_lexer *)tmp->data)->type;
-		if (type == T_WORD)
-		{
-			putback_node(&m->tokens,
-				new_node(fill_parser(build_token(m, tmp), m)));
-			while (m->i--)
-				tmp = tmp->next;
-		}
-		else if (type = T_OPERATOR)
-			expand(&m->tokens->data, m)
-	}
-	free_nodes(&m->lexicon, &free);
 	m->paths = ft_split(get_cont("PATH", m->env), ':');
+	if (!create_lexicon(m))
+		return (0);
+	if (!create_tokens(m))
+		return (0);
+	free_nodes(&m->lexicon, &free);
 	return (1);
 }
 
@@ -86,7 +63,7 @@ void	job(t_main *m)
 			exec_builtin(m);
 		else
 		{
-			ft_process(m, ((t_parser *)m->tokens->data)->content;
+			ft_process(m, ((t_token *)m->tokens->data)->content;
 			m->index++;
 		}
 		m->tokens = p->next;

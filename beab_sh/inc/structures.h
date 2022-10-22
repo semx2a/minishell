@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/20 16:16:07 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 17:40:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef enum e_operator
 	O_STDOUT_REDIR,
 	O_DELEM,
 	O_APPEN,
-	O_ENV_VAR,
 	O_CMD,
 }	t_operator;
 
@@ -61,7 +60,7 @@ typedef struct s_redir
 	char			*path;
 }	t_redir;
 
-typedef struct s_parser
+typedef struct s_token
 {	
 	char			**av;
 	char			*bin_path;
@@ -71,7 +70,7 @@ typedef struct s_parser
 	int				pipe[2];
 	t_node			*redir;
 	enum e_operator	id;
-}	t_parser;
+}	t_token;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
 
@@ -108,6 +107,7 @@ typedef struct s_main
 	t_env			*env;
 	t_node			*lexicon;
 	t_node			*tokens;
+	t_node			*tmp;
 }	t_main;
 
 #endif

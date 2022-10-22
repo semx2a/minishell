@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/20 18:27:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 15:49:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ void	free_parser(t_node *p)
 	tmp = p;
 	while (tmp)
 	{	
-		ft_free_stab(((t_parser *)tmp->data)->av);
-		if (((t_parser *)tmp->data)->bin_path)
-			free(((t_parser *)tmp->data)->bin_path);
-		if (((t_parser *)tmp->data)->is_piped == 1)
+		ft_free_stab(((t_token *)tmp->data)->av);
+		if (((t_token *)tmp->data)->bin_path)
+			free(((t_token *)tmp->data)->bin_path);
+		if (((t_token *)tmp->data)->is_piped == 1)
 		{
-			close(((t_parser *)tmp->data)->pipe[0]);
-			close(((t_parser *)tmp->data)->pipe[1]);
+			close(((t_token *)tmp->data)->pipe[0]);
+			close(((t_token *)tmp->data)->pipe[1]);
 		}
-		if (((t_parser *)tmp->data)->is_redir == 1)
-			free_redir(((t_parser *)tmp->data)->redir);
+		if (((t_token *)tmp->data)->is_redir == 1)
+			free_redir(((t_token *)tmp->data)->redir);
 		tmp = tmp->next;
 	}
 	free_nodes(&p, &free);

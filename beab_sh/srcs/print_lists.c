@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 22:23:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/15 16:50:36 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 15:49:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	print_parser(t_node *p)
 	while (tmp)
 	{
 		printf(" Node #%d type = %d av[%i] = %s\n", i,
-			((t_parser *)tmp->data)->id, 0, ((t_parser *)tmp->data)->av[0]);
+			((t_token *)tmp->data)->id, 0, ((t_token *)tmp->data)->av[0]);
 		j = 1;
-		while (((t_parser *)tmp->data)->av[j])
+		while (((t_token *)tmp->data)->av[j])
 		{
 			printf("                  av[%i] = %s\n", j,
-				((t_parser *)tmp->data)->av[j]);
+				((t_token *)tmp->data)->av[j]);
 			j++;
 		}
 		printf(" ------------------ \n");

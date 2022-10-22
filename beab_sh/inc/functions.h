@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/21 18:55:45 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 18:11:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ int			exec_builtin(t_main *m);
 int			ft_exit(t_main *m, bool is_forked);
 
 //				shell_expansion.c
-void		expand(void *content, void *m);
+char		*get_cmd(char **paths, char *cmd);
+t_operator	identify_operator(char *buf, char **operators);
+t_redir		*fill_redir(t_main *m);
+void		control_operator(t_token *content, t_main *m);
+// void		create_redir(t_main *m, t_token *content);
 
 //				shell_export.c
 int			ft_export(t_main *m, bool is_forked);
@@ -48,10 +52,9 @@ void		free_redir(t_node *r);
 void		shell_init(t_main *m, char **envp);
 
 //				shell_io.c
-void		ft_open(int *fd, char *pathname, int flags, int mode);
-void		heredoc(t_main *m);
+void		ft_open(t_redir *data, int flags, int mode);
+void		heredoc(t_redir *data, t_main *m);
 void		expand_io(t_redir *data);
-int			identify_io(t_main *m);
 
 //				shell_jobs.c
 void		job(t_main *m);
@@ -59,10 +62,11 @@ void		job(t_main *m);
 //				shell_lexer.c
 t_states	is_state(char c, t_main *m);
 t_types		is_operator(char c, t_main *m);
-t_node		*fill_lexer(t_main *m);
+int			create_lexicon(t_main *m);
 
 //				shell_parser.c
-t_parser	*fill_parser(char *buf, t_main *m);
+void		build_token(t_main *m);
+int			create_tokens(t_main *m);
 
 //				shell_pipes.c
 void		pipes(t_node *token, t_main *m);
@@ -74,7 +78,7 @@ int			shut_signals(int fork);
 int			set_signals(void);
 
 //				shell_splitter.c
-char		**fill_stab(char *s, t_main *m);
+char		**shell_splitter(char *s, t_main *m);
 
 //				shell_unset.c
 int			ft_unset(t_main *m, bool is_forked);

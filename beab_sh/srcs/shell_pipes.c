@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 17:56:17 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/18 17:54:59 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 15:49:46 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	ft_dup2(int read, int write)
 void	pipes(t_node *token, t_main *m)
 {
 	t_redir		*r;
-	t_parser	*p;
+	t_token	*p;
 
 	r = NULL;
-	p = (t_parser *)token->data;
+	p = (t_token *)token->data;
 	if (p->redir)
 	{
 		r = (t_redir *)p->redir->data;
@@ -34,7 +34,7 @@ void	pipes(t_node *token, t_main *m)
 			ft_dup2(p->pipe[1], r->fd);
 	}
 	else
-		ft_dup2(p->pipe[0], ((t_parser *)token->next->data)->pipe[1]);
+		ft_dup2(p->pipe[0], ((t_token *)token->next->data)->pipe[1]);
 }
 
 

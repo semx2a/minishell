@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/21 18:55:00 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/22 18:25:43 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,48 +32,55 @@ char	*get_cmd(char **paths, char *cmd)
 			paths++;
 		}
 		ft_putstr_fd("command not found\n", 2);
+		ft_error();
 	}
 	return (NULL);
 }
 
-t_operator	identify_operator(char *buf, char **operators)
+t_redir	*fill_redir(t_main *m, t_operator control_op)
+{
+	t_redir	*data;
+
+	data = xmalloc(sizeof(t_redir));
+	data->id = control_op;
+	expand_io(data);
+	return (data);
+}
+
+t_operator	identify_operator(t_main *m)
 {
 	t_operator	i;
 
 	i = 0;
-	while (operators[(int)i])
+	while (m->operators[(int)i])
 	{
-		if (!ft_strncmp(operators[(int)i], buf, ft_strlen(buf)))
+		if (!ft_strncmp(m->operators[(int)i], m->buf, ft_strlen(m->buf)))
 			return (i);
 		i++;
 	}
 	return (O_CMD);
 }
 
-t_redir	*fill_redir(char *buf, t_main *m)
-{
-	t_redir	*data;
+void	control_operator(t_token *content, t_main *m)
+{	
+	t_operator	control_op;
 
-	data = xmalloc(sizeof(t_redir));
-	expand_io(((t_redir *)content->redir)->data)
-	data->id = 0;
-	data->path = NULL;
-	return (data);
-}
-
-void	expand(t_parser *content, t_main *m)
-{
-	content->id = identify_operator(buf, m->operators);
-	if (content->id < O_STDIN_REDIR)
+	build_token(m);
+	control_op = identify_operator(m);
+	if (control_op <= O_AND)
 	{
 		content->is_piped = 1;
-		pipe(content->pipe);
+		content->id = control_op;
 	}
-	else if (content->id >= O_STDIN_REDIR && content->id <= O_APPEN)
+	else if (control_op >= O_STDIN_REDIR && control_op <= O_APPEN)
 	{
 		content->is_redir = 1;
-		putback_node(&content->redir, new_node(fill_redir(m)));
+		if (content->is_piped == 0)
+			content->id = control_op;
+		else
+			putback_node(&content->redir, new_node(fill_redir(m, control_op)));
 	}
-	data_sym->bin_path = get_cmd(m_sym->paths, data_sym->av[0]);
+	else
+		content->id = control_op;
+	free(m->buf);
 }
-
