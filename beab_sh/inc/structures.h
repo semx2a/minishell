@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 17:40:10 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 23:11:35 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,24 +52,15 @@ typedef enum e_operator
 	O_CMD,
 }	t_operator;
 
-typedef struct s_redir
-{
-	int				pipe[2];
-	int				fd;
-	enum e_operator	id;
-	char			*path;
-}	t_redir;
-
 typedef struct s_token
-{	
+{
+	enum e_operator	id;
 	char			**av;
 	char			*bin_path;
 	pid_t			pid;
+	int				fd;
 	bool			is_piped;
 	bool			is_redir;
-	int				pipe[2];
-	t_node			*redir;
-	enum e_operator	id;
 }	t_token;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
@@ -95,6 +86,7 @@ typedef struct s_main
 	enum e_types	type;
 	int				cmd_ac;
 	int				exit;
+	int				*pipes;
 	char			quote;
 	char			*line;
 	char			*cwd;
