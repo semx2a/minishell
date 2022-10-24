@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 18:54:30 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 14:56:47 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_token	*fill_token(t_main *m)
 	t_token		*content;
 
 	content = xmalloc(sizeof(t_token));
+	build_token(m);
 	control_operator(content, m);
 	if (!content->redir)
 		build_token(m);

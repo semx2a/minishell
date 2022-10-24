@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 22:23:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 15:49:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 15:00:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_lexer(t_node *l)
 	i = 0;
 	while (tmp)
 	{
-		printf(" Node #%d type = %d arg = %c\n", i,
+		printf(" Lexer node #%d type = %d arg = %c\n", i,
 			((t_lexer *)tmp->data)->type, ((t_lexer *)tmp->data)->arg);
 		printf(" ------------------ \n");
 		i++;
@@ -39,7 +39,7 @@ void	print_parser(t_node *p)
 	i = 0;
 	while (tmp)
 	{
-		printf(" Node #%d type = %d av[%i] = %s\n", i,
+		printf(" Token node #%d type = %d av[%i] = %s\n", i,
 			((t_token *)tmp->data)->id, 0, ((t_token *)tmp->data)->av[0]);
 		j = 1;
 		while (((t_token *)tmp->data)->av[j])
@@ -48,6 +48,8 @@ void	print_parser(t_node *p)
 				((t_token *)tmp->data)->av[j]);
 			j++;
 		}
+		if (((t_token *)tmp->data)->is_redir)
+			print_redir(((t_token *)tmp->data)->redir);
 		printf(" ------------------ \n");
 		i++;
 		tmp = tmp->next;
@@ -63,7 +65,7 @@ void	print_redir(t_node *r)
 	i = 0;
 	while (tmp)
 	{
-		printf(" Node #%d type = %d\n", i, ((t_redir *)tmp->data)->id);
+		printf(" Redir node #%d type = %d\n", i, ((t_redir *)tmp->data)->id);
 		printf(" ------------------ \n");
 		i++;
 		tmp = tmp->next;

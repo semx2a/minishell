@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 18:58:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 14:56:29 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t	redir_len(t_main *m, t_node *l)
 
 	len = 0;
 	m->type = ((t_lexer *)l->data)->type;
-	while (l && (((t_lexer *)l->data)->type == m->type)
+	while (l && (((t_lexer *)l->data)->type == m->type))
 	{
 		l = l->next;
 		len++;
@@ -51,7 +51,7 @@ size_t	redir_len(t_main *m, t_node *l)
 	return (len);
 }
 
-char	*redir_splitter(t_main *m, t_redir *content)
+void	redir_splitter(t_main *m, t_redir *content)
 {
 	m->buf = NULL;
 	m->i = 0;
@@ -64,15 +64,14 @@ char	*redir_splitter(t_main *m, t_redir *content)
 		m->i++;
 	}	
 	m->buf[m->i] = '\0';
-	m->buf = f_strtrim(m->buf, " ");
-	content->data = ft_substr(m->buf, m->i, m->j);
-	m->buf = ft_substr(m->buf, m->j, ft_strlen(m->buf) - m->j)
+	m->buf = ft_strtrim(m->buf, " ");
+	content->path = ft_substr(m->buf, (unsigned int)m->i, m->j);
+	m->buf = ft_substr(m->buf, (unsigned int)m->j, ft_strlen(m->buf) - m->j);
 }
 
-void	expand_io(t_redir *data)
+void	expand_io(t_main *m, t_redir *data)
 {
-	build_token(m);
-	data->path = redir_splitter(m, data);
+	redir_splitter(m, data);
 	if (data->id == O_STDIN_REDIR)
 		ft_open(data, O_RDONLY, 0);
 	else if (data->id == O_STDOUT_REDIR || data->id == O_DELEM)

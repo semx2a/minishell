@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 18:25:43 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 14:56:26 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,22 @@ char	*get_cmd(char **paths, char *cmd)
 {
 	char	*tmp;
 	char	*ret;
+	int		i;
 
+	i = 0;
 	if (access(cmd, 0) == 0)
 		return (cmd);
 	else
 	{
-		while (*paths)
+		while (paths[i])
 		{
-			tmp = ft_strjoin(*paths, "/");
+			tmp = ft_strjoin(paths[i], "/");
 			ret = ft_strjoin(tmp, cmd);
 			free(tmp);
 			if (access(ret, X_OK) == 0)
 				return (ret);
 			free(ret);
-			paths++;
+			i++;
 		}
 		ft_putstr_fd("command not found\n", 2);
 		ft_error();
@@ -43,7 +45,8 @@ t_redir	*fill_redir(t_main *m, t_operator control_op)
 
 	data = xmalloc(sizeof(t_redir));
 	data->id = control_op;
-	expand_io(data);
+	pipe(data->pipe);
+	expand_io(m, data);
 	return (data);
 }
 
@@ -65,7 +68,6 @@ void	control_operator(t_token *content, t_main *m)
 {	
 	t_operator	control_op;
 
-	build_token(m);
 	control_op = identify_operator(m);
 	if (control_op <= O_AND)
 	{
@@ -82,5 +84,5 @@ void	control_operator(t_token *content, t_main *m)
 	}
 	else
 		content->id = control_op;
-	free(m->buf);
+	pipe(content->pipe);
 }
