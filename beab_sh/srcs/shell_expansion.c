@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 14:56:26 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 23:29:33 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,6 @@ char	*get_cmd(char **paths, char *cmd)
 	return (NULL);
 }
 
-t_redir	*fill_redir(t_main *m, t_operator control_op)
-{
-	t_redir	*data;
-
-	data = xmalloc(sizeof(t_redir));
-	data->id = control_op;
-	pipe(data->pipe);
-	expand_io(m, data);
-	return (data);
-}
-
 t_operator	identify_operator(t_main *m)
 {
 	t_operator	i;
@@ -69,20 +58,12 @@ void	control_operator(t_token *content, t_main *m)
 	t_operator	control_op;
 
 	control_op = identify_operator(m);
+	content->id = control_op;
 	if (control_op <= O_AND)
 	{
 		content->is_piped = 1;
-		content->id = control_op;
+		m->pipe_ac++;
 	}
 	else if (control_op >= O_STDIN_REDIR && control_op <= O_APPEN)
-	{
 		content->is_redir = 1;
-		if (content->is_piped == 0)
-			content->id = control_op;
-		else
-			putback_node(&content->redir, new_node(fill_redir(m, control_op)));
-	}
-	else
-		content->id = control_op;
-	pipe(content->pipe);
 }

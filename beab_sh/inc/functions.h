@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 14:51:49 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 23:16:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int			ft_exit(t_main *m, bool is_forked);
 //				shell_expansion.c
 char		*get_cmd(char **paths, char *cmd);
 t_operator	identify_operator(t_main *m);
-t_redir		*fill_redir(t_main *m, t_operator control_op);
 void		control_operator(t_token *content, t_main *m);
 // void		create_redir(t_main *m, t_token *content);
 
@@ -46,15 +45,14 @@ int			ft_export(t_main *m, bool is_forked);
 // 				shell_flush.c
 void		ft_flush(t_main *m);
 void		free_parser(t_node *p);
-void		free_redir(t_node *r);
 
 //				shell_init.c
 void		shell_init(t_main *m, char **envp);
 
 //				shell_io.c
-void		ft_open(t_redir *data, int flags, int mode);
-void		heredoc(t_redir *data, t_main *m);
-void		expand_io(t_main *m, t_redir *data);
+void		ft_open(t_token *data, int flags, int mode);
+void		heredoc(t_token *data, t_main *m);
+void		expand_io(t_main *m, t_token *data);
 
 //				shell_jobs.c
 void		job(t_main *m);
@@ -104,7 +102,6 @@ t_env		*ft_if_env_empty(void);
 //				print_lists.c
 void		print_lexer(t_node *l);
 void		print_parser(t_node *p);
-void		print_redir(t_node *r);
 
 //				utils_export.c
 int			ft_checkname(char *namevar);

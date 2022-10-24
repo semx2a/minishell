@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 14:56:29 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 23:14:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ size_t	redir_len(t_main *m, t_node *l)
 	return (len);
 }
 
-void	redir_splitter(t_main *m, t_redir *content)
+void	redir_splitter(t_main *m, t_token *content)
 {
 	m->buf = NULL;
 	m->i = 0;
@@ -69,7 +69,7 @@ void	redir_splitter(t_main *m, t_redir *content)
 	m->buf = ft_substr(m->buf, (unsigned int)m->j, ft_strlen(m->buf) - m->j);
 }
 
-void	expand_io(t_main *m, t_redir *data)
+void	expand_io(t_main *m, t_token *data)
 {
 	redir_splitter(m, data);
 	if (data->id == O_STDIN_REDIR)

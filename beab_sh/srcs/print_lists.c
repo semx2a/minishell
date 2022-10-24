@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 22:23:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 15:00:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 23:12:59 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,24 +48,6 @@ void	print_parser(t_node *p)
 				((t_token *)tmp->data)->av[j]);
 			j++;
 		}
-		if (((t_token *)tmp->data)->is_redir)
-			print_redir(((t_token *)tmp->data)->redir);
-		printf(" ------------------ \n");
-		i++;
-		tmp = tmp->next;
-	}
-}
-
-void	print_redir(t_node *r)
-{
-	t_node	*tmp;
-	int		i;
-
-	tmp = r;
-	i = 0;
-	while (tmp)
-	{
-		printf(" Redir node #%d type = %d\n", i, ((t_redir *)tmp->data)->id);
 		printf(" ------------------ \n");
 		i++;
 		tmp = tmp->next;

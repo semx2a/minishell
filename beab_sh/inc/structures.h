@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 23:11:35 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/24 23:17:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_main
 	enum e_states	state;
 	enum e_types	type;
 	int				cmd_ac;
+	int				pipe_ac;
 	int				exit;
 	int				*pipes;
 	char			quote;
