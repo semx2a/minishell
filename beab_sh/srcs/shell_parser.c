@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 21:22:32 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 23:51:15 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,17 @@ t_token	*fill_token(t_main *m)
 {
 	t_token		*content;
 
-	content = xmalloc(sizeof(t_token));
+	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
 	build_token(m);
 	control_operator(content, m);
+	if (content->id != O_CMD)
+	{
+		free(m->buf);
+		build_token(m);
+	}
 	content->av = shell_splitter(m->buf, m);
-	if (content->is_redir)
-		expand_io(m, content);
+//	if (content->is_redir)
+//		expand_io(m, content);
 	if (content->is_piped)
 		pipe(content->pipe);
 	content->bin_path = NULL;

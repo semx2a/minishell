@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 16:38:28 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 22:56:41 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_lexer	*fill_lexicon(t_main *m)
 {
 	t_lexer	*content;
 
-	content = xmalloc(sizeof(t_lexer));
+	content = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
 	content->type = is_operator(m->line[m->i], m);
 	content->arg = m->line[m->i];
 	return (content);

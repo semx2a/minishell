@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:25:50 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 23:10:48 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,12 @@ void	redir_splitter(t_main *m, t_token *content)
 
 void	expand_io(t_main *m, t_token *data)
 {
-	redir_splitter(m, data);
+	(void)m;
+//	redir_splitter(m, data);
 	if (data->id == O_STDIN_REDIR)
 		ft_open(data, O_RDONLY, 0);
-	else if (data->id == O_STDOUT_REDIR || data->id == O_DELEM)
+	else if (data->id == O_STDOUT_REDIR)
 		ft_open(data, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (data->id == O_APPEN)
-		ft_open(data, O_APPEND | O_WRONLY, 0644);
+		ft_open(data, O_CREAT | O_APPEND | O_WRONLY, 0644);
 }
