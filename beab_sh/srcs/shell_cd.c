@@ -6,17 +6,17 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:07:26 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/13 16:24:38 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 20:38:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_path_finder(t_main *m, bool is_forked)
+char	*ft_path_finder(t_main *m, t_token *data, bool is_forked)
 {
 	char	*path;
 
-	m->cmd_ac = ft_tablen(m->tokens->av);
+	m->cmd_ac = ft_tablen(data->av);
 	if (m->cmd_ac < 2)
 	{
 		path = get_cont("HOME", m->env);
@@ -25,7 +25,7 @@ char	*ft_path_finder(t_main *m, bool is_forked)
 	}
 	else
 	{
-		if (m->tokens->av[1][0] == '-' && m->tokens->av[1][1] == '\0')
+		if (data->av[1][0] == '-' && data->av[1][1] == '\0')
 		{
 			path = get_cont("OLDPWD", m->env);
 			if (path == NULL && is_forked)
@@ -34,7 +34,7 @@ char	*ft_path_finder(t_main *m, bool is_forked)
 				printf("%s\n", path);
 		}
 		else
-			path = m->tokens->av[1];
+			path = data->av[1];
 	}
 	return (path);
 }
@@ -63,13 +63,13 @@ void	ft_cd_fail(char *path, int ret, bool is_forked)
 	}
 }
 
-int	ft_cd(t_main *m, bool is_forked)
+int	ft_cd(t_main *m, t_token *data, bool is_forked)
 {
 	char	*path;
 	int		ret;
 	char	*oldpath;
 
-	path = ft_path_finder(m, is_forked);
+	path = ft_path_finder(m, data, is_forked);
 	if (path == NULL)
 		return (4);
 	oldpath = getcwd(NULL, 0);

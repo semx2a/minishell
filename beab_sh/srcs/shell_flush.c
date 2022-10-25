@@ -6,26 +6,11 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/22 15:49:46 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 19:12:53 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-void	free_redir(t_node *r)
-{
-	t_node	*tmp;
-
-	tmp = r;
-	while (tmp)
-	{
-		close(((t_redir *)tmp->data)->pipe[0]);
-		close(((t_redir *)tmp->data)->pipe[1]);
-		free(((t_redir *)tmp->data)->path);
-		tmp = tmp->next;
-	}
-	free_nodes(&r, &free);
-}
 
 void	free_parser(t_node *p)
 {
@@ -37,13 +22,6 @@ void	free_parser(t_node *p)
 		ft_free_stab(((t_token *)tmp->data)->av);
 		if (((t_token *)tmp->data)->bin_path)
 			free(((t_token *)tmp->data)->bin_path);
-		if (((t_token *)tmp->data)->is_piped == 1)
-		{
-			close(((t_token *)tmp->data)->pipe[0]);
-			close(((t_token *)tmp->data)->pipe[1]);
-		}
-		if (((t_token *)tmp->data)->is_redir == 1)
-			free_redir(((t_token *)tmp->data)->redir);
 		tmp = tmp->next;
 	}
 	free_nodes(&p, &free);

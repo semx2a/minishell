@@ -6,13 +6,13 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 11:33:32 by seozcan           #+#    #+#             */
-/*   Updated: 2022/04/30 11:35:05 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 19:35:52 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/libft.h"
 
-int	ft_tablen(char **tab)
+size_t	ft_tablen(char **tab)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/13 20:30:21 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 21:18:16 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,19 @@ int	ft_exec_unset(char *namevar, t_env *env)
 	return (0);
 }
 
-int	ft_unset(t_main *m, bool is_forked)
+int	ft_unset(t_main *m, t_token *data, bool is_forked)
 {
-	int	i;
-	int	res;
+	size_t	i;
+	int		res;
 
 	i = 1;
-	m->cmd_ac = ft_tablen(m->tokens->av);
+	m->cmd_ac = ft_tablen(data->av);
 	if (m->cmd_ac >= 2)
 	{
-		while (m->tokens->av[i] && i < m->cmd_ac)
+		while (data->av[i] && i < m->cmd_ac)
 
 		{
-			ft_exec_unset(m->tokens->av[i], m->env);
+			ft_exec_unset(data->av[i], m->env);
 			i++;
 		}
 		res = 0;

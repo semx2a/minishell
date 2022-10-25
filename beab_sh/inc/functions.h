@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 23:16:42 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 21:10:54 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ int			ft_env(t_env *env);
 int			ft_pwd(t_env *env);
 
 //				shell_cd.c
-int			ft_cd(t_main *m, bool is_forked);
+int			ft_cd(t_main *m, t_token *data, bool is_forked);
 
 //				shell_echo.c
-int			ft_echo(t_main *m);
+int			ft_echo(t_main *m, t_token *data);
 
 //				shell_execution.c
-void		execute(t_main *m);
-int			exec_builtin(t_main *m);
+void		execute(t_main *m, t_token *data);
+int			exec_builtin(t_main *m, t_token *data);
 
 //				shell_exit.c
-int			ft_exit(t_main *m, bool is_forked);
+int			ft_exit(t_token *data, bool is_forked);
 
 //				shell_expansion.c
 char		*get_cmd(char **paths, char *cmd);
@@ -40,7 +40,7 @@ void		control_operator(t_token *content, t_main *m);
 // void		create_redir(t_main *m, t_token *content);
 
 //				shell_export.c
-int			ft_export(t_main *m, bool is_forked);
+int			ft_export(t_main *m, t_token *data, bool is_forked);
 
 // 				shell_flush.c
 void		ft_flush(t_main *m);
@@ -68,7 +68,7 @@ void		build_token(t_main *m);
 int			create_tokens(t_main *m);
 
 //				shell_pipes.c
-void		pipes(t_node *token, t_main *m);
+void		pipes(t_node *token);
 t_operator	identify_pipe(t_main *m);
 void		ft_dup2(int read, int write);
 
@@ -80,10 +80,10 @@ int			set_signals(void);
 char		**shell_splitter(char *s, t_main *m);
 
 //				shell_unset.c
-int			ft_unset(t_main *m, bool is_forked);
+int			ft_unset(t_main *m, t_token *data, bool is_forked);
 
 //				utils_builtins.c
-int			is_builtin(char *cmd, char **builtins);
+int			is_builtin(t_token *data, char **builtins);
 
 //				utils_env.c
 t_env		*put_env(char **envp);

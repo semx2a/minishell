@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/21 16:03:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 19:36:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int				ft_isascii(int c);
 int				ft_isalpha(int c);
 int				ft_isalnum(int c);
 int				ft_atoi(const char *str);
-int				ft_tablen(char **tab);
 int				**allocate_tab(int **tab, int size);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strisdigit(char *str);
@@ -100,6 +99,7 @@ char			**multi_split(char const *s, char *charset);
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcpy(char *dest, char *src, size_t destsize);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
+size_t			ft_tablen(char **tab);
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::SIMPLE LINKED LISTS::
 void			ft_lstadd_front(t_list **alst, t_list *new);

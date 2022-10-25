@@ -6,15 +6,15 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 19:02:08 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 23:14:53 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 19:25:50 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_open(t_redir *data, int flags, int mode)
+void	ft_open(t_token *data, int flags, int mode)
 {	
-	data->fd = open(data->path, flags, mode);
+	data->fd = open(data->file_path, flags, mode);
 	if (data->fd == -1)
 		ft_error();
 }
@@ -29,7 +29,7 @@ void	ft_open(t_redir *data, int flags, int mode)
 //		rl_replace_line("", 0);
 //		rl_on_new_line();
 //		buf = readline("");
-//		if (ft_strcmp(buf, m->buf))
+//		if (ft_strcmp(buf, m->hbuf))
 //			break ;
 //		/*trouver un moyen de append le buf dans le fichier*/
 //	}
@@ -65,7 +65,7 @@ void	redir_splitter(t_main *m, t_token *content)
 	}	
 	m->buf[m->i] = '\0';
 	m->buf = ft_strtrim(m->buf, " ");
-	content->path = ft_substr(m->buf, (unsigned int)m->i, m->j);
+	content->file_path = ft_substr(m->buf, (unsigned int)m->i, m->j);
 	m->buf = ft_substr(m->buf, (unsigned int)m->j, ft_strlen(m->buf) - m->j);
 }
 
