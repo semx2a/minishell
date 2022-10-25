@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/24 23:17:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/25 17:40:07 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_token
 	enum e_operator	id;
 	char			**av;
 	char			*bin_path;
+	int				fd;
 	pid_t			pid;
 	int				fd;
 	bool			is_piped;
