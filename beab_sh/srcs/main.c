@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 23:40:52 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 18:07:59 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	prompt(t_main *m)
 		m->prompt = ft_strjoin(m->cwd, "$ ");
 		m->line = readline(m->prompt);
 		job(m);
+		printf("==========>path[%s]\n", get_cont("PATH", m->env));
 		add_history(m->line);
 		free(m->line);
 		free(m->prompt);
