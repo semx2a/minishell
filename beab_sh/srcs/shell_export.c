@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 14:02:31 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/27 18:07:10 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/27 19:16:05 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ int	ft_export(t_main *m, t_token *data, bool is_forked)
 	if (m->cmd_ac < 2)
 	{
 		ft_print_declare(m->env, is_forked);
-		//printf("==========>path[%s]\n", get_cont("PATH", m->env));
 		return (ret);
 	}
 	ret = ft_export_var(m, data, is_forked);
-	//printf("==========>path[%s]\n", get_cont("PATH", m->env));
 	return (ret);
 }

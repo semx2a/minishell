@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/27 17:02:42 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/27 19:57:37 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,8 @@ int	ft_add_env(char *namevar, char *value, t_env *env)
 	tmp = env;
 	if (!tmp)
 		return (1);
-	if (ft_strcmp(env->var, "") == 0 && ft_strcmp(env->cont, "") == 0)
-	{
-		free(env->var);
-		free(env->cont);
-		env->var = ft_strdup(namevar);
-		env->cont = ft_strdup(value);
-		env->total = ft_strdup(env->var);
-		env->total = ft_strjoin(env->total, "=");
-		env->total = ft_strjoin(env->total, env->cont);
-		if (env->var == NULL || (value && env->cont == NULL))
-			return (1);
-		return (0);
-	}
+	if (ft_strcmp(namevar, "=") == 0)
+		return (1);
 	newline = ft_add_new(namevar, value);
 	if (newline == NULL)
 		return (1);

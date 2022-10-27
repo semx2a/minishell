@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/27 18:07:59 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/28 00:24:15 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	prompt(t_main *m)
 		m->prompt = ft_strjoin(m->cwd, "$ ");
 		m->line = readline(m->prompt);
 		job(m);
-		printf("==========>path[%s]\n", get_cont("PATH", m->env));
 		add_history(m->line);
 		free(m->line);
 		free(m->prompt);
@@ -34,8 +33,8 @@ int	main(int ac, char **av, char **envp)
 	(void)av;
 	if (ac != 1)
 		ft_error();
-	if (*envp == NULL)
-		ft_error();
+	//if (*envp == NULL)
+		//ft_error();
 	m = (t_main *)ft_calloc(1, sizeof(t_main));
 	if (set_signals() == 1)
 		return (1);
