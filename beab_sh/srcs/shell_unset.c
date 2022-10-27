@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/25 21:18:16 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/26 16:14:48 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ int	ft_unset(t_main *m, t_token *data, bool is_forked)
 	if (m->cmd_ac >= 2)
 	{
 		while (data->av[i] && i < m->cmd_ac)
-
 		{
 			ft_exec_unset(data->av[i], m->env);
 			i++;

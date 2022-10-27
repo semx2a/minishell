@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 23:51:15 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 19:53:30 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,11 @@ void	build_token(t_main *m)
 	m->buf = xmalloc(sizeof(char) * (token_len(m, m->tmp) + 1));
 	while (m->tmp && (((t_lexer *)m->tmp->data)->type == m->type
 			|| ((t_lexer *)m->tmp->data)->type == T_SPACE))
-	{
+	{	
 		m->buf[m->i] = ((t_lexer *)m->tmp->data)->arg;
 		m->tmp = m->tmp->next;
 		m->i++;
-	}	
+	}
 	m->buf[m->i] = '\0';
 	m->buf = ft_strtrim(m->buf, " ");
 }
@@ -50,11 +50,11 @@ t_token	*fill_token(t_main *m)
 	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
 	build_token(m);
 	control_operator(content, m);
-	if (content->id != O_CMD)
-	{
-		free(m->buf);
-		build_token(m);
-	}
+//	if (content->id != O_CMD)
+//	{
+//		free(m->buf);
+//		build_token(m);
+//	}
 	content->av = shell_splitter(m->buf, m);
 //	if (content->is_redir)
 //		expand_io(m, content);

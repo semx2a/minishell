@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/15 17:33:57 by seozcan          ###   ########.fr        #
+#    Updated: 2022/10/27 19:22:51 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_node_last.c \
 			ft_nodemap.c \
 			ft_nodenew.c \
+			ft_print_stab.c \
 			ft_node_size.c \
 			ft_putchar_fd.c \
 			ft_putendl_fd.c \

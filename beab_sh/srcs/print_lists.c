@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 22:23:04 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 20:03:17 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 20:08:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	print_lexer(t_node *l)
 
 	tmp = l;
 	i = 0;
+	printf("::::::::::::::::::::::::::\n");
+	printf("::\033[0;32m\tLEXICON\t\t\033[m::\n");
+	printf("::::::::::::::::::::::::::\n");
 	while (tmp)
 	{
-		printf(" Lexer node #%d type = %d arg = %c\n", i,
+		printf("node #%d type = %d arg = %c\n", i,
 			((t_lexer *)tmp->data)->type, ((t_lexer *)tmp->data)->arg);
-		printf(" ------------------ \n");
+		printf(".....................\n");
 		i++;
 		tmp = tmp->next;
 	}
@@ -37,18 +40,21 @@ void	print_parser(t_node *p)
 
 	tmp = p;
 	i = 0;
+	printf("::::::::::::::::::::::::::\n");
+	printf("::\033[0;35m\tTOKENS\t\t\033[m::\n");
+	printf("::::::::::::::::::::::::::\n");
 	while (tmp)
 	{
-		printf(" Token node #%02d type = %02d av[%02i] = %s\n", i,
+		printf("node #%02d type = %02d av[%02i] = %s\n", i,
 			((t_token *)tmp->data)->id, 0, ((t_token *)tmp->data)->av[0]);
 		j = 1;
 		while (((t_token *)tmp->data)->av[j])
 		{
-			printf("\t\t\t  av[%02i] = %s\n", j,
+			printf("\t\t  av[%02i] = %s\n", j,
 				((t_token *)tmp->data)->av[j]);
 			j++;
 		}
-		printf(" ------------------ \n");
+		printf(".....................\n");
 		i++;
 		tmp = tmp->next;
 	}
