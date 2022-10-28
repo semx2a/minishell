@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/10/27 19:32:38 by wac              ###   ########.fr       */
-=======
-/*   Updated: 2022/10/27 19:57:43 by seozcan          ###   ########.fr       */
->>>>>>> ca7235b2b6637d08ae4ae6ff30bc7cd1afc65895
+/*   Updated: 2022/10/28 17:51:17 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +81,8 @@ void	job(t_main *m)
 {	
 	if (!process_args(m))
 		return ;
-<<<<<<< HEAD
-	}
 	print_parser(m->tokens);
 	assign_job(m);
-=======
-//	assign_job(m);
->>>>>>> ca7235b2b6637d08ae4ae6ff30bc7cd1afc65895
 	free_nodes(&m->lexicon, &free);
 	free_parser(m->tokens);
 	//ft_free_stab(m->paths);
