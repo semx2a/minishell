@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 18:32:10 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/27 19:29:37 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:33:59 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ static char	**count_args(char *s, t_main *m)
 	while (s[i])
 	{
 		m->state = is_state(s[i], m);
-		if (s[i] != SPACE && (s[i + 1] == '\0' || s[i + 1] == SPACE)
-			&& m->state != S_OPEN_QUOTE)
+		if (s[i] != SPACE && (s[i + 1] == '\0'
+				|| is_state(s[i + 1], m) == S_CLOSING_QUOTE
+				|| (s[i + 1] == SPACE && m->state != S_OPEN_QUOTE)))
 			words++;
 		i++;
 	}
-	ret = xmalloc(sizeof(char *) * (words + 1));
+	ret = ft_calloc(words + 1, sizeof(char *));
 	ret[words] = 0;
+	printf("number of args = %lu\n", words);
 	return (ret);
 }
 
@@ -53,7 +55,7 @@ char	**shell_splitter(char *s, t_main *m)
 	while (s[m->j])
 	{	
 		m->state = is_state(s[m->j], m);
-		if (s[m->j] != SPACE)
+		if (s[m->j] != SPACE || (m->state == S_OPEN_QUOTE && s[m->j] == SPACE))
 		{	
 			if (m->state == S_DEFAULT)
 				arg_splitter(s, SPACE, m);

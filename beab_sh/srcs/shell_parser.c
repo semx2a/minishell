@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/27 19:53:30 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:34:01 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*fill_token(t_main *m)
 	t_token		*content;
 
 	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
-	build_token(m);
+//	build_token(m);
 	control_operator(content, m);
 //	if (content->id != O_CMD)
 //	{
@@ -75,7 +75,8 @@ int	create_tokens(t_main *m)
 	m->state = S_DEFAULT;
 	while (m->tmp)
 	{
-		while (m->tmp && ((t_lexer *)m->tmp->data)->type == T_SPACE)
+		while (m->tmp && ((((t_lexer *)m->tmp->data)->type == T_SPACE)
+				|| ((t_lexer *)m->tmp->data)->type == T_QUOTE))
 			m->tmp = m->tmp->next;
 		putback_node(&m->tokens, new_node(fill_token(m)));
 	}

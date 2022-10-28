@@ -33,3 +33,6 @@ cat Makefile || grep "$NAME := minishell" && wc -l
 
 ' " '													" : command not found
 
+"" "' " '' ' '  " " '""'  
+
+''  ""     ' ' ' '' " ' ' "   " '" " A'G"'H" ''"" " ' " ''  '
