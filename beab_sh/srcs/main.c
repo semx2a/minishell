@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:34:52 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 00:24:15 by wac              ###   ########.fr       */
+/*   Updated: 2022/10/28 16:19:29 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 	//if (*envp == NULL)
 		//ft_error();
 	m = (t_main *)ft_calloc(1, sizeof(t_main));
-	if (set_signals() == 1)
+	if (set_signals() == 1 || set_sig() == 1)
 		return (1);
 	shell_init(m, envp);
 	prompt(m);

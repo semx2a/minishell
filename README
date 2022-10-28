@@ -14,7 +14,7 @@ V	free
 V	int		access(const char *pathname, int mode);
 
 V	int		open(const char *pathname, int flags, mode_t mode);
-V	ssize_t	read(int fd, void *buf, size_t count);
+V	size_t	read(int fd, void *buf, size_t count);
 V	int		close(int fd);
 
 V   pid_t	fork(void);

@@ -6,7 +6,7 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/27 16:29:10 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:34:13 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ void		ft_dup2(int read, int write);
 //				shell_signals.c
 int			shut_signals(int fork);
 int			set_signals(void);
+int			set_sig(void);
+void		ft_cntlc(int sig);
+void		ft_cntl_slsh(int sig);
+void		ft_sig_ghost(int sig);
+
 
 //				shell_splitter.c
 char		**shell_splitter(char *s, t_main *m);
