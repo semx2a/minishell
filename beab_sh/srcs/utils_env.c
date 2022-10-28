@@ -6,11 +6,34 @@
 /*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/27 19:57:37 by wac              ###   ########.fr       */
+=======
+/*   Updated: 2022/10/27 16:47:10 by seozcan          ###   ########.fr       */
+>>>>>>> ca7235b2b6637d08ae4ae6ff30bc7cd1afc65895
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/* void	put_env(t_main *m, char **envp)
+{
+	int		i;
+
+	if (!envp || !envp[0])
+	{
+		res = ft_if_env_empty();
+		return (res);
+	}
+	i = 1;
+	m->env = xmalloc(sizeof(t_stack));
+	init_stack(m->env);
+	while (envp[i])
+	{
+		put_back(m->env, fill_env(envp[i]));
+		i++;
+	}
+} */
 
 t_env	*put_env(char **envp)
 {

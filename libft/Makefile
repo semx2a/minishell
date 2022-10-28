@@ -6,7 +6,11 @@
 #    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2022/10/28 14:04:01 by abonard          ###   ########.fr        #
+=======
+#    Updated: 2022/10/27 19:22:51 by seozcan          ###   ########.fr        #
+>>>>>>> ca7235b2b6637d08ae4ae6ff30bc7cd1afc65895
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +60,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_node_last.c \
 			ft_nodemap.c \
 			ft_nodenew.c \
+			ft_print_stab.c \
 			ft_node_size.c \
 			ft_putchar_fd.c \
 			ft_putendl_fd.c \

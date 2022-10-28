@@ -6,7 +6,11 @@
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:49:51 by seozcan           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/10/28 17:34:13 by abonard          ###   ########.fr       */
+=======
+/*   Updated: 2022/10/27 19:53:30 by seozcan          ###   ########.fr       */
+>>>>>>> ca7235b2b6637d08ae4ae6ff30bc7cd1afc65895
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +65,7 @@ void		job(t_main *m);
 t_states	is_state(char c, t_main *m);
 t_types		is_operator(char c, t_main *m);
 int			create_lexicon(t_main *m);
+//char		**create_tokens(char *s, t_main *m);
 
 //				shell_parser.c
 size_t		token_len(t_main *m, t_node *l);

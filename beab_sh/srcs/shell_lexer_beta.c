@@ -5,25 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 16:42:01 by seozcan          ###   ########.fr       */
+/*   Created: 2022/10/18 19:23:52 by seozcan           #+#    #+#             */
+/*   Updated: 2022/10/27 19:18:14 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-/*
-		operators:
-		- control operators: 		‘||’, ‘&&’, ‘&’, ‘;’, ‘;;’, ‘;&’, ‘;;&’, ‘|’,
-									‘|&’, ‘(’, or ‘)’.
-		- redirection operators :	< << > >> | &
-
-		A token that doesn’t contain meta-character 
-		and isn’t in quotes is a ‘word’. 
-		
-		A token that contains no quotes and at least
-		one meta-character is an ‘operator’.
-*/
 
 t_states	is_state(char c, t_main *m)
 {	
@@ -41,42 +28,57 @@ t_states	is_state(char c, t_main *m)
 
 t_types	is_operator(char c, t_main *m)
 {	
+	m->state = is_state(c, m);
 	if ((!ft_isprint(c) || c == ' ') && m->state == S_DEFAULT)
 		return (T_SPACE);
-	if ((c == m->quote && m->state == S_OPEN_QUOTE)
-		|| ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != S_OPEN_QUOTE))
-		return (T_QUOTE);
-	if (ft_strchr("|&><$", c) && m->state == S_DEFAULT)
+	if (/* (c == '$' && m->quote == DOUBLE_Q && m->state == S_OPEN_QUOTE)
+		||  */(ft_strchr("|&><$\"\'", c) && m->state == S_DEFAULT))
 		return (T_OPERATOR);
 	return (T_WORD);
 }
 
-t_lexer	*fill_lexicon(t_main *m)
+int	count_tokens(char *s, t_main *m)
 {
-	t_lexer	*content;
-
-	content = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
-	content->type = is_operator(m->line[m->i], m);
-	content->arg = m->line[m->i];
-	return (content);
-}
-
-int	create_lexicon(t_main *m)
-{	
-	m->lexicon = NULL;
+	m->index = 0;
 	m->i = 0;
-	m->state = S_DEFAULT;
-	while (m->line[m->i])
-	{
-		m->state = is_state(m->line[m->i], m);
-		putback_node(&m->lexicon, new_node(fill_lexicon(m)));
-		m->i++;
+	while (s[m->i])
+	{	
+		m->type = is_operator(s[m->i], m);
+		while (s[m->i] && (is_operator(s[m->i], m) == m->type
+				|| is_operator(s[m->i], m) == T_SPACE))
+				m->i++;
+		m->index++;
 	}
 	if (m->state == S_OPEN_QUOTE)
 	{
 		ft_putstr_fd("Error: Open quote found\n", 2);
-		free_nodes(&m->lexicon, &free);
 		return (0);
 	}
+	m->stab = ft_calloc((m->index + 1), (sizeof(char *)));
+	if (!m->stab)
+		return (0);
+	m->stab[m->index] = 0;
 	return (1);
+}
+
+char	**create_tokens(char *s, t_main *m)
+{
+	if (!count_tokens(s, m))
+		return (NULL);
+	m->index = 0;
+	m->i = 0;
+	m->j = 0;
+	while (s[m->i])
+	{	
+		m->type = is_operator(s[m->i], m);
+		m->j = m->i;
+		while (s[m->j] && (is_operator(s[m->j], m) == m->type
+				|| is_operator(s[m->j], m) == T_SPACE))
+				m->j++;
+		m->stab[m->index] = ft_substr(s, (unsigned int)m->i, m->j - m->i);
+		m->index++;
+		m->i = m->j - 1;
+		m->i++;
+	}
+	return (m->stab);
 }
