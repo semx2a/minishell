@@ -61,6 +61,7 @@ void		job(t_main *m);
 t_states	is_state(char c, t_main *m);
 t_types		is_operator(char c, t_main *m);
 int			create_lexicon(t_main *m);
+//char		**create_tokens(char *s, t_main *m);
 
 //				shell_parser.c
 size_t		token_len(t_main *m, t_node *l);

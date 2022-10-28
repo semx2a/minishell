@@ -56,6 +56,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_node_last.c \
 			ft_nodemap.c \
 			ft_nodenew.c \
+			ft_print_stab.c \
 			ft_node_size.c \
 			ft_putchar_fd.c \
 			ft_putendl_fd.c \
