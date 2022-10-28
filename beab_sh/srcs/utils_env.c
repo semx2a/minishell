@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   utils_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 13:41:28 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/27 19:57:37 by wac              ###   ########.fr       */
+/*   Updated: 2022/10/28 17:49:43 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/* void	put_env(t_main *m, char **envp)
+{
+	int		i;
+
+	if (!envp || !envp[0])
+	{
+		res = ft_if_env_empty();
+		return (res);
+	}
+	i = 1;
+	m->env = xmalloc(sizeof(t_stack));
+	init_stack(m->env);
+	while (envp[i])
+	{
+		put_back(m->env, fill_env(envp[i]));
+		i++;
+	}
+} */
 
 t_env	*put_env(char **envp)
 {

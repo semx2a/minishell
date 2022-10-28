@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:36:14 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 19:21:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
 void			ft_error(void);
 void			*xmalloc(size_t size);
+void			print_stab(char **stab);
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strrchr(const char *s, int c);
