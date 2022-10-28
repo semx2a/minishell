@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 17:34:01 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/28 17:54:23 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	token_len(t_main *m, t_node *l)
 		l = l->next;
 		len++;
 	}
+//	printf("tokenlen = %lu\n", len);
 	return (len);
 }
 
@@ -40,7 +41,8 @@ void	build_token(t_main *m)
 		m->i++;
 	}
 	m->buf[m->i] = '\0';
-	m->buf = ft_strtrim(m->buf, " ");
+//	m->buf = ft_strtrim(m->buf, " ");
+//	printf("m->buf = [%s]\n", m->buf);
 }
 
 t_token	*fill_token(t_main *m)
@@ -48,7 +50,7 @@ t_token	*fill_token(t_main *m)
 	t_token		*content;
 
 	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
-//	build_token(m);
+	build_token(m);
 	control_operator(content, m);
 //	if (content->id != O_CMD)
 //	{
