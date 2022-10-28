@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_flush.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 20:50:50 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 23:43:02 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 19:24:29 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_flush(t_main *m)
 {
 	free(m->line);
 	free(m->prompt);
-	free_env(m->env);
+	//free_env(m->env);
 	ft_free_stab(m->paths);
 	ft_free_stab(m->builtins);
 	ft_free_stab(m->operators);

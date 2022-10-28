@@ -1,46 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_signals.c                                    :+:      :+:    :+:   */
+/*   shell_set_sig.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/04 20:25:46 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/28 17:35:13 by abonard          ###   ########.fr       */
+/*   Created: 2022/10/28 17:10:55 by abonard           #+#    #+#             */
+/*   Updated: 2022/10/28 17:11:15 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	shut_signals(int fork)
+void	ft_cntlc(int sig)
 {
-	if (fork == 0)
-	{
-		if (!(signal(SIGINT, SIG_DFL)))
-			return (0);
-		if (!(signal(SIGQUIT, SIG_DFL)))
-			return (0);
-	}
-	else
-	{
-		if (!(signal(SIGINT, ft_sig_ghost)))
-			return (0);
-		if (!(signal(SIGQUIT, ft_sig_ghost)))
-			return (0);
-	}
-	return (1);
+	(void)sig;
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-int	set_sig(void)
+void	ft_cntl_slsh(int sig)
 {
-	if (!signal(SIGINT, ft_cntlc))
-		return (0);
-	return (1);
+	(void)sig;
+	write(1, "\b\b  \b\b", 6);
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
-int	set_signals(void)
+void	ft_sig_ghost(int sig)
 {
-	if (!signal(SIGQUIT, ft_cntl_slsh))
-		return (0);
-	return (1);
+	(void)sig;
+	if (sig == SIGINT)
+		ft_putstr_fd("\n", 1);
 }

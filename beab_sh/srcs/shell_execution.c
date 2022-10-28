@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   shell_execution.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wac <wac@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 20:56:39 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 19:33:22 by wac              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 void	execute(t_main *m, t_token *data)
-{	
+{
+	m->paths = ft_split(get_cont("PATH", m->env), ':');	
 	data->bin_path = get_cmd(m->paths, data->av[0]);
 	if (execve(data->bin_path, data->av, m->paths) != -1)
 	{

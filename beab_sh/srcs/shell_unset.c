@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/26 16:14:48 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/27 16:51:42 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_exec_unset(char *namevar, t_env *env)
 	tmp = prev->next;
 	free(tmp->var);
 	free(tmp->cont);
-	free(tmp->total);
+	//free(tmp->total);
 	prev->next = tmp->next;
 	free(tmp);
 	return (0);
