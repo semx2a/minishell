@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 20:46:49 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 07:50:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	process_args(t_main *m)
 	m->paths = ft_split(get_cont("PATH", m->env), ':');
 	if (!create_lexicon(m))
 		return (0);
-	print_lexer(m->lexicon);
+//	print_lexer(m->lexicon);
 	if (!create_tokens(m))
 	{
 		free_nodes(&m->lexicon, &free);

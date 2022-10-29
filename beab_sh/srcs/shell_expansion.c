@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:42:51 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 03:34:02 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 04:35:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,13 @@ char	*get_cmd(char **paths, char *cmd)
 t_operator	identify_operator(t_main *m)
 {
 	t_operator	i;
-	t_token		*content;
 
-	while (m->tmp_b)
+	i = 0;
+	while (m->operators[(int)i])
 	{
-		content = (t_token *)m->tmp_b->data;
-		i = 0;
-		while (m->operators[(int)i])
-		{
-			if (!ft_strncmp(m->operators[(int)i], content->av[0],
-					ft_strlen(content->av[0])))
-				return (i);
-			i++;
-		}
-		m->tmp_b = m->tmp_b->next;
+		if (!ft_strncmp(m->operators[(int)i], m->buf, ft_strlen(m->buf)))
+			return (i);
+		i++;
 	}
 	return (O_CMD);
 }
