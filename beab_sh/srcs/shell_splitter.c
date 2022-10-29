@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 18:32:10 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 02:09:38 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 02:15:33 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,14 @@ char	**shell_splitter(char *s, t_main *m)
 		{	
 			m->k = m->j;
 			if (m->state == S_DEFAULT)
-			{
 				m->k += default_parkour(s + m->k, m);
-				arg_splitter(s, m);
-			}
-			else if (m->state == S_OPEN_QUOTE && s[m->j] == m->quote)
+			else if (m->state == S_OPEN_QUOTE && s[m->j++] == m->quote)
 			{
-				m->j++;
-				m->k = m->j;
-				m->k += quote_parkour(s + m->k, m);
+				m->k += quote_parkour(s + m->j, m);
+				m->k++;
 				printf("m->j = %lu | m->k = %lu\n", m->j, m->k);
-				arg_splitter(s, m);
-				m->j += 1;
 			}
+			arg_splitter(s, m);
 		}
 		if (s[m->j + 1] == '\0')
 			break ;
