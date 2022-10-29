@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 16:32:58 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/28 19:19:38 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef enum e_types
 {
 	T_WORD,
 	T_OPERATOR,
-	T_QUOTE,
 	T_SPACE,
 }	t_types;
 
