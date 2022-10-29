@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 02:39:10 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 03:52:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,44 +56,48 @@ t_token	*fill_token(t_main *m)
 	return (content);
 }
 
-t_token	*expand_tokens(t_main *m, t_node *tmp)
+t_token	*expand_tokens(t_main *m)
 {
 	t_token		*content;
 
 	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
 	control_operator(content, m);
-	content->av = ((t_token *)tmp->data)->av;
+	printf("operator = %d\n", content->id);
+	if (content->id == O_STDIN_REDIR || content->id == O_DELEM)
+		m->tmp_b = m->tmp_b->next;
+	else if (content->id != O_CMD)
+		m->tmp_b = m->tmp_b->prev;
+	content->av = ((t_token *)m->tmp_b->data)->av;
+//	m->tmp_b = m->tmp_b->next;
 //	if (content->is_redir)
 //		expand_io(m, content);
 	if (content->is_piped) 
 		pipe(content->pipe);
 	content->bin_path = NULL;
-	free(m->buf);
 	return (content);
 }
 
 int	create_tokens(t_main *m)
 {
-	t_node	*tokens_tmp;
-
 	m->tmp = m->lexicon;
 	if (!m->tmp)
 		return (0);
 	m->tokens = NULL;
-	tokens_tmp = NULL;
+	m->tmp_b = NULL;
 	m->i = 0;
 	m->state = S_DEFAULT;
 	while (m->tmp)
 	{
 		while (m->tmp && ((t_lexer *)m->tmp->data)->type == T_SPACE)
 			m->tmp = m->tmp->next;
-		putback_node(&tokens_tmp, new_node(fill_token(m)));
+		putback_node(&m->tmp_b, new_node(fill_token(m)));
 	}
-	while (tokens_tmp)
+	while (m->tmp_b)
 	{
-		putback_node(&m->tokens, new_node(expand_tokens(m, tokens_tmp)));
-		tokens_tmp = tokens_tmp->next;
+		putback_node(&m->tokens, new_node(expand_tokens(m)));
+		if (m->tmp_b)
+			m->tmp_b = m->tmp_b->next;
 	}
-	free_parser(tokens_tmp);
+	free_parser(m->tmp_b);
 	return (1);
 }

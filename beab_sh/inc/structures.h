@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 19:19:38 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 03:33:22 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ typedef struct s_main
 	t_node			*lexicon;
 	t_node			*tokens;
 	t_node			*tmp;
+	t_node			*tmp_b;
 }	t_main;
 
 #endif
