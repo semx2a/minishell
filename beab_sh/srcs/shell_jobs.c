@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 17:51:17 by abonard          ###   ########.fr       */
+/*   Updated: 2022/10/29 08:28:44 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	process_args(t_main *m)
 {
 	if (!create_lexicon(m))
 		return (0);
-	print_lexer(m->lexicon);
+//	print_lexer(m->lexicon);
 	if (!create_tokens(m))
 	{
 		free_nodes(&m->lexicon, &free);

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/28 17:54:23 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/10/29 08:29:42 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ size_t	token_len(t_main *m, t_node *l)
 	while (l && (((t_lexer *)l->data)->type == m->type
 			|| ((t_lexer *)l->data)->type == T_SPACE))
 	{
-		l = l->next;
 		len++;
+		l = l->next;
 	}
 //	printf("tokenlen = %lu\n", len);
 	return (len);
@@ -52,11 +52,6 @@ t_token	*fill_token(t_main *m)
 	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
 	build_token(m);
 	control_operator(content, m);
-//	if (content->id != O_CMD)
-//	{
-//		free(m->buf);
-//		build_token(m);
-//	}
 	content->av = shell_splitter(m->buf, m);
 //	if (content->is_redir)
 //		expand_io(m, content);
@@ -77,8 +72,7 @@ int	create_tokens(t_main *m)
 	m->state = S_DEFAULT;
 	while (m->tmp)
 	{
-		while (m->tmp && ((((t_lexer *)m->tmp->data)->type == T_SPACE)
-				|| ((t_lexer *)m->tmp->data)->type == T_QUOTE))
+		while (m->tmp && ((t_lexer *)m->tmp->data)->type == T_SPACE)
 			m->tmp = m->tmp->next;
 		putback_node(&m->tokens, new_node(fill_token(m)));
 	}
