@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 08:28:44 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/11/17 16:59:08 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	process_args(t_main *m)
 		ft_free_stab(m->paths);
 		return (0);
 	}
-	print_parser(m->tokens);
 	return (1);
 }
 

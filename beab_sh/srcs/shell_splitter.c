@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 18:32:10 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 07:15:55 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/11/17 17:32:35 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	arg_splitter(char *s, t_main *m)
 				= ft_substr(s, (unsigned int)m->j, (m->k - 1) - m->j);
 		if (m->state == S_DEFAULT)
 			m->stab[m->index] = ft_substr(s, (unsigned int)m->j, m->k - m->j);
+		m->stab[m->index] = ft_strtrim(m->stab[m->index], " ");
 		m->index++;
 		m->j = m->k - 1;
 	}
