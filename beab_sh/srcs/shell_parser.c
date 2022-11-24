@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:30:21 by seozcan           #+#    #+#             */
-/*   Updated: 2022/11/17 17:31:09 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/11/23 20:17:05 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ size_t token_len(t_main *m, t_node *l)
 
 	len = 0;
 	m->type = ((t_lexer *)l->data)->type;
-	while (l && (((t_lexer *)l->data)->type == m->type || ((t_lexer *)l->data)->type == T_SPACE))
+	while (l && (((t_lexer *)l->data)->type == m->type 
+		|| ((t_lexer *)l->data)->type == T_SPACE))
 	{
 		len++;
 		l = l->next;
@@ -32,7 +33,8 @@ void build_token(t_main *m)
 	m->buf = NULL;
 	m->i = 0;
 	m->buf = xmalloc(sizeof(char) * (token_len(m, m->tmp) + 1));
-	while (m->tmp && (((t_lexer *)m->tmp->data)->type == m->type || ((t_lexer *)m->tmp->data)->type == T_SPACE))
+	while (m->tmp && (((t_lexer *)m->tmp->data)->type == m->type 
+		|| ((t_lexer *)m->tmp->data)->type == T_SPACE))
 	{
 		m->buf[m->i] = ((t_lexer *)m->tmp->data)->arg;
 		m->tmp = m->tmp->next;
@@ -49,6 +51,7 @@ t_token *fill_token(t_main *m)
 
 	content = (t_token *)ft_calloc(1, (sizeof(t_token)));
 	build_token(m);
+	printf("m->buf = [%s]\n", m->buf);
 	control_operator(content, m);
 	content->av = shell_splitter(m->buf, m);
 	//	if (content->is_redir)
