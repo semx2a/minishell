@@ -73,7 +73,8 @@ t_env	*fill_env(char *is_env)
 	new->total = is_env;
 	tab = ft_split(new->total, '=');
 	new->var = ft_strdup(tab[0]);
-	new->cont = ft_strdup(tab[1]);
+	if (tab[1])
+		new->cont = ft_strdup(tab[1]);
 	if (tab == NULL || new->var == NULL || new->cont == NULL)
 		return (NULL);
 	ft_free_stab(tab);
