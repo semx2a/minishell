@@ -12,10 +12,38 @@
 
 #include "../inc/minishell.h"
 
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*ret;
+	int		i;
+
+	i = 0;
+	if (access(cmd, 0) == 0)
+		return (cmd);
+	else
+	{
+		while (paths[i])
+		{
+			tmp = ft_strjoin(paths[i], "/");
+			ret = ft_strjoin(tmp, cmd);
+			free(tmp);
+			if (access(ret, X_OK) == 0)
+				return (ret);
+			free(ret);
+			i++;
+		}
+		ft_error();
+	}
+	return (NULL);
+}
+
 void	execute(t_main *m, t_token *data)
 {
 	m->paths = ft_split(get_cont("PATH", m->env), ':');	
 	data->bin_path = get_cmd(m->paths, data->av[0]);
+	if (!data->bin_path)
+		return ;
 	if (execve(data->bin_path, data->av, m->paths) != -1)
 	{
 		ft_free_stab(m->paths);

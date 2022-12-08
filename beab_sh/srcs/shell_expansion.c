@@ -11,34 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-char	*get_cmd(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*ret;
-	int		i;
-
-	i = 0;
-	if (access(cmd, 0) == 0)
-		return (cmd);
-	else
-	{
-		while (paths[i])
-		{
-			tmp = ft_strjoin(paths[i], "/");
-			ret = ft_strjoin(tmp, cmd);
-			free(tmp);
-			if (access(ret, X_OK) == 0)
-				return (ret);
-			free(ret);
-			i++;
-		}
-		ft_putstr_fd("command not found\n", 2);
-		ft_error();
-	}
-	return (NULL);
-}
-
+  
 t_operator	identify_operator(t_main *m)
 {
 	t_operator	i;

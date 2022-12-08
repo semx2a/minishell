@@ -27,6 +27,7 @@ int			ft_cd(t_main *m, t_token *data, bool is_forked);
 int			ft_echo(t_main *m, t_token *data);
 
 //				shell_execution.c
+char		*get_cmd(char **paths, char *cmd);
 void		execute(t_main *m, t_token *data);
 int			exec_builtin(t_main *m, t_token *data);
 
@@ -34,7 +35,6 @@ int			exec_builtin(t_main *m, t_token *data);
 int			ft_exit(t_token *data, bool is_forked);
 
 //				shell_expansion.c
-char		*get_cmd(char **paths, char *cmd);
 t_operator	identify_operator(t_main *m);
 void		control_operator(t_token *content, t_main *m);
 // void		create_redir(t_main *m, t_token *content);

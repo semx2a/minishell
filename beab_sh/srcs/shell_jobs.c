@@ -84,5 +84,5 @@ void	job(t_main *m)
 	assign_job(m);
 	free_nodes(&m->lexicon, &free);
 	free_parser(m->tokens);
-	//ft_free_stab(m->paths);
+	ft_free_stab(m->paths);
 }
