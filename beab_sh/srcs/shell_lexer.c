@@ -5,75 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:30:00 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 07:19:43 by seozcan          ###   ########.fr       */
+/*   Created: 2022/12/16 22:27:20 by seozcan           #+#    #+#             */
+/*   Updated: 2022/12/17 05:55:51 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-/*
-		operators:
-		- control operators: 		‘||’, ‘&&’, ‘&’, ‘;’, ‘;;’, ‘;&’, ‘;;&’, ‘|’,
-									‘|&’, ‘(’, or ‘)’.
-		- redirection operators :	< << > >> | &
-
-		A token that doesn’t contain meta-character 
-		and isn’t in quotes is a ‘word’. 
-		
-		A token that contains no quotes and at least
-		one meta-character is an ‘operator’.
-*/
-
-t_states	is_state(char c, t_main *m)
-{	
-	if (c == m->quote && m->state == S_OPEN_QUOTE)
-		return (S_CLOSING_QUOTE);
-	if (((c == DOUBLE_Q || c == SINGLE_Q) && m->state != S_OPEN_QUOTE)
-		|| m->state == S_OPEN_QUOTE)
-	{
-		if ((c == DOUBLE_Q || c == SINGLE_Q) && m->state != S_OPEN_QUOTE)
-			m->quote = c;
-		return (S_OPEN_QUOTE);
-	}
-	return (S_DEFAULT);
-}
-
-t_types	is_operator(char c, t_main *m)
-{	
-	if ((!ft_isprint(c) || c == ' ') && m->state == S_DEFAULT)
-		return (T_SPACE);
-	if (ft_strchr("|&><$", c) && m->state == S_DEFAULT)
-		return (T_OPERATOR);
-	return (T_WORD);
-}
-
-t_lexer	*fill_lexicon(t_main *m)
+int	ft_check_if_not_valid_pipes(char *line, int i, bool err, size_t len)
 {
-	t_lexer	*content;
-
-	content = (t_lexer *)ft_calloc(1, sizeof(t_lexer));
-	content->type = is_operator(m->line[m->i], m);
-	content->arg = m->line[m->i];
-	return (content);
-}
-
-int	create_lexicon(t_main *m)
-{	
-	m->lexicon = NULL;
-	m->i = 0;
-	m->state = S_DEFAULT;
-	while (m->line[m->i])
+	if (line[0] == '|' || line[len - 1] == '|')
 	{
-		m->state = is_state(m->line[m->i], m);
-		putback_node(&m->lexicon, new_node(fill_lexicon(m)));
-		m->i++;
-	}
-	if (m->state == S_OPEN_QUOTE)
-	{
-		ft_putstr_fd("Error: Open quote found\n", 2);
-		free_nodes(&m->lexicon, &free);
+		if (err == true)
+			ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
+		g_status = 2;
 		return (0);
 	}
+	while (line[++i])
+	{
+		if (line[i] == '|')
+		{
+			if (is_in_quotes(line, i) == 1)
+				continue ;
+			while (line[++i] && line[i] == ' ')
+				;
+			if (line[i] == '|')
+			{
+				if (err == true)
+					ft_putstr_fd(ERR_PIPE, STDERR_FILENO);
+				g_status = 2;
+				return (0);
+			}
+		}
+	}
 	return (1);
+}
+
+char	*lexer(t_main *m)
+{
+	char	*tmp;
+	size_t	len;
+
+	m->p = init_parser();
+	m->quotes_empty = false;
+	tmp = NULL;
+	tmp = ft_strtrim(m->line, " \f\t\n\r\v");
+	if (!tmp)
+		return (NULL);
+	len = ft_strlen(tmp);
+	if (!len)
+	{
+		m->quotes_empty = true;
+		free(tmp);
+		return (NULL);
+	}
+	if (!ft_check_if_not_valid_pipes(tmp, -1, true, len)
+		|| !ft_check_if_not_valid_redir(tmp, -1, true, len)
+		|| !check_quotes_is_valid(m, tmp) || !check_empty_quotes(m, tmp))
+	{
+		m->quotes_empty = true;
+		free(tmp);
+		return (NULL);
+	}
+	return (tmp);
 }

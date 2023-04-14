@@ -6,37 +6,45 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 20:37:23 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 19:30:25 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_exit(t_token *data, bool is_forked)
+int	ft_mini_exit(int status, t_token *t, t_env *env)
 {
-	int		ret;
-	size_t	cmd_ac;
+	ft_flush(t);
+	free_env(env);
+	exit(status);
+	return (status);
+}
+
+int	ft_exit(t_token *t, bool is_forked, t_env *env)
+{
+	int	ret;
 
 	ret = 0;
-	cmd_ac = ft_tablen(data->av);
-	if (data->av && cmd_ac > 2 && is_forked)
+	if (t->cmds_av && t->cmd_ac > 2 && is_forked)
 	{
-		ft_putstr_fd("exit: too many arguments\n", 2);
+		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
 		return (1);
 	}
-	else if (data->av && cmd_ac >= 2)
+	else if (t->cmds_av && t->cmd_ac >= 2)
 	{
-		if (ft_strisdigit(data->av[1]) == 1)
-			ret = ft_atoi(data->av[1]);
+		if (ft_strisdigit(t->cmds_av[1]) == 1)
+			ret = ft_atoi(t->cmds_av[1]);
 		else
 		{
 			if (is_forked)
-				ft_putstr_fd("exit: numeric argument required\n", 2);
+				ft_putstr_fd("exit: numeric argument required\n", STDERR_FILENO);
 			return (1);
 		}
 	}
 	if (is_forked)
 		printf("exit\n");
+	ft_flush(t);
+	free_env(env);
 	exit(ret);
 	return (ret);
 }

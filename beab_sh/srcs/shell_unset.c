@@ -3,19 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   shell_unset.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 16:33:12 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/28 17:48:33 by abonard          ###   ########.fr       */
+/*   Updated: 2022/12/16 22:00:09 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	ft_delete_first_elmt(t_env *env)
-{
+void	free_head(t_env *env)
+{	
 	t_env	*tmp;
 
+	tmp = env->next;
+	free(env->var);
+	env->var = tmp->var;
+	free(env->cont);
+	env->cont = tmp->cont;
+	free(env->total);
+	env->total = tmp->total;
+	env->next = tmp->next;
+	free(tmp);
+}
+
+int	ft_delete_first_elmt(t_env *env)
+{
 	if (env->next == NULL)
 	{
 		free(env->var);
@@ -26,37 +39,38 @@ int	ft_delete_first_elmt(t_env *env)
 		env->total = ft_strdup("");
 		if (env->var == NULL || env->cont == NULL || env->total == NULL)
 		{
-			ft_putstr_fd("Malloc failed\n", 2);
+			ft_putstr_fd("malloc failed\n", STDERR_FILENO);
 			return (1);
 		}
 	}
 	else
-	{
-		tmp = env->next;
-		free(env->var);
-		env->var = tmp->var;
-		free(env->cont);
-		env->cont = tmp->cont;
-		free(env->total);
-		env->total = tmp->total;
-		env->next = tmp->next;
-		free(tmp);
-	}
+		free_head(env);
 	return (0);
+}
+
+void	ft_free_var(t_env *prev)
+{
+	t_env	*tmp;
+
+	tmp = NULL;
+	tmp = prev->next;
+	free(tmp->var);
+	free(tmp->cont);
+	free(tmp->total);
+	prev->next = tmp->next;
+	free(tmp);
 }
 
 int	ft_exec_unset(char *namevar, t_env *env)
 {
-	t_env	*tmp;
 	t_env	*prev;
 
-	prev = env;
-	tmp = NULL;
 	if (env == NULL)
 	{
-		ft_putstr_fd("environement is empty\n", 2);
+		ft_putstr_fd("environement is empty\n", STDERR_FILENO);
 		return (1);
 	}
+	prev = env;
 	if (ft_strcmp(namevar, prev->var) == 0)
 	{
 		ft_delete_first_elmt(env);
@@ -70,27 +84,21 @@ int	ft_exec_unset(char *namevar, t_env *env)
 	}
 	if (prev == NULL)
 		return (0);
-	tmp = prev->next;
-	free(tmp->var);
-	free(tmp->cont);
-	//free(tmp->total);
-	prev->next = tmp->next;
-	free(tmp);
+	ft_free_var(prev);
 	return (0);
 }
 
-int	ft_unset(t_main *m, t_token *data, bool is_forked)
+int	ft_unset(t_token *t, t_env *env, bool is_forked)
 {
 	size_t	i;
 	int		res;
 
 	i = 1;
-	m->cmd_ac = ft_tablen(data->av);
-	if (m->cmd_ac >= 2)
+	if (t->cmd_ac >= 2)
 	{
-		while (data->av[i] && i < m->cmd_ac)
+		while (t->cmds_av[i] && i < t->cmd_ac)
 		{
-			ft_exec_unset(data->av[i], m->env);
+			ft_exec_unset(t->cmds_av[i], env);
 			i++;
 		}
 		res = 0;
@@ -98,9 +106,7 @@ int	ft_unset(t_main *m, t_token *data, bool is_forked)
 	else
 	{
 		if (is_forked)
-		{
-			ft_putstr_fd("unset: Not enough arguments.\n", 2);
-		}
+			ft_putstr_fd("unset: Not enough arguments.\n", STDERR_FILENO);
 		res = 1;
 	}
 	return (res);

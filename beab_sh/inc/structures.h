@@ -3,67 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:53:49 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/29 08:28:19 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/17 00:50:10 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 
 # define STRUCTURES_H
-
 # include "minishell.h"
 
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LEXER::
-
-typedef enum e_types
-{
-	T_WORD,
-	T_OPERATOR,
-	T_SPACE,
-}	t_types;
-
-typedef enum e_states
-{
-	S_DEFAULT,
-	S_OPEN_QUOTE,
-	S_CLOSING_QUOTE,
-}	t_states;
-
-typedef struct s_lexer
-{	
-	char			arg;
-	enum e_types	type;
-}	t_lexer;
-
-// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
-
-typedef enum e_operator
-{
-	O_PIPE,
-	O_OR,
-	O_AND,
-	O_STDIN_REDIR,
-	O_STDOUT_REDIR,
-	O_DELEM,
-	O_APPEN,
-	O_CMD,
-}	t_operator;
-
-typedef struct s_token
-{
-	enum e_operator	id;
-	char			**av;
-	char			*bin_path;
-	char			*file_path;
-	pid_t			pid;
-	int				pipe[2];
-	int				fd;
-	bool			is_piped;
-	bool			is_redir;
-}	t_token;
+extern int	g_status;
 
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::ENVIRONMENT::
 
@@ -76,33 +28,67 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
+// ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARSING::
+
+typedef enum e_type
+{
+	DEFAULT,
+	REDIR_IN,
+	REDIR_OUT,
+	R_REDIR_IN,
+	R_REDIR_OUT,
+}	t_type;
+
+typedef struct s_redir
+{
+	char				*file_path;
+	char				*file_name;
+	enum e_type			type;
+	int					fd;
+	struct s_redir		*next;
+	bool				is_quote;
+	int					nb_heredoc;
+}	t_redir;
+
+typedef struct s_token
+{	
+	pid_t			pid;
+	size_t			cmd_ac;
+	bool			is_pipe;
+	bool			is_error;
+	bool			is_parent;
+	bool			is_builtin;
+	int				is_pipe_open;
+	int				pipe_fd[2];
+	char			**cmds_av;
+	char			*bin_path;
+	t_redir			*file;
+	struct s_token	*next;
+	struct s_token	*prev;
+}	t_token;
+
+typedef struct s_parse
+{
+	int				i;
+	char			*read;
+	char			*var;
+	enum e_type		type;
+	bool			is_quote;
+}	t_parse;
+
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::
 
 typedef struct s_main
 {
-	size_t			i;
-	size_t			j;
-	size_t			k;
-	size_t			index;
-	size_t			pipe_ac;
-	size_t			cmd_ac;
-	enum e_states	state;
-	enum e_types	type;
-	int				exit;
-	int				*pipes;
-	char			quote;
-	char			*line;
 	char			*cwd;
 	char			*prompt;
-	char			*buf;
-	char			**stab;
-	char			**paths;
-	char			**builtins;
-	char			**operators;
+	char			*line;
+	int				u;
+	t_parse			*p;	
+	t_token			*cursor;
+	bool			quotes_empty;
+	t_token			*t;
 	t_env			*env;
-	t_node			*lexicon;
-	t_node			*tokens;
-	t_node			*tmp;
 }	t_main;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/27 19:21:51 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 16:59:46 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int				**allocate_tab(int **tab, int size);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strisdigit(char *str);
 long			ft_atoli(const char *str);
+int				get_next_line(int fd, char **line);
 unsigned int	ft_atoi_hexa(const char *str);
 
 void			ft_bzero(void *s, size_t n);
@@ -80,8 +81,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_calloc(size_t count, size_t size);
 void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
-void			ft_error(void);
-void			*xmalloc(size_t size);
+void			ft_error(char *s);
 void			print_stab(char **stab);
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -89,6 +89,7 @@ char			*ft_strrchr(const char *s, int c);
 char			*ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
+char			*ft_strjoin_free(char const *s1, char const *s2);
 char			*ft_strdup(const char *s1);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strtrim(char const *s1, char const *set);

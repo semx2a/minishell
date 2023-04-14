@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/28 18:29:21 by seozcan          ###   ########.fr        #
+#    Updated: 2022/12/17 07:27:15 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME	:= libft.a
 
 SDIR	:= srcs
 
-SRCS	:= ft_allocate_tab.c \
+SRCS	:= 	ft_allocate_tab.c \
 			ft_atoi.c \
 			ft_atoi_hexa.c \
 			ft_atoli.c \
@@ -27,6 +27,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_error.c \
 			ft_free_stab.c \
 			ft_free_tab.c \
+			ft_gnl.c \
 			ft_isalnum.c \
 			ft_isalpha.c \
 			ft_isascii.c \
@@ -56,8 +57,8 @@ SRCS	:= ft_allocate_tab.c \
 			ft_node_last.c \
 			ft_nodemap.c \
 			ft_nodenew.c \
-			ft_print_stab.c \
 			ft_node_size.c \
+			ft_print_stab.c \
 			ft_putchar_fd.c \
 			ft_putendl_fd.c \
 			ft_putnbr_fd.c \
@@ -78,6 +79,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_strdup.c \
 			ft_strisdigit.c \
 			ft_striteri.c \
+			ft_strjoin_free.c \
 			ft_strjoin.c \
 			ft_strlcat.c \
 			ft_strlcpy.c \
@@ -90,8 +92,7 @@ SRCS	:= ft_allocate_tab.c \
 			ft_substr.c \
 			ft_tablen.c \
 			ft_tolower.c \
-			ft_toupper.c \
-			ft_xmalloc.c
+			ft_toupper.c 
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 
@@ -163,7 +164,7 @@ vpath %.o $(ODIR)
 all:			header message $(NAME)
 
 $(ODIR)/%.o:	%.c
-	@$(CC) $(WFLAGS) $(GFLAG) $(SANFLAG) -I $(IDIR) -c $< -o $@
+	@$(CC) $(WFLAGS) -I $(IDIR) -c $< -o $@
 	@echo "$(HIGREEN)libft compilation:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)
@@ -177,13 +178,8 @@ $(ODIR):
 	@echo "$(HIGREEN)libft objs folder:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 clean:
-ifneq ($(wildcard ./$(ODIR)),)
 	@rm -rf $(ODIR)
-	@echo "$(HIORANGE)libft objs folder:\t\t\t\t\t[RM]$(NO_COLOR)"
-else
-	@rm -f $(wildcard %.o)
-	@echo "$(HIORANGE)libft obj files:\t\t\t\t\t[RM]$(NO_COLOR)"
-endif
+	@echo "$(HIORANGE)objs folder:\t\t\t\t\t\t[RM]$(NO_COLOR)"
 
 fclean:		clean
 	@rm -f $(NAME)

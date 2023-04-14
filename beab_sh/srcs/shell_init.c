@@ -3,18 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   shell_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:38:15 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/25 19:13:08 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/16 23:56:03 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	shell_init(t_main *m, char **envp)
+t_token	*init_token(void)
 {
-	m->env = put_env(envp);
-	m->builtins = ft_split("env,exit,pwd,cd,echo,export,unset", ',');
-	m->operators = ft_split("|,||,&&,<,>,<<,>>", ',');
+	t_token	*new_token;
+
+	new_token = ft_calloc(1, sizeof(t_token));
+	if (new_token == NULL)
+		return (NULL);
+	return (new_token);
+}
+
+t_parse	*init_parser(void)
+{
+	t_parse	*new;
+
+	new = ft_calloc(1, sizeof(t_parse));
+	return (new);
 }

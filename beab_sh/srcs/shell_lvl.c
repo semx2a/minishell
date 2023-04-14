@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_set_sig.c                                    :+:      :+:    :+:   */
+/*   shell_lvl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/28 17:10:55 by abonard           #+#    #+#             */
-/*   Updated: 2022/10/28 17:11:15 by abonard          ###   ########.fr       */
+/*   Created: 2022/12/10 12:42:16 by seozcan           #+#    #+#             */
+/*   Updated: 2022/12/15 14:09:56 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_cntlc(int sig)
+void	shlvl_up(t_main *m)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	rl_redisplay();
-}
+	int		res;
+	char	*value;
 
-void	ft_cntl_slsh(int sig)
-{
-	(void)sig;
-	write(1, "\b\b  \b\b", 6);
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-void	ft_sig_ghost(int sig)
-{
-	(void)sig;
-	if (sig == SIGINT)
-		ft_putstr_fd("\n", 1);
+	if (get_cont("SHLVL", m->env) == NULL)
+		return ;
+	res = ft_atoi(get_cont("SHLVL", m->env));
+	res++;
+	value = ft_itoa(res);
+	ft_create_o_replace("SHLVL", value, m->env);
+	free(value);
 }

@@ -6,7 +6,7 @@
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:56:38 by seozcan           #+#    #+#             */
-/*   Updated: 2022/10/05 20:47:28 by seozcan          ###   ########.fr       */
+/*   Updated: 2022/12/14 17:25:56 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@
 //			booleens
 # include <stdbool.h>
 
-//			minishell headers
+//			minishell cursorers
 # include "structures.h"
-# include "functions.h"
 # include "macros.h"
+# include "functions.h"
 
 #endif

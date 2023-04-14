@@ -3,86 +3,107 @@
 /*                                                        :::      ::::::::   */
 /*   shell_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
+/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 20:44:06 by seozcan           #+#    #+#             */
-/*   Updated: 2022/11/24 13:29:57 by seozcan          ###   ########.fr       */
+/*   Created: 2022/09/29 18:34:43 by seozcan           #+#    #+#             */
+/*   Updated: 2022/12/16 23:21:11 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-void	ft_process(t_main *m, t_node *token)
+int	ft_hold_exec(t_token *t, t_env *env)
 {
-	t_token	*data;
+	int	res;
+	int	status;
 
-	data = (t_token *)token->data;
-	data->pid = fork();
-	if (data->pid == -1)
-		ft_error();
-	else if (data->pid > 0)
+	res = 130;
+	while (t)
 	{
-		waitpid(data->pid, 0, 0);
-		kill(data->pid, SIGTERM);
+		status = 0;
+		waitpid(t->pid, &status, 0);
+		if (WIFEXITED(status))
+			res = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			res = WTERMSIG(status) + 128;
+		if (t->bin_path != NULL && (ft_strcmplen(t->cmds_av[0], "exit") == 0
+				|| ft_strcmplen(t->cmds_av[0], "export") == 0
+				|| (ft_strcmplen(t->cmds_av[0], "cd") == 0)
+				|| (ft_strcmp(t->cmds_av[0], "unset") == 0)))
+			exec_builtin(t, env, false);
+		t = t->next;
 	}
-	else if (data->pid == 0)
-	{
-		if (m->pipe_ac > 0)
-		{	
-			pipes(token);
-			if (data->id == O_PIPE)
-				execute(m, data);
-/* 			else if (data->id == O_DELEM)
-				heredoc(data, m); */
-		}
-		else
-			execute(m, data);
-	}
+	set_signals();
+	return (res);
 }
 
-void	assign_job(t_main *m)
+int	check_and_proceed(t_main *m, t_token *t, t_env *env)
 {
-	t_token	*data;
+	size_t	len;
 
-	data = NULL;
-	m->index = 0;
-	while (m->tokens)
+	len = ft_strlen(m->line);
+	if (!len)
+		return (-1);
+	if (!ft_check_if_not_valid_pipes(m->line, -1, false, len)
+		|| !ft_check_if_not_valid_redir(m->line, -1, false, len))
+		return (-1);
+	t->is_pipe_open = 0;
+	if (t->is_pipe == 1 || (t->prev && t->prev->is_pipe == 1))
 	{
-		data = (t_token *)m->tokens->data;
-		if (is_builtin(data, m->builtins) == 1)
-			exec_builtin(m, data);
-		else
-		{
-			ft_process(m, m->tokens);
-			m->index++;
-		}
-		m->tokens = m->tokens->next;
+		t->is_pipe_open = 1;
+		if (pipe(t->pipe_fd))
+			return (-1);
 	}
-	waitpid(-1, NULL, 0);
+	if (ft_redir(t, env))
+		return (4);
+	return (0);
 }
 
-int	process_args(t_main *m)
+int	assign_jobs(t_main *m, t_token *t, t_env *env)
 {
-	if (!create_lexicon(m))
-		return (0);
-//	print_lexer(m->lexicon);
-	if (!create_tokens(m))
+	int	res;
+
+	res = 0;
+	res = check_and_proceed(m, t, env);
+	if (res == -1 || res == 4)
+		return (res);
+	res = which_path(m, m->t);
+	if (res == 127)
+		return (127);
+	t->pid = fork();
+	shut_signals(t->pid);
+	if (t->pid == -1)
+		return (1);
+	if (t->pid == 0)
 	{
-		free_nodes(&m->lexicon, &free);
-		free_parser(m->tokens);
-		ft_free_stab(m->paths);
-		return (0);
+		t->is_parent = false;
+		child_process(t, env);
 	}
-	return (1);
+	close_pipes(t);
+	t->is_parent = true;
+	return (res);
 }
 
-void	job(t_main *m)
-{	
-	if (!process_args(m))
-		return ;
-	print_parser(m->tokens);
-	assign_job(m);
-	free_nodes(&m->lexicon, &free);
-	free_parser(m->tokens);
-	ft_free_stab(m->paths);
+int	job(t_main *m)
+{
+	int		res;
+	t_token	*list_cmd;
+
+	list_cmd = m->t;
+	res = 0;
+	while (m->t)
+	{
+		res = assign_jobs(m, m->t, m->env);
+		if (res == 4)
+			break ;
+		if (res != 0 && res != 127)
+			return (-1);
+		m->t = m->t->next;
+	}
+	m->t = list_cmd;
+	if (res == 127)
+		return (res);
+	res = ft_hold_exec(list_cmd, m->env);
+	g_status = res;
+	return (res);
 }

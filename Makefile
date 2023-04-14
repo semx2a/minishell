@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abonard <abonard@student.42.fr>            +#+  +:+       +#+         #
+#    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/10/28 17:32:56 by abonard          ###   ########.fr        #
+#    Updated: 2022/12/17 07:28:28 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,30 +32,37 @@ NAME			:=	minishell
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
 
-SRCS			:= main.c \
-					print_lists.c \
+SRCS			:=	main.c \
 					shell_builtins.c \
 					shell_cd.c \
 					shell_echo.c \
-					shell_execution.c \
+					shell_env.c \
+					shell_err_msg.c \
 					shell_exit.c \
 					shell_expansion.c \
 					shell_export.c \
 					shell_flush.c \
+					shell_heredoc.c \
 					shell_init.c \
 					shell_io.c \
 					shell_jobs.c \
 					shell_lexer.c \
-					shell_parser.c \
+					shell_lvl.c \
+					shell_parsing.c \
+					shell_parsing_utils.c \
+					shell_path.c \
 					shell_pipes.c \
+					shell_redir.c \
 					shell_signals.c \
-					shell_set_sig.c \
-					shell_splitter.c \
+					shell_signals_heredoc.c \
+					shell_sig_set.c \
+					shell_structs.c \
 					shell_unset.c \
-					utils_builtins.c \
-					utils_env2.c \
+					utils.c \
 					utils_env.c \
-					utils_export.c
+					utils_export.c \
+					utils_quotes.c \
+					utils_redir_op.c
 
 OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
 
@@ -95,7 +102,7 @@ LIB				:=	$(addprefix $(LDIR)/, libft.a)
 
 LIBTF_PATH		=	$(addprefix $(LDIR)/, ${LIB})
 
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::printf::
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PRINTF::
 
 IS_PRINTF		:=	false
 
@@ -169,11 +176,11 @@ vpath %.o $(ODIR)\
 all:			header lib h2 message $(NAME)
 
 $(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) -c $< -o $@ 
+	@$(CC) $(WFLAGS) $(INCLUDE_FLAGS) -c $< -o $@ 
 	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(WCONV) $(GFLAG) $(SANFLAG) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
+	@$(CC) $(WFLAGS) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
 	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
 
 $(OBJS):		| $(ODIR)
@@ -260,7 +267,8 @@ message:
 message_b:
 	@make -q $(BNAME) && echo "$(BHIGREEN)All bonus files are already up to date$(NO_COLOR)" || true
 
-re:		header fclean fcleanlib all 
+re:		header fclean fcleanlib 
+	@make all 
 
 -include $(DEPS)
 

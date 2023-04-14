@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_builtins.c                                   :+:      :+:    :+:   */
+/*   shell_sig_set.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 20:54:07 by seozcan           #+#    #+#             */
-/*   Updated: 2022/11/17 16:54:30 by seozcan          ###   ########.fr       */
+/*   Created: 2022/12/10 16:00:43 by ringii            #+#    #+#             */
+/*   Updated: 2022/12/16 20:54:10 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	is_builtin(t_token *data, char **builtins)
+int	set_signals(void)
 {
-	int	i;
+	if (!(signal(SIGINT, ft_cntlc)))
+		return (0);
+	return (1);
+}
 
-	i = 0;
-	while (builtins[i])
-	{
-		if (ft_strcmp(builtins[i], data->av[0]) == 0)
-			return (1);
-		i++;
-	}
-	return (0);
+int	set_sig(void)
+{
+	if (!signal(SIGQUIT, ft_cntl_slsh))
+		return (0);
+	return (1);
 }

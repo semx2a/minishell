@@ -1,29 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_stab.c                                     :+:      :+:    :+:   */
+/*   shell_parsing_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/11 21:01:56 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:16:05 by abonard          ###   ########.fr       */
+/*   Created: 2022/12/16 22:55:51 by abonard           #+#    #+#             */
+/*   Updated: 2022/12/17 00:01:54 by abonard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/libft.h"
+#include "../inc/minishell.h"
 
-void	ft_free_stab(char **str)
+void	count_ac(t_token *t)
 {
-	int	i;
-
-	i = 0;
-	if (**str && *str && str)
+	while (t != NULL)
 	{
-		while (str[i] != 0)
-		{
-			free(str[i]);
-			i++;
-		}
-		free(str);
+		if (t->cmds_av)
+			t->cmd_ac = ft_tablen(t->cmds_av);
+		t = t->next;
 	}
+}
+
+void	next_token(t_token **cursor, int is_pipe)
+{
+	t_token	*tmp;
+
+	tmp = *cursor;
+	if (is_pipe)
+		(*cursor)->is_pipe = is_pipe;
+	(*cursor)->next = init_token();
+	*cursor = (*cursor)->next;
+	(*cursor)->prev = tmp;
 }
