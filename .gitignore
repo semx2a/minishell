@@ -1,8 +1,7 @@
 ### C ###
-# USER
-test.sh
-.checker_linux
-.checker_macos
+
+# Project specific
+minishell
 
 # Prerequisites
 *.d
@@ -74,5 +73,8 @@ dkms.conf
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
+
+# macOS Finder folder settings
+.DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/c,linux

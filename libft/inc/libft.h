@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abonard <abonard@student.42.fr>            +#+  +:+       +#+        */
+/*   By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/24 22:24:57 by seozcan           #+#    #+#             */
-/*   Updated: 2022/12/14 16:59:46 by abonard          ###   ########.fr       */
+/*   Updated: 2024/02/06 17:30:18 by seozcan          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,11 @@ typedef struct s_node
 	struct s_node	*prev;
 }	t_node;
 
-typedef struct s_stack
+typedef struct s_double_list
 {
 	t_node	*head;
 	t_node	*tail;
-}	t_stack;
+}	t_double_list;
 
 int				ft_toupper(int c);
 int				ft_tolower(int c);
@@ -61,15 +61,17 @@ int				ft_isascii(int c);
 int				ft_isalpha(int c);
 int				ft_isalnum(int c);
 int				ft_atoi(const char *str);
-int				**allocate_tab(int **tab, int size);
 int				ft_strcmp(char *s1, char *s2);
 int				ft_strisdigit(char *str);
+int				get_next_line_r(int fd, char **line);
+int				**allocate_tab(int **tab, size_t size);
+int				ft_error(char *bin_name, char *err_msg);
 long			ft_atoli(const char *str);
-int				get_next_line(int fd, char **line);
 unsigned int	ft_atoi_hexa(const char *str);
 
 void			ft_bzero(void *s, size_t n);
 void			ft_striteri(char *s, void (*f)(unsigned int, char*));
+char			*ft_strjoin_free(char const *s1, char const *s2);
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
@@ -79,9 +81,9 @@ void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_calloc(size_t count, size_t size);
+void			*xmalloc(size_t size);
 void			free_tab(int **tab, int size);
 void			ft_free_stab(char **str);
-void			ft_error(char *s);
 void			print_stab(char **stab);
 
 char			*ft_substr(char const *s, unsigned int start, size_t len);
@@ -89,7 +91,6 @@ char			*ft_strrchr(const char *s, int c);
 char			*ft_strnstr(const char *haystack,
 					const char *needle, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
-char			*ft_strjoin_free(char const *s1, char const *s2);
 char			*ft_strdup(const char *s1);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strtrim(char const *s1, char const *set);
@@ -97,6 +98,7 @@ char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			**ft_split(char const *s, char c);
 char			**multi_split(char const *s, char *charset);
+char			*ft_strchr_gnl(const char *s, int c);
 
 size_t			ft_strlen(const char *str);
 size_t			ft_strlcpy(char *dest, char *src, size_t destsize);
@@ -128,14 +130,14 @@ t_node			*node_map(t_node *nodes, void *(*f)(void *),
 size_t			node_size(t_node *n);
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::STACKS::
-void			put_front(t_stack *stack, void *content);
-void			put_back(t_stack *stack, void *content);
-void			init_stack(t_stack *stack);
-void			free_stack(t_stack *stack);
-void			reverse(t_stack *s);
-void			rotate(t_stack *s);
-void			swap(t_stack *s);
-void			push(t_stack *a, t_stack *b);
-size_t			stack_size(t_stack *stack);
+void			putfront_double_list(t_double_list *double_list, void *content);
+void			putback_double_list(t_double_list *double_list, void *content);
+void			init_double_list(t_double_list *double_list);
+void			free_double_list(t_double_list *double_list);
+void			reverse(t_double_list *s);
+void			rotate(t_double_list *s);
+void			swap(t_double_list *s);
+void			push(t_double_list *a, t_double_list *b);
+size_t			double_list_size(t_double_list *double_list);
 
 #endif

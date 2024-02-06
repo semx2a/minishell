@@ -6,270 +6,149 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2022/12/17 07:28:28 by seozcan          ###   ########.fr        #
+#    Updated: 2024/02/06 17:55:37 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PATHS::
+include settings.mk
 
-PROJ			:=	beab_sh
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DIRECTORIES::
 
-ODIR			:=	$(addprefix $(PROJ)/,objs)
+S		=	src/
+O		=	obj/
+I 		=	inc/
+D 		=	dep/
+L 		=	Libft/
+P 		=	ft_printf/
+M 		=	minilibx-linux/
 
-SDIR			:=	$(addprefix $(PROJ)/,srcs)
+# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::CUSTOM FLAGS::
 
-IDIR			:=	$(addprefix $(PROJ)/,inc)
+CFLAGS	+=	-I$I
 
-LDIR 			:=	libft
+LDFLAGS	= -lreadline
 
-PFDIR			:=	printf
-
-MDIR			:=	minilibx-linux
-
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::TARGET::
-
-NAME			:=	minishell
-
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SOURCES::
-
-SRCS			:=	main.c \
-					shell_builtins.c \
-					shell_cd.c \
-					shell_echo.c \
-					shell_env.c \
-					shell_err_msg.c \
-					shell_exit.c \
-					shell_expansion.c \
-					shell_export.c \
-					shell_flush.c \
-					shell_heredoc.c \
-					shell_init.c \
-					shell_io.c \
-					shell_jobs.c \
-					shell_lexer.c \
-					shell_lvl.c \
-					shell_parsing.c \
-					shell_parsing_utils.c \
-					shell_path.c \
-					shell_pipes.c \
-					shell_redir.c \
-					shell_signals.c \
-					shell_signals_heredoc.c \
-					shell_sig_set.c \
-					shell_structs.c \
-					shell_unset.c \
-					utils.c \
-					utils_env.c \
-					utils_export.c \
-					utils_quotes.c \
-					utils_redir_op.c
-
-OBJS			=	$(addprefix $(ODIR)/, $(SRCS:.c=.o))
-
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
-
-CC				:=	clang
-
-WFLAGS			:=	-MMD -Wall -Wextra -Werror
-
-WCONV 			:=	-Wconversion
-
-GFLAG			:=	-g3
-
-SANFLAG			:=	-fsanitize=address
-
-AR				:=	ar
-
-ARFLAGS			:=	rcs
-
-MLXFLAGS		:=	-lXext -lX11
-
-MATHFLAG		:=	-lm
-
-READLINE		:=	-lreadline
-
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::HEADERS::
-
-LINC			=	$(addprefix $(LDIR)/, $(IDIR))
-
-PFINC			=	$(addprefix $(PFDIR)/, $(IDIR))
-
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LIBRARY::
-
-IS_LIBFT		:=	true
-
-LIB				:=	$(addprefix $(LDIR)/, libft.a)
-
-LIBTF_PATH		=	$(addprefix $(LDIR)/, ${LIB})
-
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PRINTF::
-
-IS_PRINTF		:=	false
-
-PRINTF			:=	libftprintf.a
-
-PRINTF_PATH		=	$(addprefix $(PFDIR)/, $(PRINTF))
-
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MINILIBX::
-
-IS_MINILIBX		:=	false
-
-MINILIBX		:=	libmlx_Linux.a
-
-MINILIBX_PATH	=	$(addprefix $(MDIR)/, ${MINILIBX})
-
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COLORS::
-
-NO_COLOR		=	\033[m
-
-BLACK			=	\033[0;30m
-RED				=	\033[0;31m
-GREEN			=	\033[0;32m
-ORANGE 		 	=	\033[0;33m
-BLUE			=	\033[0;34m
-PURPLE			=	\033[0;35m
-CYAN			=	\033[0;36m
-WHITE			= 	\033[0;37m
-
-# High Intensty
-HIGREEN			=	\033[0;92m
-HIORANGE	 	=	\033[0;93m
-HIPURPLE		=	\033[0;95m
-
-# Bold
-BORANGE 		=	\033[1;33m
-BBLUE			=	\033[1;34m
-BPURPLE			=	\033[1;35m
-BCYAN			=	\033[1;36m
-
-# Bold High Intensity
-BHIGREEN		=	\033[1;92m
-BHIORANGE	 	=	\033[1;93m
-BHIPURPLE		=	\033[1;95m
-
-# Italic
-ICYAN			=	\033[3;36m
-
-# ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::PARAMS::
-
-INCLUDE_FLAGS		=	$(addprefix -I , $(IDIR))
-
-ifeq ($(IS_LIBFT),true)
-	INCLUDE_FLAGS	+=	$(addprefix -I , $(LINC))
+ifeq ($(shell uname -s), Darwin)
+	LDFLAGS += -L/usr/local/opt/readline/lib
+  	CFLAGS += -I/usr/local/opt/readline/include
 endif
 
-ifeq ($(IS_PRINTF), true)
-	INCLUDE_FLAGS	+= $(addprefix -I , $(PFINC))
+ifeq ($(IS_LIB), true)
+	CFLAGS	+=	-I$L$I
+	LDFLAGS	+=	-L$L -lft
 endif
 
-ifeq ($(IS_MINILIBX), true)
-	INCLUDE_FLAGS	+= $(addprefix -I , $(MDIR))
+ifeq ($(IS_PTF), true)
+	CFLAGS	+=	-I$P$I
+	LDFLAGS	+=	-L$P -lftprintf
 endif
 
-DEPS				= $(OBJS:.o=.d)
+ifeq ($(IS_MLX), true)
+	CFLAGS	+=	-I$M
+	LDFLAGS	+=	-L$M -lmlx
+	ifeq ($(shell uname -s), Darwin)
+		LDFLAGS += -framework OpenGL -framework AppKit -lX11 -lXext
+	else ifeq ($(shell uname -s), Linux)
+		LDFLAGS += -lXext -lX11 -lm
+	endif
+endif
 
-vpath %.c $(SDIR)\
-vpath %.o $(ODIR)\
+ifeq (debug, $(filter debug,$(MAKECMDGOALS)))
+	CFLAGS	+=	-g3
+endif
+ifeq (sanadd, $(filter sanadd,$(MAKECMDGOALS)))
+	CFLAGS	+=	-fsanitize=address
+endif
+ifeq (santhread, $(filter santhread,$(MAKECMDGOALS)))
+	CFLAGS	+=	-fsanitize=thread
+endif
 
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MANDATORY::
+RM		=	/bin/rm -rf
 
-all:			header lib h2 message $(NAME)
+SPACE 	= 	awk -F ':' '{ printf "%-61s %s\n", $$1 ":", $$2 }'
 
-$(ODIR)/%.o:	%.c 
-	@$(CC) $(WFLAGS) $(INCLUDE_FLAGS) -c $< -o $@ 
-	@echo "$(HIGREEN)compilation:\t\t\t\t\t\t[OK]$(NO_COLOR)"
 
-$(NAME):		$(OBJS)	
-	@$(CC) $(WFLAGS) $(INCLUDE_FLAGS) $(READLINE) $(OBJS) $(LIB) -o $(NAME)
-	@echo "$(HIGREEN)$(NAME) executable:\t\t\t\t\t[OK]$(NO_COLOR)"
+# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::OBJECTS::
 
-$(OBJS):		| $(ODIR)
+OBJ		=	$(SRC:$S%=$O%.o)
 
-$(ODIR):
-	@mkdir -p $(ODIR)
-	@echo "$(HIGREEN)objs folder:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+DEP		=	$(SRC:$S%=$D%.d)
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::RULES::
 
-update:		header fclean
-	@git pull
+all: header lib h2 message $(NAME)
 
-push:		header fclean fcleanlib
-	@echo "$(HIGREEN)"
-	@git add .
-	@git commit --quiet
-	@git push --quiet
-	@echo "$(HIGREEN)git push:\t\t\t\t\t\t[OK]$(NO_COLOR)"
+$O:
+	@mkdir -p $@
+	@echo "$(HIGREEN)creating $O folder:[OK]$(NO_COLOR)" | $(SPACE)
 
-clean:		header
-	@rm -rf $(ODIR)
-	@echo "$(HIORANGE)objs folder:\t\t\t\t\t\t[RM]$(NO_COLOR)"
+$(OBJ): | $O
 
-fclean:		header clean
-	@rm -f $(NAME)
-	@echo "$(HIORANGE)$(NAME) executable:\t\t\t\t\t[RM]$(NO_COLOR)"
+$(OBJ): $O%.o: $S%
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(HIGREEN)compiling $<:[OK]$(NO_COLOR)" | $(SPACE)
+
+$D:
+	@mkdir -p $@
+	@echo "$(HIGREEN)creating $D folder:[OK]$(NO_COLOR)" | $(SPACE)
+
+$(DEP): | $D
+
+$(DEP): $D%.d: $S%
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -MM -MF $@ -MT "$O$*.o $@" $<
+	@echo "$(HIGREEN)compiling $<:[OK]$(NO_COLOR)" | $(SPACE)
+
+
+$(NAME): $(OBJ) $(DEP)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
+	@echo "$(HIGREEN)compiling $(NAME):[OK]$(NO_COLOR)" | $(SPACE)
+
+debug:		all
+	
+sanadd:		all
+	
+santhread:	all
 
 lib:
-ifeq ($(IS_LIBFT),true)
-	@make -C $(LDIR) --quiet
+ifeq ($(IS_LIB),true)
+	@make -C $L --quiet
 endif
-ifeq ($(IS_PRINTF),true)
-	@make -C $(PFDIR) --quiet
+ifeq ($(IS_PTF),true)
+	@make -C $P --quiet
 endif
-ifeq ($(IS_MINILIBX),true)
-	@make -C $(MDIR) --quiet 
-endif
-
-relib:	header
-ifeq ($(IS_LIBFT),true)
-	@make -C $(LDIR) --quiet re
-endif
-ifeq ($(IS_PRINTF),true)
-	@make -C $(PFDIR) --quiet re
-endif
-ifeq ($(IS_MINILIBX),true)
-	@make -C $(MDIR) --quiet re
+ifeq ($(IS_MLX),true)
+	@make -C $M --quiet 
 endif
 
-fcleanlib:	header
-ifeq ($(IS_LIBFT),true)
-	@make -C $(LDIR) --quiet fclean
+cleanobj:
+	@$(RM) $(O)
+	@echo "$(HIORANGE)removing $O folder:[RM]$(NO_COLOR)" | $(SPACE)
+
+cleandep:
+	@$(RM) $(D)
+	@echo "$(HIORANGE)removing $D folder:[RM]$(NO_COLOR)" | $(SPACE)
+
+clean: header h2 cleanobj cleandep
+
+fcleanlib: header
+ifeq ($(IS_LIB),true)
+	@make -C $L --quiet fclean
 endif
-ifeq ($(IS_PRINTF),true)
-	@make -C $(PFDIR) --quiet fclean
+ifeq ($(IS_PTF),true)
+	@make -C $P --quiet fclean
 endif
-ifeq ($(IS_MINILIBX),true)
-	@make -C $(MDIR) --quiet clean
+ifeq ($(IS_MLX),true)
+	@make -C $M --quiet clean
 endif
 
-header:
-	@echo "$(BHIPURPLE)"
-	@echo "   ______________________________________________________"
-	@echo "  /\     __________    ________    ___   ___    _______  \ "
-	@echo " /  \   /\         \  /\   __  \  /\  \ /\  \  /\  ____\  \ "
-	@echo "/    \  \ \  \ _/\  \ \ \   __  \ \ \  \ /_ /_ \ \  _\_/_  \ "
-	@echo "\     \  \ \__\_/ \__\ \ \__\-\__\ \ \__\  \__\ \ \______\  \ "
-	@echo " \     \  \/__/  \/__/  \/__/ /__/  \/__/ \/__/  \/______/   \ "
-	@echo "  \     \_____________________________________________________\ "
-	@echo "   \    /                                                     / "
-	@echo "    \  /         $(CYAN) A B O N A R D  &&  S E O Z C A N \$(NO_COLOR)$(BHIPURPLE)   ____   / "
-	@echo "     \/______________________________________________/\   \_/ "
-	@echo "                                                     \ \___\ "
-	@echo "                                                      \/___/ "
-	@echo "$(NO_COLOR)"
+fclean: header fcleanlib h2 clean
+	@$(RM) $(NAME)
+	@echo "$(HIORANGE)removing $(NAME):[RM]$(NO_COLOR)" | $(SPACE)
+	
+re:	header fclean all
 
-h2:
-	@echo "\n$(BHIPURPLE):::::::::::::::::::::::::::::::::::::::::::::::::MINISHELL::\n$(NO_COLOR)"
+include colors.mk output.mk header.mk
 
-message:
-	@make -q $(NAME) && echo "$(BHIGREEN)All files are already up to date$(NO_COLOR)" || true
-
-message_b:
-	@make -q $(BNAME) && echo "$(BHIGREEN)All bonus files are already up to date$(NO_COLOR)" || true
-
-re:		header fclean fcleanlib 
-	@make all 
-
--include $(DEPS)
-
-.PHONY:	all bonus clean fclean re push update o_dir h1 h2 header 
+.PHONY:	all clean fclean re
