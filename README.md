@@ -48,3 +48,9 @@ For macOS user, you may need to install readline library using brew:
 ```bash
 brew install readline
 ```
+
+For Linux user, you may need to install readline library using apt:
+
+```bash
+sudo apt-get install libreadline-dev
+```

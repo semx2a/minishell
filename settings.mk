@@ -51,7 +51,11 @@ SRC		=	$(addprefix $Sbuiltins/, \
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
-CC		=	clang
+CC		=	gcc
+
+ifeq ($(UNAME), Darwin)
+	CC = clang
+endif
 
 CFLAGS	=	-Wall -Wextra -Werror
 

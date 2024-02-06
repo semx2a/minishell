@@ -86,7 +86,11 @@ SRC		=	$Sft_allocate_tab.c \
 
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COMPILERS::
 
-CC		=	clang
+CC		=	gcc
+
+ifeq ($(UNAME), Darwin)
+	CC = clang
+endif
 
 CFLAGS	=	-Wall -Wextra -Werror
 
