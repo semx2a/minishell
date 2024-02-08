@@ -6,7 +6,7 @@
 #    By: seozcan <seozcan@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/07 19:14:12 by seozcan           #+#    #+#              #
-#    Updated: 2024/02/06 17:55:37 by seozcan          ###   ########.fr        #
+#    Updated: 2024/02/08 17:06:38 by seozcan          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ M 		=	minilibx-linux/
 
 CFLAGS	+=	-I$I
 
-LDFLAGS	= -lreadline
+LDFLAGS	=	-lreadline
 
 ifeq ($(shell uname -s), Darwin)
 	LDFLAGS += -L/usr/local/opt/readline/lib
@@ -80,30 +80,30 @@ all: header lib h2 message $(NAME)
 
 $O:
 	@mkdir -p $@
-	@echo "$(HIGREEN)creating $O folder:[OK]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIGREEN)creating $O folder:[OK]$(RESET)" | $(SPACE)
 
 $(OBJ): | $O
 
 $(OBJ): $O%.o: $S%
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(HIGREEN)compiling $<:[OK]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIGREEN)compiling $<:[OK]$(RESET)" | $(SPACE)
 
 $D:
 	@mkdir -p $@
-	@echo "$(HIGREEN)creating $D folder:[OK]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIGREEN)creating $D folder:[OK]$(RESET)" | $(SPACE)
 
 $(DEP): | $D
 
 $(DEP): $D%.d: $S%
 	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -MM -MF $@ -MT "$O$*.o $@" $<
-	@echo "$(HIGREEN)compiling $<:[OK]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIGREEN)compiling $<:[OK]$(RESET)" | $(SPACE)
 
 
 $(NAME): $(OBJ) $(DEP)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDFLAGS)
-	@echo "$(HIGREEN)compiling $(NAME):[OK]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIGREEN)compiling $(NAME):[OK]$(RESET)" | $(SPACE)
 
 debug:		all
 	
@@ -124,11 +124,11 @@ endif
 
 cleanobj:
 	@$(RM) $(O)
-	@echo "$(HIORANGE)removing $O folder:[RM]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIORANGE)removing $O folder:[RM]$(RESET)" | $(SPACE)
 
 cleandep:
 	@$(RM) $(D)
-	@echo "$(HIORANGE)removing $D folder:[RM]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIORANGE)removing $D folder:[RM]$(RESET)" | $(SPACE)
 
 clean: header h2 cleanobj cleandep
 
@@ -145,7 +145,7 @@ endif
 
 fclean: header fcleanlib h2 clean
 	@$(RM) $(NAME)
-	@echo "$(HIORANGE)removing $(NAME):[RM]$(NO_COLOR)" | $(SPACE)
+	@echo "$(HIORANGE)removing $(NAME):[RM]$(RESET)" | $(SPACE)
 	
 re:	header fclean all
 
